@@ -1,0 +1,8 @@
+export const spacing = {
+	xs: { value: "4px" },
+	sm: { value: "8px" },
+	md: { value: "12px" },
+	lg: { value: "16px" },
+	xl: { value: "24px" },
+	"2xl": { value: "32px" }
+} as const

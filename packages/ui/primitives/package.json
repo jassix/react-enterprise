@@ -1,0 +1,22 @@
+{
+	"name": "@lume/primitives",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./src/index.ts"
+		}
+	},
+	"type": "module",
+	"dependencies": {
+		"@lume/foundation": "workspace:",
+		"@ark-ui/react": "catalog:ui"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:",
+		"react": "catalog:react",
+		"@types/react": "catalog:react"
+	}
+}

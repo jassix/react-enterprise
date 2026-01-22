@@ -1,0 +1,13 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"workspaces": {
+		"{apps,packages}/*": {
+			"entry": ["src/{index,main}.{ts,tsx}"],
+			"project": ["**/*.{ts,tsx,json}"]
+		},
+		"tooling/*": { "project": ["**/*.{ts,tsx,json}"] }
+	},
+	"cspell": { "config": ".vscode/cspell.json" },
+	"commitlint": { "config": ".config/commitlintrc.yaml" },
+	"ignoreDependencies": ["lefthook"]
+}

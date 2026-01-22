@@ -1,0 +1,10 @@
+{
+	"extends": "@myorg/tsconfig/react.tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"~/*": ["./src/*"],
+			"~/system/*": ["./styled-system/*"]
+		}
+	}
+}

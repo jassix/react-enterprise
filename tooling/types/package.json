@@ -1,0 +1,19 @@
+{
+	"name": "@myorg/types",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/index.d.ts"
+		},
+		"./reset": {
+			"types": "./src/reset/recommended.d.ts"
+		}
+	},
+	"devDependencies": {
+		"@myorg/tsconfig": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	}
+}

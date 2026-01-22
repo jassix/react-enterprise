@@ -1,0 +1,31 @@
+export const gray = {
+	dark: {
+		1: { value: "hsl(0, 0%, 7%)" },
+		2: { value: "hsl(0, 0%, 10%)" },
+		3: { value: "hsl(0, 0%, 13%)" },
+		4: { value: "hsl(0, 0%, 16%)" },
+		5: { value: "hsl(0, 0%, 19%)" },
+		6: { value: "hsl(0, 0%, 23%)" },
+		7: { value: "hsl(0, 0%, 28%)" },
+		8: { value: "hsl(0, 0%, 38%)" },
+		9: { value: "hsl(0, 0%, 43%)" },
+		10: { value: "hsl(0, 0%, 48%)" },
+		11: { value: "hsl(0, 0%, 71%)" },
+		12: { value: "hsl(0, 0%, 93%)" },
+	},
+
+	light: {
+		1: { value: "hsl(0, 0%, 98%)" },
+		2: { value: "hsl(0, 0%, 95%)" },
+		3: { value: "hsl(0, 0%, 90%)" },
+		4: { value: "hsl(0, 0%, 88%)" },
+		5: { value: "hsl(0, 0%, 84%)" },
+		6: { value: "hsl(0, 0%, 78%)" },
+		7: { value: "hsl(0, 0%, 68%)" },
+		8: { value: "hsl(0, 0%, 58%)" },
+		9: { value: "hsl(0, 0%, 48%)" },
+		10: { value: "hsl(0, 0%, 43%)" },
+		11: { value: "hsl(0, 0%, 28%)" },
+		12: { value: "hsl(0, 0%, 10%)" },
+	},
+} as const;

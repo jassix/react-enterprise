@@ -1,0 +1,40 @@
+{
+	"name": "@myorg/std",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./src/index.ts"
+		},
+		"./fp": {
+			"import": "./src/fp.ts",
+			"types": "./src/fp.ts"
+		},
+		"./match": {
+			"import": "./src/match.ts",
+			"types": "./src/match.ts"
+		},
+		"./result": {
+			"import": "./src/result.ts",
+			"types": "./src/result.ts"
+		},
+		"./schema": {
+			"import": "./src/schema.ts",
+			"types": "./src/schema.ts"
+		}
+	},
+	"dependencies": {
+		"oxide.ts": "catalog:std",
+		"remeda": "catalog:std",
+		"ts-pattern": "catalog:std",
+		"valibot": "catalog:std"
+	},
+	"devDependencies": {
+		"@myorg/tsconfig": "workspace:",
+		"@myorg/types": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	}
+}

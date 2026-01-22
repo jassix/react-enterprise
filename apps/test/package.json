@@ -1,0 +1,14 @@
+{
+	"name": "test",
+	"type": "module",
+	"module": "index.ts",
+	"devDependencies": {
+		"@myorg/std": "workspace:",
+		"@myorg/tsconfig": "workspace:",
+		"@myorg/types": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	}
+}

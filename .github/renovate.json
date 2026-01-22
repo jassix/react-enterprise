@@ -1,0 +1,28 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended"],
+	"updateInternalDeps": true,
+	"rangeStrategy": "bump",
+	"automerge": true,
+	"packageRules": [
+		{
+			"enabled": false,
+			"matchPackageNames": ["/^@pkg//"]
+		},
+		{
+			"groupName": "internal apps",
+			"matchPackageNames": ["/^@app//"]
+		},
+		{
+			"groupName": "internal tools",
+			"matchPackageNames": ["/^@tooling//"]
+		}
+	],
+	"npm": {
+		"managerFilePatterns": [
+			"/(^|/)package\\.json$/",
+			"/(^|/)package\\.json\\.hbs$/"
+		]
+	},
+	"ignoreDeps": ["vscode"]
+}

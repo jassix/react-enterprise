@@ -1,0 +1,55 @@
+{
+	"name": "@lume/foundation",
+	"version": "1.0.0",
+	"description": "Enterprise-grade design system foundation with comprehensive token system, recipes, and accessibility features",
+	"exports": {
+		"./recipes": {
+			"import": "./styled-system/recipes/index.mjs",
+			"types": "./styled-system/recipes/index.d.ts"
+		},
+		"./css": {
+			"import": "./styled-system/css/index.mjs",
+			"types": "./styled-system/css/index.d.ts"
+		},
+		"./patterns": {
+			"import": "./styled-system/patterns/index.mjs",
+			"types": "./styled-system/patterns/index.d.ts"
+		},
+		"./types": {
+			"import": "./styled-system/types/index.mjs",
+			"types": "./styled-system/types/index.d.ts"
+		},
+		"./styled-tokens": {
+			"import": "./styled-system/tokens/index.mjs",
+			"types": "./styled-system/tokens/index.d.ts"
+		},
+		"./jsx": {
+			"import": "./styled-system/jsx/index.mjs",
+			"types": "./styled-system/jsx/index.d.ts"
+		}
+	},
+	"type": "module",
+	"scripts": {
+		"codegen": "panda codegen",
+		"build": "panda codegen"
+	},
+	"devDependencies": {
+		"@pandacss/dev": "catalog:ui",
+		"@types/react": "catalog:react",
+		"@myorg/tsconfig": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	},
+	"keywords": [
+		"design-system",
+		"panda-css",
+		"tokens",
+		"theme",
+		"accessibility",
+		"wcag",
+		"recipes",
+		"typescript"
+	]
+}

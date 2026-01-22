@@ -1,0 +1,13 @@
+addgroup
+adduser
+archs
+argjson
+bunx
+cacheonly
+commitlintrc
+knip
+libc
+libstdc
+nothrow
+pipefail
+startswith

@@ -1,0 +1,12 @@
+{
+	"extends": "@myorg/tsconfig/bun.tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+
+		"types": ["@myorg/types/reset"],
+
+		"paths": {
+			"~/*": ["./src/*"]
+		}
+	}
+}
