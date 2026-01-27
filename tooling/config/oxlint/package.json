@@ -2,7 +2,5 @@
 	"name": "@myorg/oxlint",
 	"version": "0.1.0",
 	"private": true,
-	"files": [
-		"*.tsconfig.json"
-	]
+	"files": ["*.oxlintrc.json", "*.oxfmtrc.json"]
 }

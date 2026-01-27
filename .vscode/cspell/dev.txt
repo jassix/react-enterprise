@@ -2,7 +2,7 @@ addgroup
 adduser
 archs
 argjson
-bunx
+bun x
 cacheonly
 commitlintrc
 knip

@@ -227,13 +227,13 @@ bun run clean
 
 ```bash
 # Test base configuration
-bunx tsc --noEmit --project base.tsconfig.json
+bun x tsc --noEmit --project base.tsconfig.json
 
 # Test React configuration  
-bunx tsc --noEmit --project react.tsconfig.json
+bun x tsc --noEmit --project react.tsconfig.json
 
 # Test Bun configuration
-bunx tsc --noEmit --project bun.tsconfig.json
+bun x tsc --noEmit --project bun.tsconfig.json
 ```
 
 ## 📚 Dependencies
