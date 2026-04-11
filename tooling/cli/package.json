@@ -1,0 +1,32 @@
+{
+	"name": "@repo/cli",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"bin": {
+		"repo": "./src/index.ts"
+	},
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./src/index.ts"
+		}
+	},
+	"scripts": {
+		"doctor": "bun src/index.ts doctor",
+		"adapt": "bun src/index.ts adapt",
+		"check-types": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@repo/std": "workspace:"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "^10.4.0",
+		"@repo/tsconfig": "workspace:",
+		"@repo/types": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	}
+}

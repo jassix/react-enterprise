@@ -10,7 +10,7 @@ This document defines specialized agents for this React monorepo. Each agent has
 
 ```typescript
 // Workspace dependencies - use workspace: protocol
-"@myorg/std": "workspace:"
+"@repo/std": "workspace:"
 "@lume/foundation": "workspace:"
 
 // Catalog dependencies - use catalog: protocol for version management
@@ -23,17 +23,17 @@ This document defines specialized agents for this React monorepo. Each agent has
 "@types/bun": "catalog:"
 
 // Subpath imports - prefer specific subpaths over barrel imports
-import { pipe, map } from "@myorg/std/fp";       // Good
-import { match } from "@myorg/std/match";        // Good
-import { Result, Ok, Err } from "@myorg/std/result";
-import * as std from "@myorg/std";               // Avoid - barrel import
+import { pipe, map } from "@repo/std/fp";       // Good
+import { match } from "@repo/std/match";        // Good
+import { Result, Ok, Err } from "@repo/std/result";
+import * as std from "@repo/std";               // Avoid - barrel import
 ```
 
 ### Type Conventions
 
 ```typescript
-// Use @myorg/types for shared type definitions
-import type { Prettify, Nullable } from "@myorg/types";
+// Use @repo/types for shared type definitions
+import type { Prettify, Nullable } from "@repo/types";
 
 // Component props pattern - extend HTMLStyledProps with ComponentProps
 interface ButtonProps
@@ -82,16 +82,16 @@ Scope: optional package name (std, ui, foundation, etc.)
 
 ## STD Agent
 
-**Scope**: `@myorg/std` - functional programming utilities
+**Scope**: `@repo/std` - functional programming utilities
 
 ### Expertise
 
-#### Remeda FP Utilities (`@myorg/std/fp`)
+#### Remeda FP Utilities (`@repo/std/fp`)
 
 Functional programming utilities for data transformation using pipe-based composition.
 
 ```typescript
-import { pipe, map, filter, groupBy, sortBy, unique } from "@myorg/std/fp";
+import { pipe, map, filter, groupBy, sortBy, unique } from "@repo/std/fp";
 
 // Prefer pipe over method chaining
 const result = pipe(
@@ -103,12 +103,12 @@ const result = pipe(
 );
 ```
 
-#### ts-pattern Matching (`@myorg/std/match`)
+#### ts-pattern Matching (`@repo/std/match`)
 
 Exhaustive pattern matching for type-safe branching.
 
 ```typescript
-import { match, P } from "@myorg/std/match";
+import { match, P } from "@repo/std/match";
 
 const getMessage = (status: Status) =>
   match(status)
@@ -118,12 +118,12 @@ const getMessage = (status: Status) =>
     .exhaustive();
 ```
 
-#### oxide.ts Result/Option (`@myorg/std/result`)
+#### oxide.ts Result/Option (`@repo/std/result`)
 
 Error handling without throwing exceptions - use for fallible operations.
 
 ```typescript
-import { Result, Ok, Err, Option, Some, None } from "@myorg/std/result";
+import { Result, Ok, Err, Option, Some, None } from "@repo/std/result";
 
 // Return Result for operations that can fail
 function parseJson<T>(str: string): Result<T, Error> {
@@ -140,12 +140,12 @@ const result = parseJson<User>(input)
   .mapErr((e) => new ValidationError(e.message));
 ```
 
-#### Valibot Validation (`@myorg/std/schema`)
+#### Valibot Validation (`@repo/std/schema`)
 
 Type-safe schema definitions for runtime validation.
 
 ```typescript
-import schema, { object, string, number, email, parse } from "@myorg/std/schema";
+import schema, { object, string, number, email, parse } from "@repo/std/schema";
 
 const UserSchema = object({
   name: string(),
@@ -169,7 +169,7 @@ const user = parse(UserSchema, data);
 
 ### Conventions
 
-1. Use subpath imports (`@myorg/std/fp`) over barrel imports
+1. Use subpath imports (`@repo/std/fp`) over barrel imports
 2. Prefer `pipe` over method chaining for data transformations
 3. Use `Result<T, E>` for fallible operations instead of throwing
 4. Use `Option<T>` for nullable values that need explicit handling
@@ -391,15 +391,15 @@ apps/                          # Application packages
 └── web/                       # Additional web app
 
 packages/
-├── std/                       # @myorg/std - FP utilities
-├── types/                     # @myorg/types - Shared types
+├── std/                       # @repo/std - FP utilities
+├── types/                     # @repo/types - Shared types
 └── ui/
     ├── foundation/            # @lume/foundation - Design tokens/recipes
     └── primitives/            # @lume/primitives - React components
 
 tooling/
 └── config/
-    ├── typescript/            # @myorg/tsconfig - TS configs
+    ├── typescript/            # @repo/tsconfig - TS configs
     └── oxlint/                # Lint configurations
 ```
 
@@ -479,7 +479,7 @@ tooling/config/   →   Root config   →   Package config
 { "extends": "./base.tsconfig.json", "compilerOptions": { "jsx": "react-jsx" } }
 
 // packages/ui/primitives/tsconfig.json - Package config
-{ "extends": "@myorg/tsconfig/react.tsconfig.json" }
+{ "extends": "@repo/tsconfig/react.tsconfig.json" }
 ```
 
 **Oxlint example:**
@@ -497,16 +497,16 @@ tooling/config/   →   Root config   →   Package config
 
 ```json
 {
-  "name": "@myorg/new-package",
+  "name": "@repo/new-package",
   "type": "module",
   "exports": {
     ".": { "import": "./src/index.ts", "types": "./src/index.ts" }
   },
   "dependencies": {
-    "@myorg/std": "workspace:"
+    "@repo/std": "workspace:"
   },
   "devDependencies": {
-    "@myorg/tsconfig": "workspace:",
+    "@repo/tsconfig": "workspace:",
     "@types/bun": "catalog:"
   },
   "peerDependencies": {
@@ -519,7 +519,7 @@ tooling/config/   →   Root config   →   Package config
 
 ```json
 {
-  "extends": "@myorg/tsconfig/bun.tsconfig.json",
+  "extends": "@repo/tsconfig/bun.tsconfig.json",
   "compilerOptions": { "rootDir": "src", "outDir": "dist" },
   "include": ["src/**/*"]
 }

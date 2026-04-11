@@ -8,11 +8,10 @@
         "oxfmt": "^0.27.0",
         "oxlint": "^1.42.0",
         "turbo": "^2.5.6",
-        "typescript": "5.9.2",
       },
     },
     "packages/std": {
-      "name": "@myorg/std",
+      "name": "@repo/std",
       "dependencies": {
         "oxide.ts": "catalog:std",
         "remeda": "catalog:std",
@@ -20,8 +19,8 @@
         "valibot": "catalog:std",
       },
       "devDependencies": {
-        "@myorg/tsconfig": "workspace:",
-        "@myorg/types": "workspace:",
+        "@repo/tsconfig": "workspace:",
+        "@repo/types": "workspace:",
         "@types/bun": "catalog:",
       },
       "peerDependencies": {
@@ -32,8 +31,8 @@
       "name": "@lume/foundation",
       "version": "1.0.0",
       "devDependencies": {
-        "@myorg/tsconfig": "workspace:",
         "@pandacss/dev": "catalog:ui",
+        "@repo/tsconfig": "workspace:",
         "@types/bun": "catalog:",
         "@types/react": "catalog:react",
       },
@@ -56,18 +55,37 @@
         "typescript": "catalog:",
       },
     },
+    "tooling/cli": {
+      "name": "@repo/cli",
+      "version": "0.0.0",
+      "bin": {
+        "repo": "./src/index.ts",
+      },
+      "dependencies": {
+        "@repo/std": "workspace:",
+      },
+      "devDependencies": {
+        "@faker-js/faker": "^10.4.0",
+        "@repo/tsconfig": "workspace:",
+        "@repo/types": "workspace:",
+        "@types/bun": "catalog:",
+      },
+      "peerDependencies": {
+        "typescript": "catalog:",
+      },
+    },
     "tooling/config/oxlint": {
-      "name": "@myorg/oxlint",
+      "name": "@repo/oxlint",
       "version": "0.1.0",
     },
     "tooling/config/typescript": {
-      "name": "@myorg/tsconfig",
+      "name": "@repo/tsconfig",
       "version": "0.1.0",
     },
     "tooling/types": {
-      "name": "@myorg/types",
+      "name": "@repo/types",
       "devDependencies": {
-        "@myorg/tsconfig": "workspace:",
+        "@repo/tsconfig": "workspace:",
         "@types/bun": "catalog:",
       },
       "peerDependencies": {
@@ -186,6 +204,8 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.25.9", "", { "os": "win32", "cpu": "x64" }, "sha512-PPOl1mi6lpLNQxnGoyAfschAodRFYXJ+9fs6WHXz7CSWKbOqiMZsubC+BQsVKuul+3vKLuwTHsS2c2y9EoKwxQ=="],
 
+    "@faker-js/faker": ["@faker-js/faker@10.4.0", "", {}, "sha512-sDBWI3yLy8EcDzgobvJTWq1MJYzAkQdpjXuPukga9wXonhpMRvd1Izuo2Qgwey2OiEoRIBr35RMU9HJRoOHzpw=="],
+
     "@floating-ui/core": ["@floating-ui/core@1.7.3", "", { "dependencies": { "@floating-ui/utils": "^0.2.10" } }, "sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w=="],
 
     "@floating-ui/dom": ["@floating-ui/dom@1.7.4", "", { "dependencies": { "@floating-ui/core": "^1.7.3", "@floating-ui/utils": "^0.2.10" } }, "sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA=="],
@@ -209,14 +229,6 @@
     "@lume/primitives": ["@lume/primitives@workspace:packages/ui/primitives"],
 
     "@modelcontextprotocol/sdk": ["@modelcontextprotocol/sdk@1.25.3", "", { "dependencies": { "@hono/node-server": "^1.19.9", "ajv": "^8.17.1", "ajv-formats": "^3.0.1", "content-type": "^1.0.5", "cors": "^2.8.5", "cross-spawn": "^7.0.5", "eventsource": "^3.0.2", "eventsource-parser": "^3.0.0", "express": "^5.0.1", "express-rate-limit": "^7.5.0", "jose": "^6.1.1", "json-schema-typed": "^8.0.2", "pkce-challenge": "^5.0.0", "raw-body": "^3.0.0", "zod": "^3.25 || ^4.0", "zod-to-json-schema": "^3.25.0" }, "peerDependencies": { "@cfworker/json-schema": "^4.1.1" }, "optionalPeers": ["@cfworker/json-schema"] }, "sha512-vsAMBMERybvYgKbg/l4L1rhS7VXV1c0CtyJg72vwxONVX0l4ZfKVAnZEWTQixJGTzKnELjQ59e4NbdFDALRiAQ=="],
-
-    "@myorg/oxlint": ["@myorg/oxlint@workspace:tooling/config/oxlint"],
-
-    "@myorg/std": ["@myorg/std@workspace:packages/std"],
-
-    "@myorg/tsconfig": ["@myorg/tsconfig@workspace:tooling/config/typescript"],
-
-    "@myorg/types": ["@myorg/types@workspace:tooling/types"],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 
@@ -289,6 +301,16 @@
     "@pandacss/token-dictionary": ["@pandacss/token-dictionary@1.8.1", "", { "dependencies": { "@pandacss/logger": "^1.8.1", "@pandacss/shared": "1.8.1", "@pandacss/types": "1.8.1", "picomatch": "^4.0.0", "ts-pattern": "5.9.0" } }, "sha512-6uDH/QbxE/sS/QzfaSswxa+hMdDR1U3PUGVD/uCrt3tJ4zTHgR2icZ3vH9GN9k17WFutzcVQaKTKscY3PYn9TA=="],
 
     "@pandacss/types": ["@pandacss/types@1.8.1", "", {}, "sha512-5hNn6PsbmSWdHmfETGTGW+gpFmzf0xdKlzbFHIIKHZK+zicCtHIg6iMahZsf9wvYiBu0LAKwgdKR+kDMya5N8w=="],
+
+    "@repo/cli": ["@repo/cli@workspace:tooling/cli"],
+
+    "@repo/oxlint": ["@repo/oxlint@workspace:tooling/config/oxlint"],
+
+    "@repo/std": ["@repo/std@workspace:packages/std"],
+
+    "@repo/tsconfig": ["@repo/tsconfig@workspace:tooling/config/typescript"],
+
+    "@repo/types": ["@repo/types@workspace:tooling/types"],
 
     "@swc/helpers": ["@swc/helpers@0.5.17", "", { "dependencies": { "tslib": "^2.8.0" } }, "sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A=="],
 

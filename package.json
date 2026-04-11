@@ -33,6 +33,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "doctor": "bun --filter @repo/cli doctor",
+    "adapt": "bun --filter @repo/cli adapt",
     "lint": "turbo run lint",
     "format": "oxfmt --write .",
     "check-types": "turbo run check-types"

@@ -1,5 +1,5 @@
 {
-	"name": "@myorg/std",
+	"name": "@repo/std",
 	"type": "module",
 	"exports": {
 		".": {
@@ -30,8 +30,8 @@
 		"valibot": "catalog:std"
 	},
 	"devDependencies": {
-		"@myorg/tsconfig": "workspace:",
-		"@myorg/types": "workspace:",
+		"@repo/tsconfig": "workspace:",
+		"@repo/types": "workspace:",
 		"@types/bun": "catalog:"
 	},
 	"peerDependencies": {

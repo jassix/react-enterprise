@@ -8,7 +8,6 @@ rolldown
 sonner
 tanstack
 turborepo
-myorg
 pandacss
 lume
 valibot

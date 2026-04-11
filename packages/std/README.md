@@ -1,3 +1,3 @@
-# @myorg/std
+# @repo/std
 
 The Standard Library for your project

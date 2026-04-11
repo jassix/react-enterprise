@@ -1,4 +1,4 @@
-# @myorg/oxlint
+# @repo/oxlint
 
 Shared oxlint and oxfmt configurations for the monorepo.
 
@@ -22,7 +22,7 @@ Create `.oxlintrc.json` in your project root:
 
 ```json
 {
-  "extends": ["./node_modules/@myorg/oxlint/base.oxlintrc.json"]
+  "extends": ["./node_modules/@repo/oxlint/base.oxlintrc.json"]
 }
 ```
 
@@ -30,7 +30,7 @@ Create `.oxfmtrc.json` in your project root:
 
 ```json
 {
-  "extends": "./node_modules/@myorg/oxlint/base.oxfmtrc.json"
+  "extends": "./node_modules/@repo/oxlint/base.oxfmtrc.json"
 }
 ```
 
@@ -40,7 +40,7 @@ For React packages, extend the react config:
 
 ```json
 {
-  "extends": ["./node_modules/@myorg/oxlint/react.oxlintrc.json"]
+  "extends": ["./node_modules/@repo/oxlint/react.oxlintrc.json"]
 }
 ```
 
@@ -48,7 +48,7 @@ For Bun/Node packages, extend the bun config:
 
 ```json
 {
-  "extends": ["./node_modules/@myorg/oxlint/bun.oxlintrc.json"]
+  "extends": ["./node_modules/@repo/oxlint/bun.oxlintrc.json"]
 }
 ```
 

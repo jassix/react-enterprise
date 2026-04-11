@@ -1,5 +1,5 @@
 {
-	"name": "@myorg/types",
+	"name": "@repo/types",
 	"type": "module",
 	"exports": {
 		".": {
@@ -10,7 +10,7 @@
 		}
 	},
 	"devDependencies": {
-		"@myorg/tsconfig": "workspace:",
+		"@repo/tsconfig": "workspace:",
 		"@types/bun": "catalog:"
 	},
 	"peerDependencies": {
