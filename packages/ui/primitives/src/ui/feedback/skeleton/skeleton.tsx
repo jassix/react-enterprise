@@ -7,25 +7,26 @@ import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
 
 export interface SkeletonProps
-	extends Omit<HTMLStyledProps<"div">, keyof ComponentPropsWithoutRef<"div">>,
-		ComponentPropsWithoutRef<"div"> {
-	variant?: "text" | "circle" | "rect";
-	speed?: "slow" | "normal" | "fast";
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentPropsWithoutRef<"div">>,
+    ComponentPropsWithoutRef<"div"> {
+  variant?: "text" | "circle" | "rect";
+  speed?: "slow" | "normal" | "fast";
 }
 
 export const Skeleton = forwardRef<ElementRef<"div">, SkeletonProps>(
-	({ variant, speed, ...props }, ref) => {
-		const [cssProps, restProps] = splitCssProps(props);
+  ({ variant, speed, ...props }, ref) => {
+    const [cssProps, restProps] = splitCssProps(props);
 
-		return (
-			<ark.div
-				ref={ref}
-				{...restProps}
-				className={cx(skeleton({ variant, speed }), css(cssProps), props.className)}
-			/>
-		);
-	}
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="skeleton"
+        {...restProps}
+        className={cx(skeleton({ variant, speed }), css(cssProps), props.className)}
+      />
+    );
+  },
 );
 
 Skeleton.displayName = "Skeleton";
-

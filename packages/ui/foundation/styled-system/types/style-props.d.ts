@@ -188,7 +188,7 @@ WebkitTapHighlightColor?: ConditionalValue<CssProperties["WebkitTapHighlightColo
    *
    * **Initial value**: `currentcolor`
    */
-WebkitTextFillColor?: ConditionalValue<CssProperties["WebkitTextFillColor"] | AnyString>
+WebkitTextFillColor?: ConditionalValue<UtilityValues["WebkitTextFillColor"] | CssVars | CssProperties["WebkitTextFillColor"] | AnyString>
  /**
    * The **`-webkit-text-stroke`** CSS property specifies the width and color of strokes for text characters. This is a shorthand property for the longhand properties `-webkit-text-stroke-width` and `-webkit-text-stroke-color`.
    *
@@ -5907,7 +5907,7 @@ transitionDuration?: ConditionalValue<UtilityValues["transitionDuration"] | CssV
    *
    * @see https://developer.mozilla.org/docs/Web/CSS/transition-property
    */
-transitionProperty?: ConditionalValue<CssProperties["transitionProperty"] | AnyString>
+transitionProperty?: ConditionalValue<UtilityValues["transitionProperty"] | CssVars | CssProperties["transitionProperty"] | AnyString>
  /**
    * The **`transition-timing-function`** CSS property sets how intermediate values are calculated for CSS properties being affected by a transition effect.
    *

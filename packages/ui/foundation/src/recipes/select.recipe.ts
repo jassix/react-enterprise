@@ -1,8 +1,15 @@
 import { defineSlotRecipe } from "@pandacss/dev";
 
+/**
+ * Select — luma signature: trigger uses the form-field bundle (rounded-3xl,
+ * translucent border bg, transparent border lighting up to focus ring); content
+ * uses the popover-content bundle (rounded-3xl, bg.popover, shadow + 5%-alpha
+ * outline); items use the item-row bundle (rounded-2xl, muted hover wash).
+ */
 export const selectRecipe = defineSlotRecipe({
 	className: "select",
-	description: "Select recipe for dropdown selection",
+	description: "Luma select — form-field trigger + popover content + item rows",
+	jsx: ["Select"],
 	slots: [
 		"root",
 		"label",
@@ -23,75 +30,81 @@ export const selectRecipe = defineSlotRecipe({
 		root: {
 			display: "flex",
 			flexDirection: "column",
-			gap: "{spacing.xs}",
+			gap: "{spacing.sm}",
+			width: "100%",
 		},
 
 		label: {
 			fontSize: "{fontSizes.sm}",
 			fontWeight: "{fontWeights.medium}",
-			color: "{colors.foreground.DEFAULT}",
+			color: "{colors.foreground}",
 		},
 
-		control: {
-			display: "flex",
-			alignItems: "center",
-			position: "relative",
-		},
+		control: { display: "flex", alignItems: "center", position: "relative" },
 
+		// Trigger = form-field bundle. Luma defaults to `w-fit` (hugs
+		// content); consumers can override to `100%` via `css={{ width: ... }}`
+		// when the design needs a full-width field.
 		trigger: {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "space-between",
-			width: "100%",
-			gap: "{spacing.sm}",
-			padding: "{spacing.sm} {spacing.md}",
-			bg: "{colors.surface.base}",
-			border: "1px solid {colors.border.DEFAULT}",
-			borderRadius: "{radii.md}",
+			width: "fit-content",
+			gap: "calc({spacing.sm} - 2px)", // 6 — luma `gap-1.5`
+			height: "{sizes.md}", // 36 — luma `h-9`
+			paddingInline: "{spacing.md}", // 12 — luma `px-3`
+			paddingBlock: "{spacing.sm}", // 8 — luma `py-2`
+			fontFamily: "{fonts.body}",
 			fontSize: "{fontSizes.sm}",
-			color: "{colors.foreground.DEFAULT}",
+			whiteSpace: "nowrap",
+			color: "{colors.foreground}",
 			cursor: "pointer",
 			outline: "none",
-			transition: "all {durations.fast} {easings.easeInOut}",
+			border: "1px solid transparent",
+			borderRadius: "{radii.3xl}",
+			bg: "color-mix(in oklab, {colors.border} 50%, transparent)", // luma `bg-input/50`
+			transition:
+				"color {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, box-shadow {durations.press} {easings.easeOut}, border-color {durations.press} {easings.easeOut}",
 
-			_hover: {
-				borderColor: "{colors.border.emphasis}",
+			// Luma: placeholder state uses muted-foreground.
+			"&[data-placeholder]": { color: "{colors.foreground.tertiary}" },
+
+			// Luma: `*:data-[slot=select-value]:line-clamp-1` — clamp value text.
+			"& [data-slot='select-value']": {
+				display: "flex",
+				alignItems: "center",
+				gap: "calc({spacing.sm} - 2px)", // 6 — luma `gap-1.5`
+				overflow: "hidden",
+				textOverflow: "ellipsis",
+				whiteSpace: "nowrap",
 			},
 
-			_focus: {
-				borderColor: "{colors.border.focus}",
-			},
-
-			_disabled: {
-				opacity: "0.5",
-				cursor: "not-allowed",
-			},
-
-			_invalid: {
-				borderColor: "{colors.border.critical}",
-			},
+			_disabled: { pointerEvents: "none", cursor: "not-allowed", opacity: "0.5" },
 
 			_focusVisible: {
-				ring: "2px solid",
-				ringColor: "{colors.focus.ring}",
-				ringOffset: "{colors.focus.ringOffset}",
+				borderColor: "{colors.focus.ring}",
+				boxShadow: "0 0 0 3px color-mix(in oklab, {colors.focus.ring} 30%, transparent)",
+			},
+
+			"&[aria-invalid='true'], &[data-invalid='true']": {
+				borderColor: "{colors.critical}",
+				boxShadow: "0 0 0 3px color-mix(in oklab, {colors.critical} 20%, transparent)",
+				_dark: {
+					borderColor: "color-mix(in oklab, {colors.critical} 50%, transparent)",
+					boxShadow: "0 0 0 3px color-mix(in oklab, {colors.critical} 40%, transparent)",
+				},
 			},
 		},
 
-		valueText: {
-			flex: "1",
-			textAlign: "left",
-		},
+		valueText: { flex: "1", textAlign: "start" },
 
 		indicator: {
 			display: "inline-flex",
 			alignItems: "center",
 			justifyContent: "center",
-			transition: "transform {durations.fast} {easings.easeInOut}",
-
-			_open: {
-				transform: "rotate(180deg)",
-			},
+			color: "{colors.foreground.tertiary}",
+			transition: "transform {durations.press} {easings.easeOut}",
+			_open: { transform: "rotate(180deg)" },
 		},
 
 		clearTrigger: {
@@ -99,121 +112,99 @@ export const selectRecipe = defineSlotRecipe({
 			alignItems: "center",
 			justifyContent: "center",
 			cursor: "pointer",
-			color: "{colors.foreground.secondary}",
-
-			_hover: {
-				color: "{colors.foreground.DEFAULT}",
-			},
+			color: "{colors.foreground.tertiary}",
+			_hover: { color: "{colors.foreground}" },
 		},
 
-		positioner: {
-			position: "absolute",
-			zIndex: "{zIndex.dropdown}",
-		},
+		positioner: { position: "absolute", zIndex: "{zIndex.dropdown}" },
 
+		// Content = popover-content bundle. Luma: `max-h-(--available-height)
+		// w-(--anchor-width) min-w-36 p-0 rounded-3xl bg-popover shadow-lg
+		// ring-1 ring-foreground/5` — width follows trigger, height caps at
+		// whatever the positioner can offer.
 		content: {
+			position: "relative",
 			display: "flex",
 			flexDirection: "column",
-			bg: "{colors.surface.elevated}",
-			borderRadius: "{radii.md}",
-			boxShadow: "{colors.shadow.lg}",
-			border: "1px solid {colors.border.DEFAULT}",
-			minWidth: "var(--reference-width)",
-			maxHeight: "20rem",
+			minWidth: "calc({sizes.md} * 4)", // 144 — luma `min-w-36`
+			width: "var(--reference-width)",
+			maxHeight: "var(--available-height)",
 			overflow: "auto",
-			padding: "{spacing.xs}",
-			
-			_open: {
-				animation: "fadeIn {durations.fast} {easings.easeOut}",
-			},
-			
-			_closed: {
-				animation: "fadeOut {durations.fast} {easings.easeIn}",
+			overflowX: "hidden",
+			padding: "calc({spacing.sm} - 2px)", // 6 — luma `p-1.5`
+			bg: "{colors.background.popover}",
+			color: "{colors.foreground}",
+			borderRadius: "{radii.3xl}",
+			boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+			outline: "1px solid color-mix(in oklab, {colors.foreground} 5%, transparent)",
+			outlineOffset: "-1px",
+			transformOrigin: "var(--transform-origin)",
+			willChange: "transform, opacity",
+			_dark: { outline: "1px solid color-mix(in oklab, {colors.foreground} 10%, transparent)" },
+
+			_open: { animation: "scaleIn {durations.surface} {easings.easeOut}" },
+			_closed: { animation: "scaleOut {durations.normal} {easings.easeOut}" },
+
+			"@media (prefers-reduced-motion: reduce)": {
+				_open: { animation: "fadeIn {durations.normal} {easings.easeOut}" },
+				_closed: { animation: "fadeOut {durations.fast} {easings.easeOut}" },
 			},
 		},
 
+		// Item = item-row bundle.
 		item: {
+			position: "relative",
 			display: "flex",
 			alignItems: "center",
-			gap: "{spacing.sm}",
-			padding: "{spacing.sm} {spacing.md}",
-			borderRadius: "{radii.sm}",
+			gap: "0.625rem", // 10 — luma `gap-2.5`
+			width: "100%",
+			paddingInlineStart: "{spacing.md}", // 12 — luma `pl-3`
+			paddingInlineEnd: "{spacing.2xl}", // 32 — luma `pr-8` (room for indicator)
+			paddingBlock: "{spacing.sm}", // 8 — luma `py-2`
+			borderRadius: "{radii.2xl}",
 			fontSize: "{fontSizes.sm}",
-			color: "{colors.foreground.DEFAULT}",
-			cursor: "pointer",
+			fontWeight: "{fontWeights.medium}",
+			color: "{colors.foreground}",
+			cursor: "default",
 			outline: "none",
-			transition: "all {durations.fast} {easings.easeInOut}",
+			userSelect: "none",
+			transition: "background-color {durations.press} {easings.easeOut}",
 
-			_highlighted: {
-				bg: "{colors.surface.subtle}",
-			},
+			_highlighted: { bg: "{colors.surface.muted}", color: "{colors.foreground.secondary}" },
+			_disabled: { pointerEvents: "none", opacity: "0.5" },
 
-			_checked: {
-				bg: "{colors.accent.light.3}",
-				color: "{colors.accent.light.11}",
-				_dark: {
-					bg: "{colors.accent.dark.3}",
-					color: "{colors.accent.dark.11}",
-				},
-			},
-
-			_disabled: {
-				opacity: "0.5",
-				cursor: "not-allowed",
-			},
+			"& svg:not([class*='size-'])": { width: "1rem", height: "1rem" },
 		},
 
-		itemText: {
-			flex: "1",
-		},
+		itemText: { flex: "1" },
 
 		itemIndicator: {
+			position: "absolute",
+			insetInlineEnd: "{spacing.sm}", // 8 — luma `right-2`
 			display: "inline-flex",
 			alignItems: "center",
 			justifyContent: "center",
-			width: "{sizes.sm}",
-			height: "{sizes.sm}",
+			width: "1rem",
+			height: "1rem",
+			pointerEvents: "none",
+			color: "currentColor",
 		},
 
-		itemGroup: {
-			display: "flex",
-			flexDirection: "column",
-		},
+		itemGroup: { display: "flex", flexDirection: "column" },
 
 		itemGroupLabel: {
-			padding: "{spacing.sm} {spacing.md}",
+			paddingInline: "{spacing.md}", // 12 — luma `px-3`
+			paddingBlock: "0.625rem", // 10 — luma `py-2.5`
 			fontSize: "{fontSizes.xs}",
-			fontWeight: "{fontWeights.semibold}",
 			color: "{colors.foreground.tertiary}",
-			textTransform: "uppercase",
-			letterSpacing: "{letterSpacing.wide}",
 		},
 	},
 	variants: {
 		size: {
-			sm: {
-				trigger: {
-					fontSize: "{fontSizes.xs}",
-					padding: "{spacing.xs} {spacing.sm}",
-					height: "{sizes.sm}",
-				},
-			},
-			md: {
-				trigger: {
-					height: "{sizes.md}",
-				},
-			},
-			lg: {
-				trigger: {
-					fontSize: "{fontSizes.md}",
-					padding: "{spacing.md} {spacing.lg}",
-					height: "{sizes.lg}",
-				},
-			},
+			sm: { trigger: { height: "2rem", fontSize: "{fontSizes.xs}" } },
+			md: { trigger: { height: "2.25rem" } },
+			lg: { trigger: { height: "2.5rem", fontSize: "{fontSizes.md}", paddingInline: "{spacing.lg}" } },
 		},
 	},
-	defaultVariants: {
-		size: "md",
-	},
+	defaultVariants: { size: "md" },
 });
-

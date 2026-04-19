@@ -115,5 +115,18 @@ export const keyframes = {
 			"75%": { transform: "rotate(3deg)" },
 		},
 	},
+	// Accordion / collapsible — uses Ark UI's --height CSS var for exact measurement.
+	collapsibleDown: {
+		value: {
+			"0%": { height: "0", opacity: "0" },
+			"100%": { height: "var(--height)", opacity: "1" },
+		},
+	},
+	collapsibleUp: {
+		value: {
+			"0%": { height: "var(--height)", opacity: "1" },
+			"100%": { height: "0", opacity: "0" },
+		},
+	},
 } as const;
 

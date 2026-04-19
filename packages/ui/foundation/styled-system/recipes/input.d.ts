@@ -35,6 +35,6 @@ export interface InputRecipe {
 }
 
 /**
- * Input field recipe with variants and sizes
+ * Luma input — variants: outline (default) / filled / flushed
  */
 export declare const input: InputRecipe

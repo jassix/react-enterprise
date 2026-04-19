@@ -31,6 +31,6 @@ export interface SelectRecipe {
 }
 
 /**
- * Select recipe for dropdown selection
+ * Luma select — form-field trigger + popover content + item rows
  */
 export declare const select: SelectRecipe

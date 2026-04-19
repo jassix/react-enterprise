@@ -17,7 +17,7 @@ type DialogVariantMap = {
   [key in keyof DialogVariant]: Array<DialogVariant[key]>
 }
 
-type DialogSlot = "backdrop" | "positioner" | "content" | "title" | "description" | "closeTrigger" | "backdrop" | "positioner" | "content" | "title" | "description" | "closeTrigger"
+type DialogSlot = "backdrop" | "positioner" | "content" | "header" | "footer" | "title" | "description" | "closeTrigger" | "backdrop" | "positioner" | "content" | "header" | "footer" | "title" | "description" | "closeTrigger"
 
 export type DialogVariantProps = {
   [key in keyof DialogVariant]?: ConditionalValue<DialogVariant[key]> | undefined
@@ -35,6 +35,6 @@ export interface DialogRecipe {
 }
 
 /**
- * Dialog recipe for modal overlays
+ * Luma dialog — modal overlay with header / footer slots
  */
 export declare const dialog: DialogRecipe

@@ -4,7 +4,82 @@ import { createRecipe, mergeRecipes } from './create-recipe.mjs';
 const checkboxFn = /* @__PURE__ */ createRecipe('checkbox', {
   "size": "md",
   "intent": "primary"
-}, [])
+}, [
+  {
+    "intent": "critical",
+    "css": {
+      "_checked": {
+        "bg": "{colors.critical.accent}",
+        "borderColor": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "_checked": {
+        "bg": "{colors.positive.accent}",
+        "borderColor": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "_checked": {
+        "bg": "{colors.caution.accent}",
+        "borderColor": "{colors.caution.accent}",
+        "color": "{colors.foreground}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "_checked": {
+        "bg": "{colors.info.accent}",
+        "borderColor": "{colors.info.accent}"
+      }
+    }
+  },
+  {
+    "intent": "critical",
+    "css": {
+      "_checked": {
+        "bg": "{colors.critical.accent}",
+        "borderColor": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "_checked": {
+        "bg": "{colors.positive.accent}",
+        "borderColor": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "_checked": {
+        "bg": "{colors.caution.accent}",
+        "borderColor": "{colors.caution.accent}",
+        "color": "{colors.foreground}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "_checked": {
+        "bg": "{colors.info.accent}",
+        "borderColor": "{colors.info.accent}"
+      }
+    }
+  }
+])
 
 const checkboxVariantMap = {
   "size": [
@@ -15,7 +90,9 @@ const checkboxVariantMap = {
   "intent": [
     "primary",
     "critical",
-    "positive"
+    "positive",
+    "caution",
+    "info"
   ]
 }
 

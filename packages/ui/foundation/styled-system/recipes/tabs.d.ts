@@ -4,9 +4,9 @@ import type { DistributiveOmit, Pretty } from '../types/system-types';
 
 interface TabsVariant {
   /**
- * @default "line"
+ * @default "pill"
  */
-variant: "line" | "enclosed" | "unstyled"
+variant: "pill" | "line" | "unstyled"
 /**
  * @default "md"
  */
@@ -35,6 +35,6 @@ export interface TabsRecipe {
 }
 
 /**
- * Tabs recipe for tabbed interfaces
+ * Luma tabs — rounded-full pill rail with background-chip active
  */
 export declare const tabs: TabsRecipe

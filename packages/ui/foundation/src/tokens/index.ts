@@ -5,6 +5,7 @@ import { containers } from "./containers";
 import { fontSizes } from "./font-sizes";
 import { fontWeights } from "./font-weights";
 import { fonts } from "./fonts";
+import { icons } from "./icons";
 import { letterSpacing } from "./letter-spacing";
 import { lineHeight } from "./line-height";
 import { radii } from "./radii";
@@ -15,6 +16,7 @@ import { zIndex } from "./z-index";
 export const lumeTokens = {
 	colors,
 	sizes,
+	icons,
 	spacing,
 	fonts,
 	fontSizes,
@@ -29,15 +31,18 @@ export const lumeTokens = {
 } as const;
 
 export {
-    blur,
-    breakpoints,
-    colors,
-    containers, fonts, fontSizes,
-    fontWeights, letterSpacing,
-    lineHeight,
-    radii,
-    sizes,
-    spacing,
-    zIndex
+	blur,
+	breakpoints,
+	colors,
+	containers,
+	fonts,
+	fontSizes,
+	fontWeights,
+	icons,
+	letterSpacing,
+	lineHeight,
+	radii,
+	sizes,
+	spacing,
+	zIndex,
 };
-

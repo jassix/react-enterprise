@@ -1,9 +1,7 @@
 import { compact, getSlotCompoundVariant, memo, splitProps } from '../helpers.mjs';
 import { createRecipe } from './create-recipe.mjs';
 
-const popoverDefaultVariants = {
-  "variant": "default"
-}
+const popoverDefaultVariants = {}
 const popoverCompoundVariants = []
 
 const popoverSlotNames = [
@@ -70,9 +68,7 @@ const popoverFn = memo((props = {}) => {
   return Object.fromEntries(popoverSlotFns.map(([slotName, slotFn]) => [slotName, slotFn.recipeFn(props)]))
 })
 
-const popoverVariantKeys = [
-  "variant"
-]
+const popoverVariantKeys = []
 const getVariantProps = (variants) => ({ ...popoverDefaultVariants, ...compact(variants) })
 
 export const popover = /* @__PURE__ */ Object.assign(popoverFn, {
@@ -81,12 +77,7 @@ export const popover = /* @__PURE__ */ Object.assign(popoverFn, {
   raw: (props) => props,
   classNameMap: {},
   variantKeys: popoverVariantKeys,
-  variantMap: {
-  "variant": [
-    "default",
-    "accent"
-  ]
-},
+  variantMap: {},
   splitVariantProps(props) {
     return splitProps(props, popoverVariantKeys)
   },

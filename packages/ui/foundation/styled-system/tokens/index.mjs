@@ -2208,44 +2208,68 @@ const tokens = {
     "variable": "var(--colors-crimson-light-12)"
   },
   "sizes.xs": {
-    "value": "8px",
+    "value": "20px",
     "variable": "var(--sizes-xs)"
   },
   "sizes.sm": {
-    "value": "12px",
+    "value": "28px",
     "variable": "var(--sizes-sm)"
   },
   "sizes.md": {
-    "value": "16px",
+    "value": "36px",
     "variable": "var(--sizes-md)"
   },
   "sizes.lg": {
-    "value": "24px",
+    "value": "44px",
     "variable": "var(--sizes-lg)"
   },
   "sizes.xl": {
-    "value": "32px",
+    "value": "56px",
     "variable": "var(--sizes-xl)"
   },
   "sizes.2xl": {
-    "value": "40px",
+    "value": "64px",
     "variable": "var(--sizes-2xl)"
   },
   "sizes.3xl": {
-    "value": "48px",
+    "value": "80px",
     "variable": "var(--sizes-3xl)"
   },
   "sizes.4xl": {
-    "value": "56px",
+    "value": "96px",
     "variable": "var(--sizes-4xl)"
   },
   "sizes.5xl": {
-    "value": "64px",
+    "value": "112px",
     "variable": "var(--sizes-5xl)"
   },
   "sizes.6xl": {
-    "value": "72px",
+    "value": "128px",
     "variable": "var(--sizes-6xl)"
+  },
+  "icons.xs": {
+    "value": "12px",
+    "variable": "var(--icons-xs)"
+  },
+  "icons.sm": {
+    "value": "14px",
+    "variable": "var(--icons-sm)"
+  },
+  "icons.md": {
+    "value": "16px",
+    "variable": "var(--icons-md)"
+  },
+  "icons.lg": {
+    "value": "20px",
+    "variable": "var(--icons-lg)"
+  },
+  "icons.xl": {
+    "value": "24px",
+    "variable": "var(--icons-xl)"
+  },
+  "icons.2xl": {
+    "value": "32px",
+    "variable": "var(--icons-2xl)"
   },
   "spacing.xs": {
     "value": "4px",
@@ -2272,11 +2296,11 @@ const tokens = {
     "variable": "var(--spacing-2xl)"
   },
   "fonts.heading": {
-    "value": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+    "value": "'Figtree Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
     "variable": "var(--fonts-heading)"
   },
   "fonts.body": {
-    "value": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+    "value": "'Figtree Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
     "variable": "var(--fonts-body)"
   },
   "fonts.mono": {
@@ -2492,32 +2516,36 @@ const tokens = {
     "variable": "var(--radii-none)"
   },
   "radii.xs": {
-    "value": "0.125rem",
+    "value": "0.25rem",
     "variable": "var(--radii-xs)"
   },
   "radii.sm": {
-    "value": "0.25rem",
+    "value": "0.5rem",
     "variable": "var(--radii-sm)"
   },
   "radii.md": {
-    "value": "0.375rem",
+    "value": "0.5rem",
     "variable": "var(--radii-md)"
   },
   "radii.lg": {
-    "value": "0.5rem",
+    "value": "0.75rem",
     "variable": "var(--radii-lg)"
   },
   "radii.xl": {
-    "value": "0.75rem",
+    "value": "1rem",
     "variable": "var(--radii-xl)"
   },
   "radii.2xl": {
-    "value": "1rem",
+    "value": "1.25rem",
     "variable": "var(--radii-2xl)"
   },
   "radii.3xl": {
     "value": "1.5rem",
     "variable": "var(--radii-3xl)"
+  },
+  "radii.4xl": {
+    "value": "1.75rem",
+    "variable": "var(--radii-4xl)"
   },
   "radii.full": {
     "value": "9999px",
@@ -2559,13 +2587,25 @@ const tokens = {
     "value": "75ms",
     "variable": "var(--durations-instant)"
   },
+  "durations.press": {
+    "value": "160ms",
+    "variable": "var(--durations-press)"
+  },
+  "durations.tooltip": {
+    "value": "125ms",
+    "variable": "var(--durations-tooltip)"
+  },
   "durations.fast": {
     "value": "150ms",
     "variable": "var(--durations-fast)"
   },
   "durations.normal": {
-    "value": "250ms",
+    "value": "200ms",
     "variable": "var(--durations-normal)"
+  },
+  "durations.surface": {
+    "value": "250ms",
+    "variable": "var(--durations-surface)"
   },
   "durations.slow": {
     "value": "400ms",
@@ -2584,27 +2624,31 @@ const tokens = {
     "variable": "var(--easings-ease-in)"
   },
   "easings.easeOut": {
-    "value": "cubic-bezier(0, 0, 0.2, 1)",
+    "value": "cubic-bezier(0.23, 1, 0.32, 1)",
     "variable": "var(--easings-ease-out)"
   },
   "easings.easeInOut": {
-    "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "value": "cubic-bezier(0.77, 0, 0.175, 1)",
     "variable": "var(--easings-ease-in-out)"
   },
+  "easings.drawer": {
+    "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+    "variable": "var(--easings-drawer)"
+  },
   "easings.spring": {
-    "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+    "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
     "variable": "var(--easings-spring)"
   },
   "easings.bounce": {
-    "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+    "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
     "variable": "var(--easings-bounce)"
   },
   "easings.emphasized": {
-    "value": "cubic-bezier(0.4, 0, 0.6, 1)",
+    "value": "cubic-bezier(0.3, 0, 0, 1)",
     "variable": "var(--easings-emphasized)"
   },
   "easings.decelerated": {
-    "value": "cubic-bezier(0, 0, 0.2, 1)",
+    "value": "cubic-bezier(0.23, 1, 0.32, 1)",
     "variable": "var(--easings-decelerated)"
   },
   "easings.accelerated": {
@@ -2612,244 +2656,372 @@ const tokens = {
     "variable": "var(--easings-accelerated)"
   },
   "colors.background": {
-    "value": "var(--colors-mauve-light-1)",
+    "value": "oklch(1 0 0)",
     "variable": "var(--colors-background)"
   },
   "colors.background.muted": {
-    "value": "var(--colors-mauve-light-2)",
+    "value": "oklch(0.97 0 0)",
     "variable": "var(--colors-background-muted)"
   },
+  "colors.background.popover": {
+    "value": "oklch(1 0 0)",
+    "variable": "var(--colors-background-popover)"
+  },
   "colors.foreground": {
-    "value": "var(--colors-mauve-light-12)",
+    "value": "oklch(0.145 0 0)",
     "variable": "var(--colors-foreground)"
   },
   "colors.foreground.secondary": {
-    "value": "var(--colors-mauve-light-11)",
+    "value": "oklch(0.205 0 0)",
     "variable": "var(--colors-foreground-secondary)"
   },
   "colors.foreground.tertiary": {
-    "value": "var(--colors-mauve-light-10)",
+    "value": "oklch(0.556 0 0)",
     "variable": "var(--colors-foreground-tertiary)"
   },
   "colors.foreground.disabled": {
-    "value": "var(--colors-mauve-light-8)",
+    "value": "oklch(0.708 0 0)",
     "variable": "var(--colors-foreground-disabled)"
   },
   "colors.foreground.link": {
-    "value": "var(--colors-accent-light-11)",
+    "value": "oklch(0.488 0.243 264.376)",
     "variable": "var(--colors-foreground-link)"
   },
   "colors.foreground.inverse": {
-    "value": "var(--colors-mauve-dark-12)",
+    "value": "oklch(0.97 0.014 254.604)",
     "variable": "var(--colors-foreground-inverse)"
   },
-  "colors.surface.base": {
-    "value": "var(--colors-neutral-light-1)",
-    "variable": "var(--colors-surface-base)"
+  "colors.surface.canvas": {
+    "value": "oklch(1 0 0)",
+    "variable": "var(--colors-surface-canvas)"
   },
   "colors.surface.subtle": {
-    "value": "var(--colors-neutral-light-2)",
+    "value": "oklch(0.97 0 0)",
     "variable": "var(--colors-surface-subtle)"
   },
-  "colors.surface.muted": {
-    "value": "var(--colors-neutral-light-3)",
-    "variable": "var(--colors-surface-muted)"
+  "colors.surface.base": {
+    "value": "oklch(1 0 0)",
+    "variable": "var(--colors-surface-base)"
+  },
+  "colors.surface.raised": {
+    "value": "oklch(1 0 0)",
+    "variable": "var(--colors-surface-raised)"
   },
   "colors.surface.elevated": {
-    "value": "var(--colors-neutral-light-1)",
+    "value": "oklch(1 0 0)",
     "variable": "var(--colors-surface-elevated)"
   },
-  "colors.surface.overlay": {
-    "value": "rgba(0, 0, 0, 0.5)",
-    "variable": "var(--colors-surface-overlay)"
+  "colors.surface.muted": {
+    "value": "oklch(0.97 0 0)",
+    "variable": "var(--colors-surface-muted)"
   },
   "colors.surface.panel": {
-    "value": "var(--colors-neutral-light-2)",
+    "value": "oklch(0.97 0 0)",
     "variable": "var(--colors-surface-panel)"
   },
+  "colors.surface.overlay": {
+    "value": "rgba(0, 0, 0, 0.3)",
+    "variable": "var(--colors-surface-overlay)"
+  },
+  "colors.border.hairline": {
+    "value": "oklch(0.95 0 0)",
+    "variable": "var(--colors-border-hairline)"
+  },
   "colors.border": {
-    "value": "var(--colors-neutral-light-6)",
+    "value": "oklch(0.922 0 0)",
     "variable": "var(--colors-border)"
   },
   "colors.border.muted": {
-    "value": "var(--colors-neutral-light-4)",
+    "value": "oklch(0.95 0 0)",
     "variable": "var(--colors-border-muted)"
   },
   "colors.border.emphasis": {
-    "value": "var(--colors-neutral-light-8)",
+    "value": "oklch(0.85 0 0)",
     "variable": "var(--colors-border-emphasis)"
   },
+  "colors.border.strong": {
+    "value": "oklch(0.708 0 0)",
+    "variable": "var(--colors-border-strong)"
+  },
   "colors.border.focus": {
-    "value": "var(--colors-accent-light-9)",
+    "value": "oklch(0.708 0 0)",
     "variable": "var(--colors-border-focus)"
   },
   "colors.border.critical": {
-    "value": "var(--colors-red-light-9)",
+    "value": "oklch(0.577 0.245 27.325)",
     "variable": "var(--colors-border-critical)"
   },
   "colors.border.positive": {
-    "value": "var(--colors-green-light-9)",
+    "value": "oklch(0.62 0.17 150)",
     "variable": "var(--colors-border-positive)"
   },
   "colors.border.caution": {
-    "value": "var(--colors-amber-light-9)",
+    "value": "oklch(0.72 0.17 75)",
     "variable": "var(--colors-border-caution)"
   },
   "colors.border.info": {
-    "value": "var(--colors-blue-light-9)",
+    "value": "oklch(0.62 0.17 240)",
     "variable": "var(--colors-border-info)"
   },
   "colors.interactive.base": {
-    "value": "var(--colors-accent-light-9)",
+    "value": "oklch(0.488 0.243 264.376)",
     "variable": "var(--colors-interactive-base)"
   },
   "colors.interactive.hover": {
-    "value": "var(--colors-accent-light-10)",
+    "value": "oklch(0.448 0.243 264.376)",
     "variable": "var(--colors-interactive-hover)"
   },
   "colors.interactive.active": {
-    "value": "var(--colors-accent-light-11)",
+    "value": "oklch(0.408 0.243 264.376)",
     "variable": "var(--colors-interactive-active)"
   },
   "colors.interactive.selected": {
-    "value": "var(--colors-accent-light-4)",
+    "value": "oklch(0.94 0.04 264)",
     "variable": "var(--colors-interactive-selected)"
   },
+  "colors.interactive.secondary": {
+    "value": "oklch(0.967 0.001 286)",
+    "variable": "var(--colors-interactive-secondary)"
+  },
+  "colors.interactive.secondaryHover": {
+    "value": "oklch(0.93 0.001 286)",
+    "variable": "var(--colors-interactive-secondary-hover)"
+  },
   "colors.interactive.disabled": {
-    "value": "var(--colors-neutral-light-7)",
+    "value": "oklch(0.85 0 0)",
     "variable": "var(--colors-interactive-disabled)"
   },
   "colors.interactive.link": {
-    "value": "var(--colors-accent-light-11)",
+    "value": "oklch(0.488 0.243 264.376)",
     "variable": "var(--colors-interactive-link)"
   },
   "colors.interactive.linkHover": {
-    "value": "var(--colors-accent-light-12)",
+    "value": "oklch(0.448 0.243 264.376)",
     "variable": "var(--colors-interactive-link-hover)"
   },
   "colors.shadow.sm": {
-    "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+    "value": "0 0 0 1px oklch(0.92 0.004 286), 0 1px 2px -1px rgb(0 0 0 / 0.08)",
     "variable": "var(--colors-shadow-sm)"
   },
   "colors.shadow.md": {
-    "value": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+    "value": "0 0 0 1px oklch(0.92 0.004 286), 0 1px 2px -1px rgb(0 0 0 / 0.06), 0 8px 16px -8px rgb(0 0 0 / 0.12)",
     "variable": "var(--colors-shadow-md)"
   },
   "colors.shadow.lg": {
-    "value": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+    "value": "0 0 0 1px oklch(0.92 0.004 286), 0 1px 2px -1px rgb(0 0 0 / 0.06), 0 8px 16px -8px rgb(0 0 0 / 0.12), 0 24px 48px -16px rgb(0 0 0 / 0.16)",
     "variable": "var(--colors-shadow-lg)"
   },
   "colors.shadow.xl": {
-    "value": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+    "value": "0 0 0 1px oklch(0.92 0.004 286), 0 2px 4px -2px rgb(0 0 0 / 0.08), 0 12px 24px -8px rgb(0 0 0 / 0.14), 0 32px 64px -16px rgb(0 0 0 / 0.2)",
     "variable": "var(--colors-shadow-xl)"
   },
   "colors.shadow.2xl": {
-    "value": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+    "value": "0 0 0 1px oklch(0.92 0.004 286), 0 4px 8px -2px rgb(0 0 0 / 0.1), 0 20px 40px -12px rgb(0 0 0 / 0.22), 0 48px 96px -24px rgb(0 0 0 / 0.28)",
     "variable": "var(--colors-shadow-2xl)"
   },
   "colors.shadow.inner": {
-    "value": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
+    "value": "inset 0 1px 2px 0 rgb(0 0 0 / 0.06)",
     "variable": "var(--colors-shadow-inner)"
   },
+  "colors.shadow.focus": {
+    "value": "0 0 0 3px oklch(0.62 0.19 275 / 0.2)",
+    "variable": "var(--colors-shadow-focus)"
+  },
   "colors.focus.ring": {
-    "value": "var(--colors-accent-light-9)",
+    "value": "oklch(0.708 0 0)",
     "variable": "var(--colors-focus-ring)"
   },
   "colors.focus.ringOffset": {
-    "value": "var(--colors-neutral-light-1)",
+    "value": "oklch(1 0 0)",
     "variable": "var(--colors-focus-ring-offset)"
   },
   "colors.focus.ringWidth": {
-    "value": "2px",
+    "value": "3px",
     "variable": "var(--colors-focus-ring-width)"
   },
   "colors.focus.ringOffsetWidth": {
-    "value": "2px",
+    "value": "0px",
     "variable": "var(--colors-focus-ring-offset-width)"
   },
   "colors.focus.skipLink": {
-    "value": "var(--colors-accent-light-9)",
+    "value": "oklch(0.488 0.243 264.376)",
     "variable": "var(--colors-focus-skip-link)"
   },
+  "colors.sidebar": {
+    "value": "oklch(0.985 0 0)",
+    "variable": "var(--colors-sidebar)"
+  },
+  "colors.sidebar.foreground": {
+    "value": "oklch(0.145 0 0)",
+    "variable": "var(--colors-sidebar-foreground)"
+  },
+  "colors.sidebar.primary": {
+    "value": "oklch(0.546 0.245 262.881)",
+    "variable": "var(--colors-sidebar-primary)"
+  },
+  "colors.sidebar.primaryForeground": {
+    "value": "oklch(0.97 0.014 254.604)",
+    "variable": "var(--colors-sidebar-primary-foreground)"
+  },
+  "colors.sidebar.accent": {
+    "value": "oklch(0.97 0 0)",
+    "variable": "var(--colors-sidebar-accent)"
+  },
+  "colors.sidebar.accentForeground": {
+    "value": "oklch(0.205 0 0)",
+    "variable": "var(--colors-sidebar-accent-foreground)"
+  },
+  "colors.sidebar.border": {
+    "value": "oklch(0.922 0 0)",
+    "variable": "var(--colors-sidebar-border)"
+  },
+  "colors.sidebar.ring": {
+    "value": "oklch(0.708 0 0)",
+    "variable": "var(--colors-sidebar-ring)"
+  },
   "colors.critical": {
-    "value": "var(--colors-red-light-9)",
+    "value": "oklch(0.577 0.245 27.325)",
     "variable": "var(--colors-critical)"
   },
+  "colors.critical.emphasis": {
+    "value": "oklch(0.527 0.245 27.325)",
+    "variable": "var(--colors-critical-emphasis)"
+  },
   "colors.critical.accent": {
-    "value": "var(--colors-red-light-9)",
+    "value": "oklch(0.577 0.245 27.325)",
     "variable": "var(--colors-critical-accent)"
   },
+  "colors.critical.text": {
+    "value": "oklch(0.577 0.245 27.325)",
+    "variable": "var(--colors-critical-text)"
+  },
+  "colors.critical.bg": {
+    "value": "oklch(0.97 0.02 27)",
+    "variable": "var(--colors-critical-bg)"
+  },
+  "colors.critical.muted": {
+    "value": "oklch(0.94 0.04 27)",
+    "variable": "var(--colors-critical-muted)"
+  },
   "colors.critical.background": {
-    "value": "var(--colors-red-light-3)",
+    "value": "oklch(0.97 0.02 27)",
     "variable": "var(--colors-critical-background)"
   },
   "colors.critical.surface": {
-    "value": "var(--colors-red-light-6)",
+    "value": "oklch(0.92 0.06 27)",
     "variable": "var(--colors-critical-surface)"
   },
   "colors.critical.foreground": {
-    "value": "var(--colors-red-light-10)",
+    "value": "oklch(0.42 0.2 27)",
     "variable": "var(--colors-critical-foreground)"
   },
   "colors.positive": {
-    "value": "var(--colors-green-light-9)",
+    "value": "oklch(0.62 0.17 150)",
     "variable": "var(--colors-positive)"
   },
+  "colors.positive.emphasis": {
+    "value": "oklch(0.56 0.19 150)",
+    "variable": "var(--colors-positive-emphasis)"
+  },
   "colors.positive.accent": {
-    "value": "var(--colors-green-light-9)",
+    "value": "oklch(0.62 0.17 150)",
     "variable": "var(--colors-positive-accent)"
   },
+  "colors.positive.text": {
+    "value": "oklch(0.4 0.17 150)",
+    "variable": "var(--colors-positive-text)"
+  },
+  "colors.positive.bg": {
+    "value": "oklch(0.97 0.02 150)",
+    "variable": "var(--colors-positive-bg)"
+  },
+  "colors.positive.muted": {
+    "value": "oklch(0.94 0.04 150)",
+    "variable": "var(--colors-positive-muted)"
+  },
   "colors.positive.background": {
-    "value": "var(--colors-green-light-3)",
+    "value": "oklch(0.97 0.02 150)",
     "variable": "var(--colors-positive-background)"
   },
   "colors.positive.surface": {
-    "value": "var(--colors-green-light-6)",
+    "value": "oklch(0.92 0.06 150)",
     "variable": "var(--colors-positive-surface)"
   },
   "colors.positive.foreground": {
-    "value": "var(--colors-green-light-10)",
+    "value": "oklch(0.4 0.17 150)",
     "variable": "var(--colors-positive-foreground)"
   },
   "colors.caution": {
-    "value": "var(--colors-amber-light-9)",
+    "value": "oklch(0.78 0.17 75)",
     "variable": "var(--colors-caution)"
   },
+  "colors.caution.emphasis": {
+    "value": "oklch(0.72 0.19 75)",
+    "variable": "var(--colors-caution-emphasis)"
+  },
   "colors.caution.accent": {
-    "value": "var(--colors-amber-light-9)",
+    "value": "oklch(0.78 0.17 75)",
     "variable": "var(--colors-caution-accent)"
   },
+  "colors.caution.text": {
+    "value": "oklch(0.45 0.16 75)",
+    "variable": "var(--colors-caution-text)"
+  },
+  "colors.caution.bg": {
+    "value": "oklch(0.98 0.03 75)",
+    "variable": "var(--colors-caution-bg)"
+  },
+  "colors.caution.muted": {
+    "value": "oklch(0.94 0.05 75)",
+    "variable": "var(--colors-caution-muted)"
+  },
   "colors.caution.background": {
-    "value": "var(--colors-amber-light-3)",
+    "value": "oklch(0.98 0.03 75)",
     "variable": "var(--colors-caution-background)"
   },
   "colors.caution.surface": {
-    "value": "var(--colors-amber-light-6)",
+    "value": "oklch(0.92 0.07 75)",
     "variable": "var(--colors-caution-surface)"
   },
   "colors.caution.foreground": {
-    "value": "var(--colors-amber-light-10)",
+    "value": "oklch(0.45 0.16 75)",
     "variable": "var(--colors-caution-foreground)"
   },
   "colors.info": {
-    "value": "var(--colors-blue-light-9)",
+    "value": "oklch(0.62 0.17 240)",
     "variable": "var(--colors-info)"
   },
-  "colors.info.muted": {
-    "value": "var(--colors-blue-light-3)",
-    "variable": "var(--colors-info-muted)"
-  },
   "colors.info.emphasis": {
-    "value": "var(--colors-blue-light-10)",
+    "value": "oklch(0.56 0.19 240)",
     "variable": "var(--colors-info-emphasis)"
   },
+  "colors.info.accent": {
+    "value": "oklch(0.62 0.17 240)",
+    "variable": "var(--colors-info-accent)"
+  },
   "colors.info.text": {
-    "value": "var(--colors-blue-light-11)",
+    "value": "oklch(0.4 0.16 240)",
     "variable": "var(--colors-info-text)"
   },
   "colors.info.bg": {
-    "value": "var(--colors-blue-light-2)",
+    "value": "oklch(0.97 0.02 240)",
     "variable": "var(--colors-info-bg)"
+  },
+  "colors.info.muted": {
+    "value": "oklch(0.94 0.04 240)",
+    "variable": "var(--colors-info-muted)"
+  },
+  "colors.info.background": {
+    "value": "oklch(0.97 0.02 240)",
+    "variable": "var(--colors-info-background)"
+  },
+  "colors.info.surface": {
+    "value": "oklch(0.92 0.06 240)",
+    "variable": "var(--colors-info-surface)"
+  },
+  "colors.info.foreground": {
+    "value": "oklch(0.4 0.16 240)",
+    "variable": "var(--colors-info-foreground)"
   },
   "spacing.-xs": {
     "value": "calc(var(--spacing-xs) * -1)",
@@ -3027,6 +3199,10 @@ const tokens = {
     "value": "var(--colors-color-palette-muted)",
     "variable": "var(--colors-color-palette-muted)"
   },
+  "colors.colorPalette.popover": {
+    "value": "var(--colors-color-palette-popover)",
+    "variable": "var(--colors-color-palette-popover)"
+  },
   "colors.colorPalette.secondary": {
     "value": "var(--colors-color-palette-secondary)",
     "variable": "var(--colors-color-palette-secondary)"
@@ -3047,29 +3223,45 @@ const tokens = {
     "value": "var(--colors-color-palette-inverse)",
     "variable": "var(--colors-color-palette-inverse)"
   },
-  "colors.colorPalette.base": {
-    "value": "var(--colors-color-palette-base)",
-    "variable": "var(--colors-color-palette-base)"
+  "colors.colorPalette.canvas": {
+    "value": "var(--colors-color-palette-canvas)",
+    "variable": "var(--colors-color-palette-canvas)"
   },
   "colors.colorPalette.subtle": {
     "value": "var(--colors-color-palette-subtle)",
     "variable": "var(--colors-color-palette-subtle)"
   },
+  "colors.colorPalette.base": {
+    "value": "var(--colors-color-palette-base)",
+    "variable": "var(--colors-color-palette-base)"
+  },
+  "colors.colorPalette.raised": {
+    "value": "var(--colors-color-palette-raised)",
+    "variable": "var(--colors-color-palette-raised)"
+  },
   "colors.colorPalette.elevated": {
     "value": "var(--colors-color-palette-elevated)",
     "variable": "var(--colors-color-palette-elevated)"
-  },
-  "colors.colorPalette.overlay": {
-    "value": "var(--colors-color-palette-overlay)",
-    "variable": "var(--colors-color-palette-overlay)"
   },
   "colors.colorPalette.panel": {
     "value": "var(--colors-color-palette-panel)",
     "variable": "var(--colors-color-palette-panel)"
   },
+  "colors.colorPalette.overlay": {
+    "value": "var(--colors-color-palette-overlay)",
+    "variable": "var(--colors-color-palette-overlay)"
+  },
+  "colors.colorPalette.hairline": {
+    "value": "var(--colors-color-palette-hairline)",
+    "variable": "var(--colors-color-palette-hairline)"
+  },
   "colors.colorPalette.emphasis": {
     "value": "var(--colors-color-palette-emphasis)",
     "variable": "var(--colors-color-palette-emphasis)"
+  },
+  "colors.colorPalette.strong": {
+    "value": "var(--colors-color-palette-strong)",
+    "variable": "var(--colors-color-palette-strong)"
   },
   "colors.colorPalette.focus": {
     "value": "var(--colors-color-palette-focus)",
@@ -3102,6 +3294,10 @@ const tokens = {
   "colors.colorPalette.selected": {
     "value": "var(--colors-color-palette-selected)",
     "variable": "var(--colors-color-palette-selected)"
+  },
+  "colors.colorPalette.secondaryHover": {
+    "value": "var(--colors-color-palette-secondary-hover)",
+    "variable": "var(--colors-color-palette-secondary-hover)"
   },
   "colors.colorPalette.linkHover": {
     "value": "var(--colors-color-palette-link-hover)",
@@ -3151,21 +3347,29 @@ const tokens = {
     "value": "var(--colors-color-palette-skip-link)",
     "variable": "var(--colors-color-palette-skip-link)"
   },
+  "colors.colorPalette.foreground": {
+    "value": "var(--colors-color-palette-foreground)",
+    "variable": "var(--colors-color-palette-foreground)"
+  },
+  "colors.colorPalette.primary": {
+    "value": "var(--colors-color-palette-primary)",
+    "variable": "var(--colors-color-palette-primary)"
+  },
+  "colors.colorPalette.primaryForeground": {
+    "value": "var(--colors-color-palette-primary-foreground)",
+    "variable": "var(--colors-color-palette-primary-foreground)"
+  },
   "colors.colorPalette.accent": {
     "value": "var(--colors-color-palette-accent)",
     "variable": "var(--colors-color-palette-accent)"
   },
-  "colors.colorPalette.background": {
-    "value": "var(--colors-color-palette-background)",
-    "variable": "var(--colors-color-palette-background)"
+  "colors.colorPalette.accentForeground": {
+    "value": "var(--colors-color-palette-accent-foreground)",
+    "variable": "var(--colors-color-palette-accent-foreground)"
   },
-  "colors.colorPalette.surface": {
-    "value": "var(--colors-color-palette-surface)",
-    "variable": "var(--colors-color-palette-surface)"
-  },
-  "colors.colorPalette.foreground": {
-    "value": "var(--colors-color-palette-foreground)",
-    "variable": "var(--colors-color-palette-foreground)"
+  "colors.colorPalette.border": {
+    "value": "var(--colors-color-palette-border)",
+    "variable": "var(--colors-color-palette-border)"
   },
   "colors.colorPalette.text": {
     "value": "var(--colors-color-palette-text)",
@@ -3174,6 +3378,14 @@ const tokens = {
   "colors.colorPalette.bg": {
     "value": "var(--colors-color-palette-bg)",
     "variable": "var(--colors-color-palette-bg)"
+  },
+  "colors.colorPalette.background": {
+    "value": "var(--colors-color-palette-background)",
+    "variable": "var(--colors-color-palette-background)"
+  },
+  "colors.colorPalette.surface": {
+    "value": "var(--colors-color-palette-surface)",
+    "variable": "var(--colors-color-palette-surface)"
   }
 }
 

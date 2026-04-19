@@ -1,0 +1,38 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundation/Tokens" />
+
+# Tokens
+
+All values live in `@lume/foundation/styled-tokens` and are referenced in
+recipes via curly-brace paths — e.g., `"{spacing.md}"`, `"{colors.interactive.base}"`.
+
+## Spacing
+
+`xs` 4px · `sm` 8px · `md` 12px · `lg` 16px · `xl` 24px · `2xl` 32px
+
+## Sizes (component heights)
+
+`xs` · `sm` · `md` · `lg` · `xl`
+
+## Radii
+
+`none` · `sm` · `md` · `lg` · `full`
+
+## Motion
+
+- **Durations** — `fast`, `normal`, `slow`
+- **Easings** — `linear`, `easeIn`, `easeOut`, `easeInOut`, `spring`, `bounce`, `emphasized`
+
+## Typography
+
+- **Families** — `body`, `heading`, `mono`
+- **Sizes** — 8-step scale from `xs` to `4xl`
+- **Weights** — `regular`, `medium`, `semibold`, `bold`
+- **Line heights** — `tight`, `normal`, `relaxed`
+
+## Extending
+
+Add new tokens under `packages/ui/foundation/src/tokens/`, then expose semantic
+mappings under `src/semantic/`. Run `bun --filter @lume/foundation codegen` to
+regenerate the typed helpers.

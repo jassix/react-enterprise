@@ -126,6 +126,11 @@
       "sourceType": "github",
       "computedHash": "952c7b778467deaba3684354bdd4f2aef610f01db2ec1952f3f08a566487a618"
     },
+    "tanstack-start-best-practices": {
+      "source": "deckardger/tanstack-agent-skills",
+      "sourceType": "github",
+      "computedHash": "8b073187405a10f9997158f9139a9664cc801595d2fe63d542a0bac9bf2152f5"
+    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",

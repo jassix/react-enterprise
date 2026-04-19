@@ -1,108 +1,132 @@
 import { defineRecipe } from "@pandacss/dev";
 
+/**
+ * Input — luma signature: rounded-3xl, translucent border-color fill
+ * (`bg-input/50` ≈ 50% alpha on the border token), transparent border that
+ * lights up to the focus ring on `:focus-visible`, `aria-invalid` adopts the
+ * critical halo. `filled` / `flushed` stay as coherent alternatives.
+ *
+ * All values snap to /4: heights are 32/36/40/44, padding-x is 12/16/24,
+ * padding-y is 4/8.
+ */
 export const inputRecipe = defineRecipe({
 	className: "input",
-	description: "Input field recipe with variants and sizes",
+	description: "Luma input — variants: outline (default) / filled / flushed",
+	jsx: ["Input"],
 	base: {
+		display: "flex",
+		alignItems: "center",
 		width: "100%",
+		minWidth: "0",
 		fontFamily: "{fonts.body}",
 		fontWeight: "{fontWeights.regular}",
 		lineHeight: "{lineHeight.normal}",
+		color: "{colors.foreground}",
 		outline: "none",
-		transition: "all {durations.fast} {easings.easeInOut}",
-		color: "{colors.foreground.DEFAULT}",
+		border: "1px solid transparent",
+		// Luma narrows the transition list: only color/box-shadow/bg animate.
+		transition: "color {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, box-shadow {durations.press} {easings.easeOut}, border-color {durations.press} {easings.easeOut}",
 
 		_placeholder: {
 			color: "{colors.foreground.tertiary}",
 		},
 
 		_disabled: {
+			pointerEvents: "none",
 			cursor: "not-allowed",
 			opacity: "0.5",
 		},
 
 		_focusVisible: {
-			ring: "2px solid",
-			ringColor: "{colors.focus.ring}",
-			ringOffset: "{colors.focus.ringOffset}",
+			borderColor: "{colors.focus.ring}",
+			boxShadow: "0 0 0 3px color-mix(in oklab, {colors.focus.ring} 30%, transparent)",
+		},
+
+		"&[aria-invalid='true']": {
+			borderColor: "{colors.critical}",
+			boxShadow: "0 0 0 3px color-mix(in oklab, {colors.critical} 20%, transparent)",
+			_dark: {
+				borderColor: "color-mix(in oklab, {colors.critical} 50%, transparent)",
+				boxShadow: "0 0 0 3px color-mix(in oklab, {colors.critical} 40%, transparent)",
+			},
+		},
+
+		// Native file input chip — match luma's `file:` styling.
+		"&[type='file']": {
+			"&::file-selector-button": {
+				display: "inline-flex",
+				height: "1.75rem", // 28px
+				padding: "0",
+				marginInlineEnd: "{spacing.sm}", // 8
+				border: "0",
+				background: "transparent",
+				fontSize: "{fontSizes.sm}",
+				fontWeight: "{fontWeights.medium}",
+				color: "{colors.foreground}",
+				cursor: "pointer",
+			},
 		},
 	},
 	variants: {
 		variant: {
 			outline: {
-				bg: "{colors.surface.base}",
-				border: "1px solid {colors.border.DEFAULT}",
-				borderRadius: "{radii.md}",
-
-				_hover: {
-					borderColor: "{colors.border.emphasis}",
-				},
-
-				_focus: {
-					borderColor: "{colors.border.focus}",
-				},
-
-				_invalid: {
-					borderColor: "{colors.border.critical}",
-					_focus: {
-						ringColor: "{colors.critical.DEFAULT}",
-					},
-				},
+				bg: "color-mix(in oklab, {colors.border} 50%, transparent)",
+				borderRadius: "{radii.3xl}", // 24px
 			},
 			filled: {
 				bg: "{colors.surface.muted}",
-				border: "2px solid transparent",
-				borderRadius: "{radii.md}",
-
+				borderRadius: "{radii.3xl}",
 				_hover: {
 					bg: "{colors.surface.subtle}",
 				},
-
-				_focus: {
+				_focusVisible: {
 					bg: "{colors.surface.base}",
-					borderColor: "{colors.border.focus}",
-				},
-
-				_invalid: {
-					borderColor: "{colors.border.critical}",
 				},
 			},
 			flushed: {
 				bg: "transparent",
 				border: "none",
-				borderBottom: "2px solid {colors.border.DEFAULT}",
+				borderBottom: "1px solid {colors.border}",
 				borderRadius: "0",
-				paddingX: "0",
-
-				_focus: {
-					borderBottomColor: "{colors.border.focus}",
+				paddingInline: "0",
+				_focusVisible: {
+					borderBottomColor: "{colors.focus.ring}",
+					boxShadow: "0 1px 0 0 {colors.focus.ring}",
 				},
-
-				_invalid: {
-					borderBottomColor: "{colors.border.critical}",
+				"&[aria-invalid='true']": {
+					borderBottomColor: "{colors.critical}",
+					boxShadow: "0 1px 0 0 {colors.critical}",
 				},
 			},
 		},
 		size: {
 			sm: {
-				height: "{sizes.sm}",
+				height: "2rem", // 32
+				minHeight: "2rem",
 				fontSize: "{fontSizes.sm}",
-				paddingX: "{spacing.sm}",
+				paddingInline: "{spacing.md}", // 12
+				paddingBlock: "{spacing.xs}", // 4
 			},
 			md: {
-				height: "{sizes.md}",
-				fontSize: "{fontSizes.md}",
-				paddingX: "{spacing.md}",
+				height: "2.25rem", // 36 — luma h-9
+				minHeight: "2.25rem",
+				fontSize: "{fontSizes.sm}",
+				paddingInline: "{spacing.md}", // 12 — luma px-3
+				paddingBlock: "{spacing.xs}", // 4 — luma py-1
 			},
 			lg: {
-				height: "{sizes.lg}",
-				fontSize: "{fontSizes.lg}",
-				paddingX: "{spacing.lg}",
+				height: "2.5rem", // 40
+				minHeight: "2.5rem",
+				fontSize: "{fontSizes.md}",
+				paddingInline: "{spacing.lg}", // 16
+				paddingBlock: "{spacing.xs}",
 			},
 			xl: {
-				height: "{sizes.xl}",
-				fontSize: "{fontSizes.xl}",
-				paddingX: "{spacing.xl}",
+				height: "2.75rem", // 44
+				minHeight: "2.75rem",
+				fontSize: "{fontSizes.md}",
+				paddingInline: "{spacing.xl}", // 24
+				paddingBlock: "{spacing.sm}", // 8
 			},
 		},
 	},
@@ -111,4 +135,3 @@ export const inputRecipe = defineRecipe({
 		size: "md",
 	},
 });
-

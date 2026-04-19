@@ -2,7 +2,7 @@ import { compact, getSlotCompoundVariant, memo, splitProps } from '../helpers.mj
 import { createRecipe } from './create-recipe.mjs';
 
 const tabsDefaultVariants = {
-  "variant": "line",
+  "variant": "pill",
   "size": "md"
 }
 const tabsCompoundVariants = []
@@ -69,8 +69,8 @@ export const tabs = /* @__PURE__ */ Object.assign(tabsFn, {
   variantKeys: tabsVariantKeys,
   variantMap: {
   "variant": [
+    "pill",
     "line",
-    "enclosed",
     "unstyled"
   ],
   "size": [

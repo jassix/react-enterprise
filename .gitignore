@@ -27,6 +27,10 @@ out/
 build
 dist
 
+# Storybook (leaf consumer — regenerated on build)
+packages/ui/system/styled-system/
+packages/ui/system/storybook-static/
+
 
 # Debug
 npm-debug.log*

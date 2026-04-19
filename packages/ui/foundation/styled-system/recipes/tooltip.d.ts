@@ -28,6 +28,6 @@ export interface TooltipRecipe {
 }
 
 /**
- * Tooltip recipe for contextual information
+ * Luma tooltip — inverted chip for contextual hints
  */
 export declare const tooltip: TooltipRecipe

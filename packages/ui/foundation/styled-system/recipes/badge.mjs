@@ -2,141 +2,294 @@ import { memo, splitProps } from '../helpers.mjs';
 import { createRecipe, mergeRecipes } from './create-recipe.mjs';
 
 const badgeFn = /* @__PURE__ */ createRecipe('badge', {
-  "variant": "subtle",
-  "intent": "neutral",
+  "variant": "default",
   "size": "md"
 }, [
   {
-    "variant": "subtle",
-    "intent": "accent",
-    "css": {
-      "bg": "{colors.accent.light.3}",
-      "color": "{colors.accent.light.11}",
-      "_dark": {
-        "bg": "{colors.accent.dark.3}",
-        "color": "{colors.accent.dark.11}"
-      }
-    }
-  },
-  {
-    "variant": "subtle",
+    "variant": "default",
     "intent": "critical",
     "css": {
-      "bg": "{colors.red.light.3}",
-      "color": "{colors.red.light.11}",
-      "_dark": {
-        "bg": "{colors.red.dark.3}",
-        "color": "{colors.red.dark.11}"
-      }
+      "bg": "{colors.critical.accent}",
+      "color": "{colors.foreground.inverse}"
     }
   },
   {
-    "variant": "subtle",
+    "variant": "default",
     "intent": "positive",
     "css": {
-      "bg": "{colors.green.light.3}",
-      "color": "{colors.green.light.11}",
-      "_dark": {
-        "bg": "{colors.green.dark.3}",
-        "color": "{colors.green.dark.11}"
-      }
+      "bg": "{colors.positive.accent}",
+      "color": "{colors.foreground.inverse}"
     }
   },
   {
-    "variant": "subtle",
+    "variant": "default",
     "intent": "caution",
     "css": {
-      "bg": "{colors.amber.light.3}",
-      "color": "{colors.amber.light.11}",
-      "_dark": {
-        "bg": "{colors.amber.dark.3}",
-        "color": "{colors.amber.dark.11}"
-      }
+      "bg": "{colors.caution.accent}",
+      "color": "{colors.foreground}"
     }
   },
   {
-    "variant": "subtle",
+    "variant": "default",
     "intent": "info",
     "css": {
-      "bg": "{colors.blue.light.3}",
-      "color": "{colors.blue.light.11}",
-      "_dark": {
-        "bg": "{colors.blue.dark.3}",
-        "color": "{colors.blue.dark.11}"
-      }
+      "bg": "{colors.info.accent}",
+      "color": "{colors.foreground.inverse}"
     }
   },
   {
-    "variant": "subtle",
-    "intent": "accent",
-    "css": {
-      "bg": "{colors.accent.light.3}",
-      "color": "{colors.accent.light.11}",
-      "_dark": {
-        "bg": "{colors.accent.dark.3}",
-        "color": "{colors.accent.dark.11}"
-      }
-    }
-  },
-  {
-    "variant": "subtle",
+    "variant": "outline",
     "intent": "critical",
     "css": {
-      "bg": "{colors.red.light.3}",
-      "color": "{colors.red.light.11}",
+      "bg": "color-mix(in oklab, {colors.critical} 10%, transparent)",
+      "color": "{colors.critical.text}",
+      "borderColor": "{colors.border.critical}",
       "_dark": {
-        "bg": "{colors.red.dark.3}",
-        "color": "{colors.red.dark.11}"
+        "bg": "color-mix(in oklab, {colors.critical} 20%, transparent)"
       }
     }
   },
   {
-    "variant": "subtle",
+    "variant": "outline",
     "intent": "positive",
     "css": {
-      "bg": "{colors.green.light.3}",
-      "color": "{colors.green.light.11}",
+      "bg": "color-mix(in oklab, {colors.positive} 10%, transparent)",
+      "color": "{colors.positive.text}",
+      "borderColor": "{colors.border.positive}",
       "_dark": {
-        "bg": "{colors.green.dark.3}",
-        "color": "{colors.green.dark.11}"
+        "bg": "color-mix(in oklab, {colors.positive} 20%, transparent)"
       }
     }
   },
   {
-    "variant": "subtle",
+    "variant": "outline",
     "intent": "caution",
     "css": {
-      "bg": "{colors.amber.light.3}",
-      "color": "{colors.amber.light.11}",
+      "bg": "color-mix(in oklab, {colors.caution} 10%, transparent)",
+      "color": "{colors.caution.text}",
+      "borderColor": "{colors.border.caution}",
       "_dark": {
-        "bg": "{colors.amber.dark.3}",
-        "color": "{colors.amber.dark.11}"
+        "bg": "color-mix(in oklab, {colors.caution} 20%, transparent)"
       }
     }
   },
   {
-    "variant": "subtle",
+    "variant": "outline",
     "intent": "info",
     "css": {
-      "bg": "{colors.blue.light.3}",
-      "color": "{colors.blue.light.11}",
+      "bg": "color-mix(in oklab, {colors.info} 10%, transparent)",
+      "color": "{colors.info.text}",
+      "borderColor": "{colors.border.info}",
       "_dark": {
-        "bg": "{colors.blue.dark.3}",
-        "color": "{colors.blue.dark.11}"
+        "bg": "color-mix(in oklab, {colors.info} 20%, transparent)"
       }
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "critical",
+    "css": {
+      "color": "{colors.critical.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "positive",
+    "css": {
+      "color": "{colors.positive.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "caution",
+    "css": {
+      "color": "{colors.caution.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "info",
+    "css": {
+      "color": "{colors.info.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "critical",
+    "css": {
+      "color": "{colors.critical.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "positive",
+    "css": {
+      "color": "{colors.positive.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "caution",
+    "css": {
+      "color": "{colors.caution.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "info",
+    "css": {
+      "color": "{colors.info.text}"
+    }
+  },
+  {
+    "variant": "default",
+    "intent": "critical",
+    "css": {
+      "bg": "{colors.critical.accent}",
+      "color": "{colors.foreground.inverse}"
+    }
+  },
+  {
+    "variant": "default",
+    "intent": "positive",
+    "css": {
+      "bg": "{colors.positive.accent}",
+      "color": "{colors.foreground.inverse}"
+    }
+  },
+  {
+    "variant": "default",
+    "intent": "caution",
+    "css": {
+      "bg": "{colors.caution.accent}",
+      "color": "{colors.foreground}"
+    }
+  },
+  {
+    "variant": "default",
+    "intent": "info",
+    "css": {
+      "bg": "{colors.info.accent}",
+      "color": "{colors.foreground.inverse}"
+    }
+  },
+  {
+    "variant": "outline",
+    "intent": "critical",
+    "css": {
+      "bg": "color-mix(in oklab, {colors.critical} 10%, transparent)",
+      "color": "{colors.critical.text}",
+      "borderColor": "{colors.border.critical}",
+      "_dark": {
+        "bg": "color-mix(in oklab, {colors.critical} 20%, transparent)"
+      }
+    }
+  },
+  {
+    "variant": "outline",
+    "intent": "positive",
+    "css": {
+      "bg": "color-mix(in oklab, {colors.positive} 10%, transparent)",
+      "color": "{colors.positive.text}",
+      "borderColor": "{colors.border.positive}",
+      "_dark": {
+        "bg": "color-mix(in oklab, {colors.positive} 20%, transparent)"
+      }
+    }
+  },
+  {
+    "variant": "outline",
+    "intent": "caution",
+    "css": {
+      "bg": "color-mix(in oklab, {colors.caution} 10%, transparent)",
+      "color": "{colors.caution.text}",
+      "borderColor": "{colors.border.caution}",
+      "_dark": {
+        "bg": "color-mix(in oklab, {colors.caution} 20%, transparent)"
+      }
+    }
+  },
+  {
+    "variant": "outline",
+    "intent": "info",
+    "css": {
+      "bg": "color-mix(in oklab, {colors.info} 10%, transparent)",
+      "color": "{colors.info.text}",
+      "borderColor": "{colors.border.info}",
+      "_dark": {
+        "bg": "color-mix(in oklab, {colors.info} 20%, transparent)"
+      }
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "critical",
+    "css": {
+      "color": "{colors.critical.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "positive",
+    "css": {
+      "color": "{colors.positive.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "caution",
+    "css": {
+      "color": "{colors.caution.text}"
+    }
+  },
+  {
+    "variant": "ghost",
+    "intent": "info",
+    "css": {
+      "color": "{colors.info.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "critical",
+    "css": {
+      "color": "{colors.critical.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "positive",
+    "css": {
+      "color": "{colors.positive.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "caution",
+    "css": {
+      "color": "{colors.caution.text}"
+    }
+  },
+  {
+    "variant": "link",
+    "intent": "info",
+    "css": {
+      "color": "{colors.info.text}"
     }
   }
 ])
 
 const badgeVariantMap = {
   "variant": [
-    "solid",
-    "subtle",
-    "outline"
+    "default",
+    "secondary",
+    "destructive",
+    "outline",
+    "ghost",
+    "link"
   ],
   "intent": [
-    "neutral",
-    "accent",
+    "primary",
     "critical",
     "positive",
     "caution",

@@ -8,6 +8,7 @@ import { info } from "./info";
 import { interactive } from "./interactive";
 import { positive } from "./positive";
 import { shadow } from "./shadow";
+import { sidebar } from "./sidebar";
 import { surface } from "./surface";
 
 export const colors = {
@@ -18,6 +19,7 @@ export const colors = {
 	interactive,
 	shadow,
 	focus,
+	sidebar,
 
 	critical,
 	positive,

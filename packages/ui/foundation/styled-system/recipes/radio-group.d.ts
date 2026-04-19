@@ -10,7 +10,7 @@ size: "sm" | "md" | "lg"
 /**
  * @default "primary"
  */
-intent: "primary" | "critical" | "positive"
+intent: "primary" | "critical" | "positive" | "caution" | "info"
 }
 
 type RadioGroupVariantMap = {
@@ -20,7 +20,7 @@ type RadioGroupVariantMap = {
 type RadioGroupSlot = "root" | "label" | "item" | "itemText" | "itemControl" | "indicator" | "root" | "label" | "item" | "itemText" | "itemControl" | "indicator"
 
 export type RadioGroupVariantProps = {
-  [key in keyof RadioGroupVariant]?: ConditionalValue<RadioGroupVariant[key]> | undefined
+  [key in keyof RadioGroupVariant]?: RadioGroupVariant[key] | undefined
 }
 
 export interface RadioGroupRecipe {
@@ -35,6 +35,6 @@ export interface RadioGroupRecipe {
 }
 
 /**
- * Radio group recipe for radio button groups
+ * Luma radio group — circular controls with intent-driven checked state
  */
 export declare const radioGroup: RadioGroupRecipe

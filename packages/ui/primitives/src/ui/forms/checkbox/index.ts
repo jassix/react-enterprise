@@ -1,5 +1,7 @@
 export { Checkbox } from "./checkbox";
 export type {
-    CheckboxControlProps, CheckboxIndicatorProps, CheckboxLabelProps, CheckboxRootProps
+  CheckboxControlProps,
+  CheckboxIndicatorProps,
+  CheckboxLabelProps,
+  CheckboxRootProps,
 } from "./checkbox";
-

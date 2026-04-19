@@ -3,10 +3,18 @@ import { css, cx } from "@lume/foundation/css";
 import { splitCssProps } from "@lume/foundation/jsx";
 import { checkbox } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
+
+type CheckboxVariantProps = {
+	size?: "sm" | "md" | "lg";
+	intent?: "primary" | "critical" | "positive" | "caution" | "info";
+};
 
 export interface CheckboxRootProps
-	extends Omit<HTMLStyledProps<"label">, keyof CheckboxPrimitive.RootBaseProps>,
+	extends
+		
+		PropsWithChildren,
+		Omit<HTMLStyledProps<"label">, keyof CheckboxPrimitive.RootBaseProps>,
 		CheckboxPrimitive.RootBaseProps {}
 
 const Root: FC<CheckboxRootProps> = (props) => {
@@ -22,11 +30,10 @@ const Root: FC<CheckboxRootProps> = (props) => {
 };
 
 export interface CheckboxControlProps
-	extends Omit<HTMLStyledProps<"div">, keyof CheckboxPrimitive.ControlBaseProps>,
-		CheckboxPrimitive.ControlBaseProps {
-	size?: "sm" | "md" | "lg";
-	intent?: "primary" | "critical" | "positive";
-}
+	extends
+		Omit<HTMLStyledProps<"div">, keyof CheckboxPrimitive.ControlBaseProps>,
+		CheckboxPrimitive.ControlBaseProps,
+		CheckboxVariantProps {}
 
 const Control: FC<CheckboxControlProps> = ({ size, intent, ...props }) => {
 	const [cssProps, restProps] = splitCssProps(props);
@@ -41,7 +48,8 @@ const Control: FC<CheckboxControlProps> = ({ size, intent, ...props }) => {
 };
 
 export interface CheckboxLabelProps
-	extends Omit<HTMLStyledProps<"span">, keyof CheckboxPrimitive.LabelBaseProps>,
+	extends
+		Omit<HTMLStyledProps<"span">, keyof CheckboxPrimitive.LabelBaseProps>,
 		CheckboxPrimitive.LabelBaseProps {}
 
 const Label: FC<CheckboxLabelProps> = (props) => {
@@ -57,7 +65,8 @@ const Label: FC<CheckboxLabelProps> = (props) => {
 };
 
 export interface CheckboxIndicatorProps
-	extends Omit<HTMLStyledProps<"div">, keyof CheckboxPrimitive.IndicatorBaseProps>,
+	extends
+		Omit<HTMLStyledProps<"div">, keyof CheckboxPrimitive.IndicatorBaseProps>,
 		CheckboxPrimitive.IndicatorBaseProps {}
 
 const Indicator: FC<CheckboxIndicatorProps> = (props) => {
@@ -78,4 +87,3 @@ export const Checkbox = Object.assign(Root, {
 	Label,
 	Indicator,
 });
-

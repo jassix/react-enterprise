@@ -35,6 +35,6 @@ export interface SkeletonRecipe {
 }
 
 /**
- * Skeleton loader for loading states
+ * Luma skeleton — loading shimmer placeholder
  */
 export declare const skeleton: SkeletonRecipe

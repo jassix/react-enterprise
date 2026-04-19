@@ -4,29 +4,26 @@ import type { DistributiveOmit, Pretty } from '../types/system-types';
 
 interface AlertVariant {
   /**
- * @default "info"
+ * @default "default"
  */
+variant: "default" | "destructive" | "subtle" | "solid" | "outline"
 status: "info" | "positive" | "caution" | "critical"
-/**
- * @default "subtle"
- */
-variant: "subtle" | "solid" | "outline"
 }
 
 type AlertVariantMap = {
   [key in keyof AlertVariant]: Array<AlertVariant[key]>
 }
 
-
+type AlertSlot = "root" | "title" | "description" | "action" | "root" | "title" | "description" | "action"
 
 export type AlertVariantProps = {
   [key in keyof AlertVariant]?: AlertVariant[key] | undefined
 }
 
 export interface AlertRecipe {
-  
+  __slot: AlertSlot
   __type: AlertVariantProps
-  (props?: AlertVariantProps): string
+  (props?: AlertVariantProps): Pretty<Record<AlertSlot, string>>
   raw: (props?: AlertVariantProps) => AlertVariantProps
   variantMap: AlertVariantMap
   variantKeys: Array<keyof AlertVariant>
@@ -35,6 +32,6 @@ export interface AlertRecipe {
 }
 
 /**
- * Alert recipe for notifications and messages
+ * Luma alert — rounded-2xl surface with icon / title / description / action slots
  */
 export declare const alert: AlertRecipe

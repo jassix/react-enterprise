@@ -6,30 +6,29 @@ import type { HTMLStyledProps } from "@lume/foundation/types";
 import type { ComponentProps, FC } from "react";
 
 export interface BadgeProps
-	extends Omit<HTMLStyledProps<"span">, keyof ComponentProps<"span">>,
+	extends
+		Omit<HTMLStyledProps<"span">, keyof ComponentProps<"span">>,
 		ComponentProps<"span"> {
-	variant?: "solid" | "subtle" | "outline";
-	intent?: "neutral" | "accent" | "critical" | "positive" | "caution" | "info";
+	variant?: "default" | "secondary" | "outline" | "ghost" | "destructive" | "link";
+	/**
+	 * Recolors the badge to a semantic accent. Applies to `default` (filled),
+	 * `outline`, and `ghost`. `secondary` and `destructive` ignore intent.
+	 */
+	intent?: "primary" | "critical" | "positive" | "caution" | "info";
 	size?: "sm" | "md" | "lg";
 }
 
-export const Badge: FC<BadgeProps> = (
-	({ variant, intent, size, ref, ...props }) => {
-		const [cssProps, restProps] = splitCssProps(props);
+export const Badge: FC<BadgeProps> = ({ variant, intent, size, ref, ...props }) => {
+	const [cssProps, restProps] = splitCssProps(props);
 
-		return (
-			<ark.span
-				ref={ref}
-				{...restProps}
-				className={cx(
-					badge({ variant, intent, size }),
-					css(cssProps),
-					props.className
-				)}
-			/>
-		);
-	}
-);
+	return (
+		<ark.span
+			ref={ref}
+			data-slot="badge"
+			{...restProps}
+			className={cx(badge({ variant, intent, size }), css(cssProps), props.className)}
+		/>
+	);
+};
 
 Badge.displayName = "Badge";
-

@@ -4,13 +4,10 @@ import type { DistributiveOmit, Pretty } from '../types/system-types';
 
 interface BadgeVariant {
   /**
- * @default "subtle"
+ * @default "default"
  */
-variant: "solid" | "subtle" | "outline"
-/**
- * @default "neutral"
- */
-intent: "neutral" | "accent" | "critical" | "positive" | "caution" | "info"
+variant: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link"
+intent: "primary" | "critical" | "positive" | "caution" | "info"
 /**
  * @default "md"
  */
@@ -39,6 +36,6 @@ export interface BadgeRecipe {
 }
 
 /**
- * Badge recipe for status indicators and labels
+ * Luma badge — 20px chip following Button's variant + intent system
  */
 export declare const badge: BadgeRecipe

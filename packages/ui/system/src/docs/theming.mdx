@@ -1,0 +1,72 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundation/Theming" />
+
+# Theming
+
+The UI kit ships a single look modeled on Shadcn Luma, with paired **light / dark** modes. There's no theme overlay or `data-panda-theme` attribute — the foundation's semantic tokens are the source of truth.
+
+## Light vs dark
+
+Toggle by adding `class="dark"` (or `class="light"`) to `<html>` — or to any ancestor of the target subtree. The Panda `_dark` condition resolves as `.dark &, &.dark, [data-theme='dark'] &`, so `data-theme="dark"` works the same way.
+
+```html
+<html class="dark">
+  <!-- everything inside resolves dark tokens -->
+</html>
+```
+
+```tsx
+useEffect(() => {
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  const apply = () =>
+    document.documentElement.classList.toggle("dark", mql.matches);
+  apply();
+  mql.addEventListener("change", apply);
+  return () => mql.removeEventListener("change", apply);
+}, []);
+```
+
+## How semantic tokens compile
+
+Each semantic token declares a base value and optional `_dark`:
+
+```ts
+// packages/ui/foundation/src/semantic/colors/surface.ts
+export const surface = {
+  canvas: {
+    value: "oklch(1 0 0)",
+    _dark: "oklch(0.145 0 0)",
+  },
+};
+```
+
+Panda compiles these into CSS custom properties scoped to `:root` (light) and `.dark` (dark):
+
+```css
+:root {
+  --colors-surface-canvas: oklch(1 0 0);
+}
+.dark {
+  --colors-surface-canvas: oklch(0.145 0 0);
+}
+```
+
+Recipes and `css(...)` calls reference `{colors.surface.canvas}`, which emits `var(--colors-surface-canvas)` and reflects whichever class the ancestor selects.
+
+## Customizing the palette
+
+Edit the semantic token files directly — they're the single source of truth:
+
+- `packages/ui/foundation/src/semantic/colors/background.ts`
+- `packages/ui/foundation/src/semantic/colors/foreground.ts`
+- `packages/ui/foundation/src/semantic/colors/surface.ts`
+- `packages/ui/foundation/src/semantic/colors/border.ts`
+- `packages/ui/foundation/src/semantic/colors/focus.ts`
+- `packages/ui/foundation/src/semantic/colors/interactive.ts`
+- `packages/ui/foundation/src/semantic/colors/critical.ts`
+- `packages/ui/foundation/src/semantic/colors/positive.ts`
+- `packages/ui/foundation/src/semantic/colors/caution.ts`
+- `packages/ui/foundation/src/semantic/colors/info.ts`
+
+After editing, re-run `bun panda codegen` (foundation) and `bun run codegen` (system) to regenerate the styled-system + storybook CSS.

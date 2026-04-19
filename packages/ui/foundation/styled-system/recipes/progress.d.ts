@@ -24,7 +24,7 @@ type ProgressVariantMap = {
 type ProgressSlot = "root" | "label" | "track" | "range" | "valueText" | "root" | "label" | "track" | "range" | "valueText"
 
 export type ProgressVariantProps = {
-  [key in keyof ProgressVariant]?: ConditionalValue<ProgressVariant[key]> | undefined
+  [key in keyof ProgressVariant]?: ProgressVariant[key] | undefined
 }
 
 export interface ProgressRecipe {
@@ -39,6 +39,6 @@ export interface ProgressRecipe {
 }
 
 /**
- * Progress recipe for progress indicators
+ * Luma progress — pill track + filled range with intent
  */
 export declare const progress: ProgressRecipe

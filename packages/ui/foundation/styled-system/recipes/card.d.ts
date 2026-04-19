@@ -4,13 +4,9 @@ import type { DistributiveOmit, Pretty } from '../types/system-types';
 
 interface CardVariant {
   /**
- * @default "elevated"
- */
-variant: "elevated" | "outline" | "filled" | "ghost"
-/**
  * @default "md"
  */
-size: "sm" | "md" | "lg" | "xl"
+size: "sm" | "md"
 interactive: boolean
 }
 
@@ -18,16 +14,16 @@ type CardVariantMap = {
   [key in keyof CardVariant]: Array<CardVariant[key]>
 }
 
-
+type CardSlot = "root" | "header" | "title" | "description" | "action" | "content" | "footer" | "root" | "header" | "title" | "description" | "action" | "content" | "footer"
 
 export type CardVariantProps = {
   [key in keyof CardVariant]?: ConditionalValue<CardVariant[key]> | undefined
 }
 
 export interface CardRecipe {
-  
+  __slot: CardSlot
   __type: CardVariantProps
-  (props?: CardVariantProps): string
+  (props?: CardVariantProps): Pretty<Record<CardSlot, string>>
   raw: (props?: CardVariantProps) => CardVariantProps
   variantMap: CardVariantMap
   variantKeys: Array<keyof CardVariant>
@@ -36,6 +32,6 @@ export interface CardRecipe {
 }
 
 /**
- * Card container recipe with elevation variants
+ * Luma card — rounded-4xl elevated surface with composable slots
  */
 export declare const card: CardRecipe

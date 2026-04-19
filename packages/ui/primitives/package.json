@@ -8,12 +8,61 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@lume/foundation": "workspace:",
-		"@ark-ui/react": "catalog:ui"
+		"@ark-ui/react": "catalog:ui",
+		"@iconify/react": "catalog:icons",
+		"@lume/foundation": "workspace:"
 	},
 	"devDependencies": {
-		"@types/bun": "catalog:"
+		"@size-limit/preset-small-lib": "^11.1.0",
+		"@storybook/react-vite": "catalog:storybook",
+		"@types/bun": "catalog:",
+		"storybook": "catalog:storybook"
 	},
+	"size-limit": [
+		{
+			"name": "Button",
+			"path": "src/ui/buttons/button/button.tsx",
+			"limit": "4 kB",
+			"ignore": [
+				"@lume/foundation",
+				"@lume/foundation/css",
+				"@lume/foundation/jsx",
+				"@lume/foundation/recipes",
+				"@lume/foundation/types",
+				"@ark-ui/react",
+				"react"
+			]
+		},
+		{
+			"name": "Dialog",
+			"path": "src/ui/overlays/dialog/dialog.tsx",
+			"limit": "6 kB",
+			"ignore": [
+				"@lume/foundation",
+				"@lume/foundation/css",
+				"@lume/foundation/jsx",
+				"@lume/foundation/recipes",
+				"@lume/foundation/types",
+				"@ark-ui/react",
+				"@ark-ui/react/dialog",
+				"react"
+			]
+		},
+		{
+			"name": "All primitives (barrel)",
+			"path": "src/index.ts",
+			"limit": "60 kB",
+			"ignore": [
+				"@lume/foundation",
+				"@lume/foundation/css",
+				"@lume/foundation/jsx",
+				"@lume/foundation/recipes",
+				"@lume/foundation/types",
+				"@ark-ui/react",
+				"react"
+			]
+		}
+	],
 	"peerDependencies": {
 		"typescript": "catalog:",
 		"react": "catalog:react",

@@ -1,5 +1,6 @@
 import { css } from "~/system/css";
 
 css({
-	textStyle: "body.test"
+  textStyle: "body.md",
+  color: "blue.dark.12",
 });

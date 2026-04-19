@@ -35,6 +35,6 @@ export interface AvatarRecipe {
 }
 
 /**
- * Avatar recipe for user profile images
+ * Luma avatar — circular profile container
  */
 export declare const avatar: AvatarRecipe

@@ -4,17 +4,15 @@ import type { DistributiveOmit, Pretty } from '../types/system-types';
 
 interface ButtonVariant {
   /**
- * @default "solid"
+ * @default "default"
  */
-variant: "solid" | "outline" | "ghost" | "link"
-/**
- * @default "primary"
- */
+variant: "default" | "secondary" | "outline" | "ghost" | "destructive" | "link"
 intent: "primary" | "critical" | "positive" | "caution" | "info"
 /**
  * @default "md"
  */
 size: "xs" | "sm" | "md" | "lg" | "xl"
+icon: boolean
 stretched: boolean
 }
 
@@ -40,6 +38,6 @@ export interface ButtonRecipe {
 }
 
 /**
- * Button recipe with multiple variants and sizes
+ * Luma button — variants: default/secondary/outline/ghost/destructive/link
  */
 export declare const button: ButtonRecipe

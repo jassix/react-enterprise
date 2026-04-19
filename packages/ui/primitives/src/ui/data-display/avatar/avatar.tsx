@@ -7,30 +7,31 @@ import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
 
 export interface AvatarProps
-	extends Omit<HTMLStyledProps<"div">, keyof ComponentPropsWithoutRef<"div">>,
-		ComponentPropsWithoutRef<"div"> {
-	size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-	shape?: "circle" | "square" | "rounded";
-	src?: string;
-	alt?: string;
-	fallback?: string;
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentPropsWithoutRef<"div">>,
+    ComponentPropsWithoutRef<"div"> {
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  shape?: "circle" | "square" | "rounded";
+  src?: string;
+  alt?: string;
+  fallback?: string;
 }
 
 export const Avatar = forwardRef<ElementRef<"div">, AvatarProps>(
-	({ size, shape, src, alt, fallback, children, ...props }, ref) => {
-		const [cssProps, restProps] = splitCssProps(props);
+  ({ size, shape, src, alt, fallback, children, ...props }, ref) => {
+    const [cssProps, restProps] = splitCssProps(props);
 
-		return (
-			<ark.div
-				ref={ref}
-				{...restProps}
-				className={cx(avatar({ size, shape }), css(cssProps), props.className)}
-			>
-				{src ? <img src={src} alt={alt || ""} /> : children || fallback}
-			</ark.div>
-		);
-	}
+    return (
+      <ark.div
+        ref={ref}
+        data-slot="avatar"
+        {...restProps}
+        className={cx(avatar({ size, shape }), css(cssProps), props.className)}
+      >
+        {src ? <img src={src} alt={alt || ""} /> : children || fallback}
+      </ark.div>
+    );
+  },
 );
 
 Avatar.displayName = "Avatar";
-

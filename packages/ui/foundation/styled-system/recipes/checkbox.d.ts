@@ -10,7 +10,7 @@ size: "sm" | "md" | "lg"
 /**
  * @default "primary"
  */
-intent: "primary" | "critical" | "positive"
+intent: "primary" | "critical" | "positive" | "caution" | "info"
 }
 
 type CheckboxVariantMap = {
@@ -20,7 +20,7 @@ type CheckboxVariantMap = {
 
 
 export type CheckboxVariantProps = {
-  [key in keyof CheckboxVariant]?: ConditionalValue<CheckboxVariant[key]> | undefined
+  [key in keyof CheckboxVariant]?: CheckboxVariant[key] | undefined
 }
 
 export interface CheckboxRecipe {
@@ -35,6 +35,6 @@ export interface CheckboxRecipe {
 }
 
 /**
- * Checkbox recipe for form controls
+ * Luma checkbox — control chip with intent-driven checked state
  */
 export declare const checkbox: CheckboxRecipe

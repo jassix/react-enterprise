@@ -1,0 +1,24 @@
+{
+	"name": "@lume/blocks",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"types": "./src/index.ts"
+		}
+	},
+	"type": "module",
+	"dependencies": {
+		"@lume/foundation": "workspace:",
+		"@lume/primitives": "workspace:",
+		"@ark-ui/react": "catalog:ui"
+	},
+	"devDependencies": {
+		"@repo/tsconfig": "workspace:",
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:",
+		"react": "catalog:react",
+		"@types/react": "catalog:react"
+	}
+}

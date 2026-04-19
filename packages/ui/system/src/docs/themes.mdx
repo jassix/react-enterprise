@@ -1,0 +1,40 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundation/Themes" />
+
+# Theme
+
+The UI kit ships **one** look — modeled on Shadcn Luma. There's no Tahoe/Luma toggle: the foundation's semantic tokens **are** the luma palette by default.
+
+## Palette
+
+- **Hue**: pure neutral canvas (chroma 0) — `--background` resolves to `oklch(1 0 0)` in light, `oklch(0.145 0 0)` in dark.
+- **Accent (primary)**: luma's blue, `oklch(0.488 0.243 264.376)` light / `oklch(0.424 0.199 265.638)` dark.
+- **Borders**: 1px hairlines at `border.hairline` (`oklch(0.95 0 0)`); `border.DEFAULT` for control outlines (`oklch(0.922 0 0)`); dark mode uses translucent white (`oklch(1 0 0 / 10%)`).
+- **Focus ring**: neutral mid-gray (`oklch(0.708 0 0)` / `oklch(0.556 0 0)`) — luma keeps the ring color-agnostic so the primary blue doesn't double-apply.
+- **Radii**: snapped to a 4px grid — controls 4–12px, surfaces 16–24px, large panels 28px (`radii.4xl`).
+- **Shadows**: Tailwind-style multi-stop drops on elevated surfaces (`0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)`) plus a 5%-foreground outline ring for dialog/popover/menu surfaces.
+- **Typography**: Figtree Variable (`{fonts.body}` / `{fonts.heading}`).
+
+## Light vs dark
+
+Toggle by adding `class="dark"` (or `class="light"`) to `<html>` — or to any ancestor of the target subtree. The Panda `_dark` condition resolves as `.dark &, &.dark, [data-theme='dark'] &`, so `data-theme="dark"` works the same way.
+
+```html
+<html class="dark">
+  <!-- everything inside resolves dark tokens -->
+</html>
+```
+
+```tsx
+useEffect(() => {
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  const apply = () =>
+    document.documentElement.classList.toggle("dark", mql.matches);
+  apply();
+  mql.addEventListener("change", apply);
+  return () => mql.removeEventListener("change", apply);
+}, []);
+```
+
+The Storybook toolbar's **Theme** toggle flips between `light` and `dark`.

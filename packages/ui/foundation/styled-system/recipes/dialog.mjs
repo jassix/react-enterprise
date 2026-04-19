@@ -21,6 +21,14 @@ const dialogSlotNames = [
     "dialog__content"
   ],
   [
+    "header",
+    "dialog__header"
+  ],
+  [
+    "footer",
+    "dialog__footer"
+  ],
+  [
     "title",
     "dialog__title"
   ],
@@ -43,6 +51,14 @@ const dialogSlotNames = [
   [
     "content",
     "dialog__content"
+  ],
+  [
+    "header",
+    "dialog__header"
+  ],
+  [
+    "footer",
+    "dialog__footer"
   ],
   [
     "title",

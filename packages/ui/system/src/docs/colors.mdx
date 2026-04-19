@@ -1,0 +1,27 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundation/Colors" />
+
+# Colors
+
+The Lume palette is a 12-step Radix-style scale across 23 base hues, each with
+paired light/dark variants. Semantic roles (interactive, critical, positive,
+caution, info, surface, border, text) map to specific steps so components stay
+consistent while the underlying ramp can be re-skinned.
+
+## Steps
+
+| Range | Role                                 |
+| ----- | ------------------------------------ |
+| 1–2   | Surface backgrounds                  |
+| 3–5   | Interactive backgrounds (hover/pressed) |
+| 6–8   | Borders, dividers                    |
+| 9–10  | Solid backgrounds (the "brand" step) |
+| 11–12 | Foreground text                      |
+
+## Prefer semantic tokens
+
+Use `colors.interactive.base`, `colors.critical.DEFAULT`, `colors.surface.subtle`,
+etc. Semantic tokens carry the `_dark` condition automatically; raw palette
+colors do not. Reach for a raw palette step only when authoring a new semantic
+token in `packages/ui/foundation/src/semantic/colors/`.

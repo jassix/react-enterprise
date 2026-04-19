@@ -10,7 +10,7 @@ type MenuVariantMap = {
   [key in keyof MenuVariant]: Array<MenuVariant[key]>
 }
 
-type MenuSlot = "trigger" | "positioner" | "content" | "item" | "itemText" | "itemIndicator" | "optionItem" | "separator" | "itemGroup" | "itemGroupLabel" | "trigger" | "positioner" | "content" | "item" | "itemText" | "itemIndicator" | "optionItem" | "separator" | "itemGroup" | "itemGroupLabel"
+type MenuSlot = "trigger" | "positioner" | "content" | "item" | "itemText" | "itemIndicator" | "optionItem" | "separator" | "itemGroup" | "itemGroupLabel" | "shortcut" | "trigger" | "positioner" | "content" | "item" | "itemText" | "itemIndicator" | "optionItem" | "separator" | "itemGroup" | "itemGroupLabel" | "shortcut"
 
 export type MenuVariantProps = {
   [key in keyof MenuVariant]?: ConditionalValue<MenuVariant[key]> | undefined
@@ -28,6 +28,6 @@ export interface MenuRecipe {
 }
 
 /**
- * Menu recipe for dropdown menus
+ * Luma menu — dropdown with item / optionItem / shortcut / separator
  */
 export declare const menu: MenuRecipe

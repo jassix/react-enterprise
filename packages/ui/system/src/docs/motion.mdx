@@ -1,0 +1,53 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundation/Motion" />
+
+# Motion
+
+Motion follows [Emil Kowalski's](https://animations.dev/) design-engineering philosophy: UI animations under 300ms, `ease-out` for everything that enters or responds to input, no `ease-in` on UI.
+
+## Easings
+
+| Token | Curve | Use for |
+| --- | --- | --- |
+| `easings.easeOut` | `cubic-bezier(0.23, 1, 0.32, 1)` | Entrances, button press, hover — anything user-initiated |
+| `easings.easeInOut` | `cubic-bezier(0.77, 0, 0.175, 1)` | On-screen movement (indicator, tab underline) |
+| `easings.drawer` | `cubic-bezier(0.32, 0.72, 0, 1)` | Sheets, drawers — iOS-style |
+| `easings.spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Playful micro-interactions, bounce ≤ 0.3 |
+| `easings.linear` | `linear` | Constant motion (marquees, progress fills) |
+
+## Durations
+
+| Token | ms | Use for |
+| --- | --- | --- |
+| `durations.instant` | 75 | Instant state flips — avoid where possible |
+| `durations.tooltip` | 125 | Tooltips, small popovers |
+| `durations.fast` | 150 | Hover, color transitions |
+| `durations.press` | 160 | Button `:active` feedback |
+| `durations.normal` | 200 | Dropdowns, selects, default |
+| `durations.surface` | 250 | Dialogs, modals entrance |
+| `durations.slow` | 400 | Sheets, drawers, large surface slides |
+| `durations.slower` | 700 | Avoid except for demos |
+
+## Keyframes
+
+Panda compiles these once into the generated stylesheet. Reference by name:
+
+```ts
+_open: { animation: "scaleIn {durations.normal} {easings.easeOut}" }
+```
+
+- `scaleIn` / `scaleOut` — origin-aware entrance for popovers, menus, tooltips
+- `fadeIn` / `fadeOut`
+- `slideInFromBottom/Top/Left/Right` and `slideOutTo*` — for drawers, sheets, toasts
+- `collapsibleDown` / `collapsibleUp` — animates `height: 0 ↔ var(--height)` for accordion/collapsible
+- `spin`, `pulse`, `ping`, `bounce`, `shake`, `wiggle` — utility
+- `skeleton-pulse` — horizontal sweep for skeleton placeholders
+
+## Press feedback
+
+Every pressable primitive (Button, Toggle, Checkbox, Switch) animates `transform: scale(0.97)` (0.92 for small control fills, 0.95 for close glyphs) on `:active` with a 160ms ease-out transition. Reduced motion branches to color-only.
+
+## Reduced motion
+
+Every open/close recipe includes a `@media (prefers-reduced-motion: reduce)` block that swaps scale-and-slide for a pure `fadeIn/Out` so the interface stays legible without movement.

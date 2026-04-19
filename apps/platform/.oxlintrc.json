@@ -1,0 +1,6 @@
+{
+  "extends": ["./node_modules/@repo/oxlint/react.oxlintrc.json"],
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }
+}

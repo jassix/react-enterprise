@@ -6,7 +6,72 @@ const progressDefaultVariants = {
   "intent": "primary",
   "variant": "linear"
 }
-const progressCompoundVariants = []
+const progressCompoundVariants = [
+  {
+    "intent": "critical",
+    "css": {
+      "range": {
+        "bg": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "range": {
+        "bg": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "range": {
+        "bg": "{colors.caution.accent}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "range": {
+        "bg": "{colors.info.accent}"
+      }
+    }
+  },
+  {
+    "intent": "critical",
+    "css": {
+      "range": {
+        "bg": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "range": {
+        "bg": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "range": {
+        "bg": "{colors.caution.accent}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "range": {
+        "bg": "{colors.info.accent}"
+      }
+    }
+  }
+]
 
 const progressSlotNames = [
   [

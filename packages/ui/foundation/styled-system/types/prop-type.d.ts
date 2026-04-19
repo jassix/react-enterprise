@@ -83,6 +83,7 @@ export interface UtilityValues {
 	textEmphasisColor: Tokens["colors"];
 	textIndent: Tokens["spacing"];
 	textShadowColor: Tokens["colors"];
+	WebkitTextFillColor: Tokens["colors"];
 	textWrap: "wrap" | "balance" | "nowrap";
 	truncate: boolean;
 	lineClamp: number;
@@ -129,8 +130,9 @@ export interface UtilityValues {
 	transitionTimingFunction: Tokens["easings"];
 	transitionDelay: Tokens["durations"];
 	transitionDuration: Tokens["durations"];
-	transition: "all" | "common" | "background" | "colors" | "opacity" | "shadow" | "transform";
-	animationName: "fadeIn" | "fadeOut" | "slideInFromTop" | "slideInFromBottom" | "slideInFromLeft" | "slideInFromRight" | "slideOutToTop" | "slideOutToBottom" | "slideOutToLeft" | "slideOutToRight" | "scaleIn" | "scaleOut" | "spin" | "pulse" | "ping" | "bounce" | "shake" | "wiggle" | "skeleton-pulse";
+	transitionProperty: "common" | "colors" | "size" | "position" | "background";
+	transition: "all" | "common" | "size" | "position" | "background" | "colors" | "opacity" | "shadow" | "transform";
+	animationName: "fadeIn" | "fadeOut" | "slideInFromTop" | "slideInFromBottom" | "slideInFromLeft" | "slideInFromRight" | "slideOutToTop" | "slideOutToBottom" | "slideOutToLeft" | "slideOutToRight" | "scaleIn" | "scaleOut" | "spin" | "pulse" | "ping" | "bounce" | "shake" | "wiggle" | "collapsibleDown" | "collapsibleUp" | "skeleton-pulse";
 	animationTimingFunction: Tokens["easings"];
 	animationDuration: Tokens["durations"];
 	animationDelay: Tokens["durations"];
@@ -182,7 +184,7 @@ export interface UtilityValues {
 	srOnly: boolean;
 	debug: boolean;
 	containerName: CssProperties["containerName"];
-	colorPalette: "accent" | "accent.dark" | "accent.light" | "neutral" | "neutral.dark" | "neutral.light" | "gray" | "gray.dark" | "gray.light" | "tomato" | "tomato.dark" | "tomato.light" | "red" | "red.dark" | "red.light" | "blue" | "blue.dark" | "blue.light" | "green" | "green.dark" | "green.light" | "purple" | "purple.dark" | "purple.light" | "orange" | "orange.dark" | "orange.light" | "yellow" | "yellow.dark" | "yellow.light" | "pink" | "pink.dark" | "pink.light" | "cyan" | "cyan.dark" | "cyan.light" | "indigo" | "indigo.dark" | "indigo.light" | "violet" | "violet.dark" | "violet.light" | "amber" | "amber.dark" | "amber.light" | "mauve" | "mauve.dark" | "mauve.light" | "slate" | "slate.dark" | "slate.light" | "teal" | "teal.dark" | "teal.light" | "lime" | "lime.dark" | "lime.light" | "sky" | "sky.dark" | "sky.light" | "jade" | "jade.dark" | "jade.light" | "mint" | "mint.dark" | "mint.light" | "crimson" | "crimson.dark" | "crimson.light" | "background" | "foreground" | "surface" | "border" | "interactive" | "shadow" | "focus" | "critical" | "positive" | "caution" | "info";
+	colorPalette: "accent" | "accent.dark" | "accent.light" | "neutral" | "neutral.dark" | "neutral.light" | "gray" | "gray.dark" | "gray.light" | "tomato" | "tomato.dark" | "tomato.light" | "red" | "red.dark" | "red.light" | "blue" | "blue.dark" | "blue.light" | "green" | "green.dark" | "green.light" | "purple" | "purple.dark" | "purple.light" | "orange" | "orange.dark" | "orange.light" | "yellow" | "yellow.dark" | "yellow.light" | "pink" | "pink.dark" | "pink.light" | "cyan" | "cyan.dark" | "cyan.light" | "indigo" | "indigo.dark" | "indigo.light" | "violet" | "violet.dark" | "violet.light" | "amber" | "amber.dark" | "amber.light" | "mauve" | "mauve.dark" | "mauve.light" | "slate" | "slate.dark" | "slate.light" | "teal" | "teal.dark" | "teal.light" | "lime" | "lime.dark" | "lime.light" | "sky" | "sky.dark" | "sky.light" | "jade" | "jade.dark" | "jade.light" | "mint" | "mint.dark" | "mint.light" | "crimson" | "crimson.dark" | "crimson.light" | "background" | "foreground" | "surface" | "border" | "interactive" | "shadow" | "focus" | "sidebar" | "critical" | "positive" | "caution" | "info";
 	textStyle: "display.2xl" | "display.xl" | "display.lg" | "display.md" | "display.sm" | "display.xs" | "heading.h1" | "heading.h2" | "heading.h3" | "heading.h4" | "heading.h5" | "heading.h6" | "body.xl" | "body.lg" | "body.md" | "body.sm" | "body.xs" | "label.lg" | "label.md" | "label.sm" | "label.xs" | "caption.sm" | "caption.xs" | "code.inline" | "code.block" | "overline";
 }
 

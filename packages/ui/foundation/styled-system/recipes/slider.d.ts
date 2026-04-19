@@ -10,7 +10,7 @@ size: "sm" | "md" | "lg"
 /**
  * @default "primary"
  */
-intent: "primary" | "critical" | "positive"
+intent: "primary" | "critical" | "positive" | "caution" | "info"
 }
 
 type SliderVariantMap = {
@@ -20,7 +20,7 @@ type SliderVariantMap = {
 type SliderSlot = "root" | "label" | "control" | "track" | "range" | "thumb" | "valueText" | "markerGroup" | "marker" | "root" | "label" | "control" | "track" | "range" | "thumb" | "valueText" | "markerGroup" | "marker"
 
 export type SliderVariantProps = {
-  [key in keyof SliderVariant]?: ConditionalValue<SliderVariant[key]> | undefined
+  [key in keyof SliderVariant]?: SliderVariant[key] | undefined
 }
 
 export interface SliderRecipe {
@@ -35,6 +35,6 @@ export interface SliderRecipe {
 }
 
 /**
- * Slider recipe for range inputs
+ * Luma slider — pill track + circular thumb with intent
  */
 export declare const slider: SliderRecipe

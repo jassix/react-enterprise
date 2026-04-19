@@ -1,26 +1,34 @@
+/**
+ * Pure neutral text scale — matches luma/shadcn `--foreground`,
+ * `--muted-foreground`, `--accent-foreground`. `inverse` is the off-white used
+ * on top of the blue primary fill (`--primary-foreground`).
+ */
 export const foreground = {
 	DEFAULT: {
-		value: "{colors.mauve.light.12}",
-		_dark: "{colors.mauve.dark.12}",
+		value: "oklch(0.145 0 0)",
+		_dark: "oklch(0.985 0 0)",
 	},
+	/** `--accent-foreground` — the contrast color on muted/accent surfaces. */
 	secondary: {
-		value: "{colors.mauve.light.11}",
-		_dark: "{colors.mauve.dark.11}",
+		value: "oklch(0.205 0 0)",
+		_dark: "oklch(0.985 0 0)",
 	},
+	/** `--muted-foreground` — placeholders, captions, subdued meta. */
 	tertiary: {
-		value: "{colors.mauve.light.10}",
-		_dark: "{colors.mauve.dark.10}",
+		value: "oklch(0.556 0 0)",
+		_dark: "oklch(0.708 0 0)",
 	},
 	disabled: {
-		value: "{colors.mauve.light.8}",
-		_dark: "{colors.mauve.dark.8}",
+		value: "oklch(0.708 0 0)",
+		_dark: "oklch(0.42 0 0)",
 	},
 	link: {
-		value: "{colors.accent.light.11}",
-		_dark: "{colors.accent.dark.11}",
+		value: "oklch(0.488 0.243 264.376)",
+		_dark: "oklch(0.488 0.243 264.376)",
 	},
+	/** `--primary-foreground` — text on the blue primary fill. */
 	inverse: {
-		value: "{colors.mauve.dark.12}",
-		_dark: "{colors.mauve.light.12}",
+		value: "oklch(0.97 0.014 254.604)",
+		_dark: "oklch(0.97 0.014 254.604)",
 	},
 } as const;

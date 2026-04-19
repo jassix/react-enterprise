@@ -28,6 +28,6 @@ export interface AccordionRecipe {
 }
 
 /**
- * Accordion recipe for disclosure components
+ * Luma accordion — disclosure with rotating chevron
  */
 export declare const accordion: AccordionRecipe

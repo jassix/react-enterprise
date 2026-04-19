@@ -5,7 +5,96 @@ const sliderDefaultVariants = {
   "size": "md",
   "intent": "primary"
 }
-const sliderCompoundVariants = []
+const sliderCompoundVariants = [
+  {
+    "intent": "critical",
+    "css": {
+      "range": {
+        "bg": "{colors.critical.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "range": {
+        "bg": "{colors.positive.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "range": {
+        "bg": "{colors.caution.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.caution.accent}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "range": {
+        "bg": "{colors.info.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.info.accent}"
+      }
+    }
+  },
+  {
+    "intent": "critical",
+    "css": {
+      "range": {
+        "bg": "{colors.critical.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.critical.accent}"
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "range": {
+        "bg": "{colors.positive.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.positive.accent}"
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "range": {
+        "bg": "{colors.caution.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.caution.accent}"
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "range": {
+        "bg": "{colors.info.accent}"
+      },
+      "thumb": {
+        "borderColor": "{colors.info.accent}"
+      }
+    }
+  }
+]
 
 const sliderSlotNames = [
   [
@@ -108,7 +197,9 @@ export const slider = /* @__PURE__ */ Object.assign(sliderFn, {
   "intent": [
     "primary",
     "critical",
-    "positive"
+    "positive",
+    "caution",
+    "info"
   ]
 },
   splitVariantProps(props) {

@@ -1,91 +1,71 @@
 import { defineSlotRecipe } from "@pandacss/dev";
 
+/**
+ * Progress — luma signature: pill track in surface.muted; range fills with
+ * `interactive.base`. Intent compounds re-color the range with `.accent`.
+ */
 export const progressRecipe = defineSlotRecipe({
 	className: "progress",
-	description: "Progress recipe for progress indicators",
+	description: "Luma progress — pill track + filled range with intent",
+	jsx: ["Progress"],
 	slots: ["root", "label", "track", "range", "valueText"],
 	base: {
 		root: {
 			display: "flex",
-			flexDirection: "column",
-			gap: "{spacing.sm}",
+			flexWrap: "wrap",
+			gap: "{spacing.md}", // 12 — luma `gap-3`
 			width: "100%",
 		},
 
 		label: {
 			fontSize: "{fontSizes.sm}",
 			fontWeight: "{fontWeights.medium}",
-			color: "{colors.foreground.DEFAULT}",
+			color: "{colors.foreground}",
 		},
 
 		track: {
 			position: "relative",
+			display: "flex",
+			alignItems: "center",
 			width: "100%",
-			height: "{spacing.sm}",
+			height: "0.75rem", // 12 — luma `h-3`
 			bg: "{colors.surface.muted}",
 			borderRadius: "{radii.full}",
-			overflow: "hidden",
+			overflowX: "hidden",
 		},
 
 		range: {
 			height: "100%",
 			bg: "{colors.interactive.base}",
 			borderRadius: "{radii.full}",
-			transition: "width {durations.normal} {easings.easeInOut}",
+			transition: "width {durations.normal} {easings.easeOut}",
 
 			"&[data-state='indeterminate']": {
-				animation: "progressAnimation 1.5s {easings.easeInOut} infinite",
+				animation: "skeleton-pulse 1.5s ease-in-out infinite",
 			},
 		},
 
 		valueText: {
-			fontSize: "{fontSizes.xs}",
-			fontWeight: "{fontWeights.medium}",
-			color: "{colors.foreground.secondary}",
-			textAlign: "right",
+			marginInlineStart: "auto", // luma `ml-auto`
+			fontSize: "{fontSizes.sm}",
+			fontVariantNumeric: "tabular-nums", // luma `tabular-nums`
+			color: "{colors.foreground.tertiary}",
+			textAlign: "end",
 		},
 	},
 	variants: {
 		size: {
-			xs: {
-				track: {
-					height: "2px",
-				},
-			},
-			sm: {
-				track: {
-					height: "{spacing.xs}",
-				},
-			},
-			md: {},
-			lg: {
-				track: {
-					height: "{spacing.md}",
-				},
-			},
+			xs: { track: { height: "0.25rem" } }, // 4
+			sm: { track: { height: "0.5rem" } }, // 8
+			md: {}, // 12 — luma default `h-3`
+			lg: { track: { height: "1rem" } }, // 16
 		},
 		intent: {
 			primary: {},
-			critical: {
-				range: {
-					bg: "{colors.critical.DEFAULT}",
-				},
-			},
-			positive: {
-				range: {
-					bg: "{colors.positive.DEFAULT}",
-				},
-			},
-			caution: {
-				range: {
-					bg: "{colors.caution.DEFAULT}",
-				},
-			},
-			info: {
-				range: {
-					bg: "{colors.info.DEFAULT}",
-				},
-			},
+			critical: {},
+			positive: {},
+			caution: {},
+			info: {},
 		},
 		variant: {
 			linear: {},
@@ -98,10 +78,11 @@ export const progressRecipe = defineSlotRecipe({
 			},
 		},
 	},
-	defaultVariants: {
-		size: "md",
-		intent: "primary",
-		variant: "linear",
-	},
+	defaultVariants: { size: "md", intent: "primary", variant: "linear" },
+	compoundVariants: [
+		{ intent: "critical", css: { range: { bg: "{colors.critical.accent}" } } },
+		{ intent: "positive", css: { range: { bg: "{colors.positive.accent}" } } },
+		{ intent: "caution", css: { range: { bg: "{colors.caution.accent}" } } },
+		{ intent: "info", css: { range: { bg: "{colors.info.accent}" } } },
+	],
 });
-

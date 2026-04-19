@@ -1,0 +1,13 @@
+{
+  "extends": "@repo/tsconfig/react.tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/app/*": ["./src/app/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "~/system/*": ["./styled-system/*"]
+    }
+  },
+  "include": ["src/**/*", "styled-system/**/*"]
+}

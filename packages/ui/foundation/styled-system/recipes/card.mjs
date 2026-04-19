@@ -1,43 +1,98 @@
-import { memo, splitProps } from '../helpers.mjs';
-import { createRecipe, mergeRecipes } from './create-recipe.mjs';
+import { compact, getSlotCompoundVariant, memo, splitProps } from '../helpers.mjs';
+import { createRecipe } from './create-recipe.mjs';
 
-const cardFn = /* @__PURE__ */ createRecipe('card', {
-  "variant": "elevated",
+const cardDefaultVariants = {
   "size": "md"
-}, [])
+}
+const cardCompoundVariants = []
 
-const cardVariantMap = {
-  "variant": [
-    "elevated",
-    "outline",
-    "filled",
-    "ghost"
+const cardSlotNames = [
+  [
+    "root",
+    "card__root"
   ],
+  [
+    "header",
+    "card__header"
+  ],
+  [
+    "title",
+    "card__title"
+  ],
+  [
+    "description",
+    "card__description"
+  ],
+  [
+    "action",
+    "card__action"
+  ],
+  [
+    "content",
+    "card__content"
+  ],
+  [
+    "footer",
+    "card__footer"
+  ],
+  [
+    "root",
+    "card__root"
+  ],
+  [
+    "header",
+    "card__header"
+  ],
+  [
+    "title",
+    "card__title"
+  ],
+  [
+    "description",
+    "card__description"
+  ],
+  [
+    "action",
+    "card__action"
+  ],
+  [
+    "content",
+    "card__content"
+  ],
+  [
+    "footer",
+    "card__footer"
+  ]
+]
+const cardSlotFns = /* @__PURE__ */ cardSlotNames.map(([slotName, slotKey]) => [slotName, createRecipe(slotKey, cardDefaultVariants, getSlotCompoundVariant(cardCompoundVariants, slotName))])
+
+const cardFn = memo((props = {}) => {
+  return Object.fromEntries(cardSlotFns.map(([slotName, slotFn]) => [slotName, slotFn.recipeFn(props)]))
+})
+
+const cardVariantKeys = [
+  "size",
+  "interactive"
+]
+const getVariantProps = (variants) => ({ ...cardDefaultVariants, ...compact(variants) })
+
+export const card = /* @__PURE__ */ Object.assign(cardFn, {
+  __recipe__: false,
+  __name__: 'card',
+  raw: (props) => props,
+  classNameMap: {},
+  variantKeys: cardVariantKeys,
+  variantMap: {
   "size": [
     "sm",
-    "md",
-    "lg",
-    "xl"
+    "md"
   ],
   "interactive": [
     "true"
   ]
-}
-
-const cardVariantKeys = Object.keys(cardVariantMap)
-
-export const card = /* @__PURE__ */ Object.assign(memo(cardFn.recipeFn), {
-  __recipe__: true,
-  __name__: 'card',
-  __getCompoundVariantCss__: cardFn.__getCompoundVariantCss__,
-  raw: (props) => props,
-  variantKeys: cardVariantKeys,
-  variantMap: cardVariantMap,
-  merge(recipe) {
-    return mergeRecipes(this, recipe)
-  },
+},
   splitVariantProps(props) {
     return splitProps(props, cardVariantKeys)
   },
-  getVariantProps: cardFn.getVariantProps,
+  getVariantProps
 })

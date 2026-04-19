@@ -46,6 +46,10 @@ const menuSlotNames = [
     "menu__itemGroupLabel"
   ],
   [
+    "shortcut",
+    "menu__shortcut"
+  ],
+  [
     "trigger",
     "menu__trigger"
   ],
@@ -84,6 +88,10 @@ const menuSlotNames = [
   [
     "itemGroupLabel",
     "menu__itemGroupLabel"
+  ],
+  [
+    "shortcut",
+    "menu__shortcut"
   ]
 ]
 const menuSlotFns = /* @__PURE__ */ menuSlotNames.map(([slotName, slotKey]) => [slotName, createRecipe(slotKey, menuDefaultVariants, getSlotCompoundVariant(menuCompoundVariants, slotName))])

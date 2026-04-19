@@ -5,7 +5,96 @@ const radioGroupDefaultVariants = {
   "size": "md",
   "intent": "primary"
 }
-const radioGroupCompoundVariants = []
+const radioGroupCompoundVariants = [
+  {
+    "intent": "critical",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.critical.accent}",
+          "borderColor": "{colors.critical.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.positive.accent}",
+          "borderColor": "{colors.positive.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.caution.accent}",
+          "borderColor": "{colors.caution.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.info.accent}",
+          "borderColor": "{colors.info.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "critical",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.critical.accent}",
+          "borderColor": "{colors.critical.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "positive",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.positive.accent}",
+          "borderColor": "{colors.positive.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "caution",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.caution.accent}",
+          "borderColor": "{colors.caution.accent}"
+        }
+      }
+    }
+  },
+  {
+    "intent": "info",
+    "css": {
+      "itemControl": {
+        "_checked": {
+          "bg": "{colors.info.accent}",
+          "borderColor": "{colors.info.accent}"
+        }
+      }
+    }
+  }
+]
 
 const radioGroupSlotNames = [
   [
@@ -84,7 +173,9 @@ export const radioGroup = /* @__PURE__ */ Object.assign(radioGroupFn, {
   "intent": [
     "primary",
     "critical",
-    "positive"
+    "positive",
+    "caution",
+    "info"
   ]
 },
   splitVariantProps(props) {
