@@ -77,7 +77,7 @@ Edit these files and replace every `@repo/` with `@<new-scope>/`. Use the Edit t
 - `AGENTS.md`
 - `packages/std/README.md`
 - `tooling/config/oxlint/README.md`
-- `.claude/agents/test-engineer.md`
+- `.claude/agents/tester.md`
 
 Leave the `@lume/*` scope alone — that's the design system, a separate brand from the repo scope.
 
