@@ -1,23 +1,8 @@
-// Unit tests for `lefthookCheck`.
-//
-// Covers pre-commit hook detection:
-//   - missing hook                                    -> fail
-//   - hook present but missing "lefthook" string      -> warn
-//   - hook present referencing lefthook               -> ok
-//
-// And lefthook binary detection:
-//   - not on PATH and not in node_modules/.bin        -> warn
-//   - available in node_modules/.bin                  -> ok
-//
-// We scope `process.env.PATH` per-test so that binary detection is
-// deterministic regardless of what is installed on the host running the
-// suite. Nothing in the real repo is touched.
-
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { lefthookCheck } from "~/checks/lefthook";
-import type { CheckResult } from "~/core/check";
-import { runCheck } from "~/core/runner";
-import { cleanupRoots, makeScopedRoot, writeText } from "../fixtures";
+import { lefthookCheck } from "~/application/checks/lefthook";
+import { runCheck } from "~/application/usecases/doctor/run-checks";
+import type { CheckResult } from "~/domain/doctor/check";
+import { cleanupRoots, makeCheckContext, makeScopedRoot, writeText } from "@tests/unit/fixtures";
 
 const originalPath = process.env.PATH;
 
@@ -30,8 +15,6 @@ describe("lefthookCheck", () => {
 
   beforeEach(() => {
     roots.length = 0;
-    // Start each test with an empty PATH so that `Bun.which("lefthook")`
-    // resolves deterministically; individual tests opt back in.
     process.env.PATH = "";
   });
 
@@ -44,7 +27,7 @@ describe("lefthookCheck", () => {
     test("fails when pre-commit hook is missing", async () => {
       const root = await makeScopedRoot(roots);
 
-      const results = await runCheck(lefthookCheck, { root });
+      const results = await runCheck(lefthookCheck, makeCheckContext(root));
 
       const pre = findByName(results, "pre-commit");
       expect(pre?.status).toBe("fail");
@@ -59,7 +42,7 @@ describe("lefthookCheck", () => {
       const root = await makeScopedRoot(roots);
       await writeText(root, ".git/hooks/pre-commit", "#!/bin/sh\necho hi\n");
 
-      const results = await runCheck(lefthookCheck, { root });
+      const results = await runCheck(lefthookCheck, makeCheckContext(root));
 
       const pre = findByName(results, "pre-commit");
       expect(pre?.status).toBe("warn");
@@ -72,7 +55,7 @@ describe("lefthookCheck", () => {
       const root = await makeScopedRoot(roots);
       await writeText(root, ".git/hooks/pre-commit", "#!/bin/sh\nlefthook run pre-commit\n");
 
-      const results = await runCheck(lefthookCheck, { root });
+      const results = await runCheck(lefthookCheck, makeCheckContext(root));
 
       const pre = findByName(results, "pre-commit");
       expect(pre?.status).toBe("ok");
@@ -83,7 +66,7 @@ describe("lefthookCheck", () => {
     test("warns when not on PATH and not in node_modules/.bin", async () => {
       const root = await makeScopedRoot(roots);
 
-      const results = await runCheck(lefthookCheck, { root });
+      const results = await runCheck(lefthookCheck, makeCheckContext(root));
 
       const bin = findByName(results, "lefthook binary");
       expect(bin?.status).toBe("warn");
@@ -97,7 +80,7 @@ describe("lefthookCheck", () => {
       const root = await makeScopedRoot(roots);
       await writeText(root, "node_modules/.bin/lefthook", "#!/bin/sh\nexit 0\n");
 
-      const results = await runCheck(lefthookCheck, { root });
+      const results = await runCheck(lefthookCheck, makeCheckContext(root));
 
       const bin = findByName(results, "lefthook binary");
       expect(bin?.status).toBe("ok");
@@ -105,11 +88,5 @@ describe("lefthookCheck", () => {
         expect(bin.detail).toContain("node_modules/.bin");
       }
     });
-
-    // NOTE: the "lefthook resolvable on PATH" branch is not unit-tested
-    // here because `Bun.which(name)` ignores mutations to
-    // `process.env.PATH` and we cannot safely inject a fake PATH into a
-    // running process without a second-arg form being used in production.
-    // The node_modules/.bin branch above already exercises the happy path.
   });
 });

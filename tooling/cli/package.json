@@ -18,6 +18,7 @@
 		"check-types": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@clack/prompts": "catalog:cli",
 		"@repo/std": "workspace:"
 	},
 	"devDependencies": {

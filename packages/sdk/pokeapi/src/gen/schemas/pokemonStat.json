@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "base_stat": { "type": "integer", "maximum": 2147483647, "minimum": -2147483648 },
+    "effort": { "type": "integer", "maximum": 2147483647, "minimum": -2147483648 },
+    "stat": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "url": { "type": "string", "format": "uri", "readOnly": true }
+      },
+      "required": ["name", "url"],
+      "x-readme-ref-name": "StatSummary"
+    }
+  },
+  "required": ["base_stat", "effort", "stat"],
+  "x-readme-ref-name": "PokemonStat"
+}

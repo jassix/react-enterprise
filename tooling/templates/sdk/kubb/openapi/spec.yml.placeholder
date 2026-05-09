@@ -1,0 +1,30 @@
+openapi: 3.1.0
+info:
+  title: "{{name}} SDK"
+  version: 0.0.0
+  description: |
+    Placeholder OpenAPI spec. Replace this file with the real spec from upstream
+    before running `kubb generate` for actual API surface.
+servers:
+  - url: https://api.example.com
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok]

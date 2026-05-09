@@ -1,0 +1,32 @@
+{
+  "name": "@repo/pokeapi-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "oxlint -c .oxlintrc.json .",
+    "format": "oxfmt --write .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@kubb/agent": "^4.37.5",
+    "@kubb/cli": "^4.37.5",
+    "@kubb/core": "^4.37.5",
+    "@kubb/plugin-client": "^4.37.5",
+    "@kubb/plugin-cypress": "^4.37.5",
+    "@kubb/plugin-faker": "^4.37.5",
+    "@kubb/plugin-msw": "^4.37.5",
+    "@kubb/plugin-oas": "^4.37.5",
+    "@kubb/plugin-react-query": "^4.37.5",
+    "@kubb/plugin-ts": "^4.37.5",
+    "@kubb/plugin-zod": "^4.37.5",
+    "@repo/oxlint": "workspace:",
+    "@repo/tsconfig": "workspace:",
+    "@repo/types": "workspace:",
+    "@types/bun": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  }
+}

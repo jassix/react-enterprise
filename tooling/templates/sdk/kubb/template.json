@@ -1,0 +1,6 @@
+{
+  "id": "kubb",
+  "summary": "OpenAPI-driven SDK with kubb codegen",
+  "tokens": ["name"],
+  "description": "Generates a SDK package at packages/sdk/<name> with a kubb config and the OpenAPI spec wired in. Static assets (lint/format/README/spec placeholder) live in this directory; package.json and kubb.config.ts are built dynamically based on the selected plugin set."
+}

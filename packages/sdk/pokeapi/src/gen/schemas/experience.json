@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "level": { "type": "integer", "maximum": 2147483647, "minimum": -2147483648 },
+    "experience": { "type": "integer", "maximum": 2147483647, "minimum": -2147483648 }
+  },
+  "required": ["experience", "level"],
+  "x-readme-ref-name": "Experience"
+}

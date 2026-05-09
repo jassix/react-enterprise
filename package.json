@@ -6,6 +6,7 @@
       "apps/*",
       "packages/*",
       "packages/ui/*",
+      "packages/sdk/*",
       "tooling/*",
       "tooling/config/*"
     ],
@@ -44,12 +45,16 @@
       "icons": {
         "@iconify/react": "^6.0.2",
         "@iconify-json/hugeicons": "^1.2.26"
+      },
+      "cli": {
+        "@clack/prompts": "^0.11.0"
       }
     }
   },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "repo": "bun tooling/cli/src/index.ts",
     "doctor": "bun --filter @repo/cli doctor",
     "adapt": "bun --filter @repo/cli adapt",
     "lint": "turbo run lint",

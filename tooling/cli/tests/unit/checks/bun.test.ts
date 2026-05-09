@@ -1,16 +1,7 @@
-// Unit tests for `bunCheck` (runtime section).
-//
-// Covers:
-//   - engines.bun absent                                         -> ok
-//   - engines.bun satisfied (minimum well below current)          -> ok
-//   - engines.bun not satisfied (minimum far above current)       -> fail
-//   - engines.bun exactly equal to current version                -> ok
-//   - detail / fix strings are populated as the report expects
-
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { bunCheck } from "~/checks/bun";
-import { runCheck } from "~/core/runner";
-import { cleanupRoots, makeScopedRoot } from "../fixtures";
+import { bunCheck } from "~/application/checks/bun";
+import { runCheck } from "~/application/usecases/doctor/run-checks";
+import { cleanupRoots, makeCheckContext, makeScopedRoot } from "@tests/unit/fixtures";
 
 describe("bunCheck", () => {
   const roots: string[] = [];
@@ -26,7 +17,7 @@ describe("bunCheck", () => {
   test("ok when no engines.bun constraint is declared", async () => {
     const root = await makeScopedRoot(roots);
 
-    const results = await runCheck(bunCheck, { root });
+    const results = await runCheck(bunCheck, makeCheckContext(root));
 
     expect(results).toHaveLength(1);
     const [result] = results;
@@ -42,7 +33,7 @@ describe("bunCheck", () => {
   test("ok when current bun satisfies a lenient constraint", async () => {
     const root = await makeScopedRoot(roots, { bun: ">=0.1.0" });
 
-    const results = await runCheck(bunCheck, { root });
+    const results = await runCheck(bunCheck, makeCheckContext(root));
 
     expect(results).toHaveLength(1);
     const [result] = results;
@@ -56,7 +47,7 @@ describe("bunCheck", () => {
   test("ok when constraint matches current bun exactly", async () => {
     const root = await makeScopedRoot(roots, { bun: Bun.version });
 
-    const results = await runCheck(bunCheck, { root });
+    const results = await runCheck(bunCheck, makeCheckContext(root));
 
     expect(results[0]?.status).toBe("ok");
   });
@@ -64,7 +55,7 @@ describe("bunCheck", () => {
   test("fail when current bun is below a very high minimum", async () => {
     const root = await makeScopedRoot(roots, { bun: ">=999.0.0" });
 
-    const results = await runCheck(bunCheck, { root });
+    const results = await runCheck(bunCheck, makeCheckContext(root));
 
     expect(results).toHaveLength(1);
     const [result] = results;
@@ -72,7 +63,6 @@ describe("bunCheck", () => {
     if (result?.status === "fail") {
       expect(result.detail).toContain(Bun.version);
       expect(result.detail).toContain("999.0.0");
-      // fail results always include an actionable fix
       expect(result.fix.length).toBeGreaterThan(0);
     }
   });

@@ -1,33 +1,20 @@
-// Unit tests for `skillsCheck`.
-//
-// Covers skills CLI detection, skills-lock.json validation, the
-// materialization check against `.agents/skills/`, and the symlink check
-// against `.claude/skills/`.
-//
-//   - skills CLI missing on PATH                          -> fail
-//   - skills-lock.json missing                            -> fail (and checks short-circuit)
-//   - skills-lock.json invalid schema (version: 2)        -> fail
-//   - valid lock, every skill materialized + symlinked    -> all ok
-//   - valid lock, some skills not materialized            -> warn + missing skill name(s)
-//   - valid lock, no symlinks                             -> symlinks warn
-//   - valid lock, symlink escapes .agents/skills/         -> symlinks warn
-
 import { faker } from "@faker-js/faker";
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { skillsCheck } from "~/checks/skills";
-import type { CheckResult } from "~/core/check";
-import { runCheck } from "~/core/runner";
+import { skillsCheck } from "~/application/checks/skills";
+import { runCheck } from "~/application/usecases/doctor/run-checks";
+import type { CheckResult } from "~/domain/doctor/check";
 import {
   buildSkillsLock,
   cleanupRoots,
   installSkillSymlink,
+  makeCheckContext,
   makeDir,
   makeScopedRoot,
   makeSymlink,
   materializeSkill,
   writeJson,
   writeText,
-} from "../fixtures";
+} from "@tests/unit/fixtures";
 
 const originalPath = process.env.PATH;
 
@@ -36,7 +23,6 @@ function findByName(results: CheckResult[], name: string): CheckResult | undefin
 }
 
 function randomSkillNames(count: number): string[] {
-  // skill names must be unique and directory-safe
   const names = new Set<string>();
   while (names.size < count) {
     names.add(`${faker.word.adjective()}-${faker.string.alphanumeric(6)}`);
@@ -49,8 +35,6 @@ describe("skillsCheck", () => {
 
   beforeEach(() => {
     roots.length = 0;
-    // Default to a PATH with no `skills` binary; tests that need one will
-    // prepend a fake bin dir.
     process.env.PATH = "/bin:/usr/bin";
   });
 
@@ -66,7 +50,7 @@ describe("skillsCheck", () => {
       await materializeSkill(root, "alpha");
       await installSkillSymlink(root, "alpha");
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const cli = findByName(results, "skills CLI");
       expect(cli?.status).toBe("fail");
@@ -74,26 +58,19 @@ describe("skillsCheck", () => {
         expect(cli.fix).toContain("skills.sh");
       }
     });
-
-    // NOTE: the "skills binary resolvable on PATH" branch is not unit-
-    // tested because `Bun.which(name)` ignores mutations to
-    // `process.env.PATH` in the current Bun version. The fail branch
-    // above still exercises the resolution logic.
   });
 
   describe("skills-lock.json", () => {
     test("fails when skills-lock.json is missing", async () => {
       const root = await makeScopedRoot(roots);
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const lockResult = findByName(results, "skills-lock.json");
       expect(lockResult?.status).toBe("fail");
       if (lockResult?.status === "fail") {
         expect(lockResult.detail).toContain("missing");
       }
-      // With no lock, the downstream materialization / symlink checks
-      // should not be emitted at all.
       expect(findByName(results, "downloaded")).toBeUndefined();
       expect(findByName(results, "symlinks")).toBeUndefined();
     });
@@ -102,7 +79,7 @@ describe("skillsCheck", () => {
       const root = await makeScopedRoot(roots);
       await writeJson(root, "skills-lock.json", { version: 2 });
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const lockResult = findByName(results, "skills-lock.json");
       expect(lockResult?.status).toBe("fail");
@@ -117,7 +94,7 @@ describe("skillsCheck", () => {
         await installSkillSymlink(root, name);
       }
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const lockResult = findByName(results, "skills-lock.json");
       expect(lockResult?.status).toBe("ok");
@@ -137,7 +114,7 @@ describe("skillsCheck", () => {
         await installSkillSymlink(root, name);
       }
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       expect(findByName(results, "downloaded")?.status).toBe("ok");
       expect(findByName(results, "symlinks")?.status).toBe("ok");
@@ -149,7 +126,7 @@ describe("skillsCheck", () => {
       await writeJson(root, "skills-lock.json", buildSkillsLock([present, absent]));
       await materializeSkill(root, present);
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const downloaded = findByName(results, "downloaded");
       expect(downloaded?.status).toBe("warn");
@@ -167,7 +144,7 @@ describe("skillsCheck", () => {
       await writeJson(root, "skills-lock.json", buildSkillsLock(names));
       for (const name of names) await materializeSkill(root, name);
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const symlinks = findByName(results, "symlinks");
       expect(symlinks?.status).toBe("warn");
@@ -181,15 +158,12 @@ describe("skillsCheck", () => {
       const [name] = randomSkillNames(1) as [string];
       await writeJson(root, "skills-lock.json", buildSkillsLock([name]));
       await materializeSkill(root, name);
-      // Point the .claude/skills/<name> symlink at an unrelated tmpdir
-      // location so the check sees a link whose resolved target is not
-      // under .agents/skills/.
       await makeDir(root, "elsewhere");
       await writeText(root, `elsewhere/${name}/SKILL.md`, `# ${name}\n`);
       await makeDir(root, ".claude/skills");
       await makeSymlink(root, `.claude/skills/${name}`, `../../elsewhere/${name}`);
 
-      const results = await runCheck(skillsCheck, { root });
+      const results = await runCheck(skillsCheck, makeCheckContext(root));
 
       const symlinks = findByName(results, "symlinks");
       expect(symlinks?.status).toBe("warn");

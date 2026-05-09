@@ -1,18 +1,14 @@
-// Unit tests for `toolingCheck`.
-//
-// Covers the three required bins (oxlint, oxfmt, turbo) and the panda
-// codegen marker:
-//   - all bins missing and panda output missing   -> per-bin fail + panda warn
-//   - all bins present locally + panda present    -> all ok
-//   - one bin missing, others present              -> targeted fail
-//
-// PATH is scoped per-test so host tooling does not pollute results.
-
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { toolingCheck } from "~/checks/tooling";
-import type { CheckResult } from "~/core/check";
-import { runCheck } from "~/core/runner";
-import { cleanupRoots, makeScopedRoot, writeJson, writeText } from "../fixtures";
+import { toolingCheck } from "~/application/checks/tooling";
+import { runCheck } from "~/application/usecases/doctor/run-checks";
+import type { CheckResult } from "~/domain/doctor/check";
+import {
+  cleanupRoots,
+  makeCheckContext,
+  makeScopedRoot,
+  writeJson,
+  writeText,
+} from "@tests/unit/fixtures";
 
 const REQUIRED_BINS = ["oxlint", "oxfmt", "turbo"] as const;
 const originalPath = process.env.PATH;
@@ -36,7 +32,6 @@ describe("toolingCheck", () => {
 
   beforeEach(() => {
     roots.length = 0;
-    // Empty PATH so `Bun.which(bin)` never finds a host install.
     process.env.PATH = "";
   });
 
@@ -48,7 +43,7 @@ describe("toolingCheck", () => {
   test("fails per missing bin and warns when panda codegen marker is absent", async () => {
     const root = await makeScopedRoot(roots);
 
-    const results = await runCheck(toolingCheck, { root });
+    const results = await runCheck(toolingCheck, makeCheckContext(root));
 
     for (const bin of REQUIRED_BINS) {
       const result = findByName(results, bin);
@@ -71,7 +66,7 @@ describe("toolingCheck", () => {
     for (const bin of REQUIRED_BINS) await writeLocalBin(root, bin);
     await writePandaMarker(root);
 
-    const results = await runCheck(toolingCheck, { root });
+    const results = await runCheck(toolingCheck, makeCheckContext(root));
 
     expect(results.filter((r) => r.status === "fail")).toHaveLength(0);
     for (const bin of REQUIRED_BINS) {
@@ -88,18 +83,13 @@ describe("toolingCheck", () => {
     const root = await makeScopedRoot(roots);
     await writeLocalBin(root, "oxlint");
     await writeLocalBin(root, "oxfmt");
-    // turbo deliberately omitted
     await writePandaMarker(root);
 
-    const results = await runCheck(toolingCheck, { root });
+    const results = await runCheck(toolingCheck, makeCheckContext(root));
 
     expect(findByName(results, "oxlint")?.status).toBe("ok");
     expect(findByName(results, "oxfmt")?.status).toBe("ok");
     expect(findByName(results, "turbo")?.status).toBe("fail");
     expect(findByName(results, "panda codegen")?.status).toBe("ok");
   });
-
-  // NOTE: the "bin resolvable via PATH only" branch is not unit-tested
-  // here because `Bun.which(name)` ignores mutations to `process.env.PATH`
-  // and we do not want to pollute the real host PATH.
 });

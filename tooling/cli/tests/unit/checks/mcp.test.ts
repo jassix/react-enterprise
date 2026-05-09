@@ -1,29 +1,17 @@
-// Unit tests for `mcpCheck`.
-//
-// Covers:
-//   - all three expected MCP configs missing                -> per-file warn, no consistency/commands rows
-//   - some configs missing, some present                    -> warn on missing, ok on present
-//   - invalid JSON parse error                              -> fail for that file
-//   - schema-invalid JSON (missing mcpServers)              -> fail for that file
-//   - all three configs consistent                          -> consistency ok
-//   - drift between configs                                 -> consistency warn with drift details
-//   - server command missing from PATH                      -> server commands fail
-//   - all server commands resolvable                        -> server commands ok
-//   - empty mcpServers across all configs                   -> no server-commands row emitted
-
 import { faker } from "@faker-js/faker";
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { mcpCheck } from "~/checks/mcp";
-import type { CheckResult } from "~/core/check";
-import { runCheck } from "~/core/runner";
+import { mcpCheck } from "~/application/checks/mcp";
+import { runCheck } from "~/application/usecases/doctor/run-checks";
+import type { CheckResult } from "~/domain/doctor/check";
 import {
   cleanupRoots,
+  makeCheckContext,
   makeScopedRoot,
   mcpConfigWith,
   writeJson,
   writeMcpConfig,
   writeText,
-} from "../fixtures";
+} from "@tests/unit/fixtures";
 
 const originalPath = process.env.PATH;
 
@@ -47,9 +35,6 @@ describe("mcpCheck", () => {
 
   beforeEach(() => {
     roots.length = 0;
-    // `mcpConfigWith` uses `ls` as the server command so that PATH
-    // resolution is portable. Constrain PATH to the system bin dirs so the
-    // test does not depend on whatever lives on the developer's PATH.
     process.env.PATH = "/bin:/usr/bin:/usr/local/bin";
   });
 
@@ -61,7 +46,7 @@ describe("mcpCheck", () => {
   test("warns for each missing config when no MCP configs exist", async () => {
     const root = await makeScopedRoot(roots);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const mcpJson = findEndsWith(results, ".mcp.json");
     const cursor = findEndsWith(results, "cursor/mcp.json");
@@ -69,8 +54,6 @@ describe("mcpCheck", () => {
     expect(mcpJson?.status).toBe("warn");
     expect(cursor?.status).toBe("warn");
     expect(codex?.status).toBe("warn");
-    // With zero configs loaded, the check should not emit a consistency
-    // row or a server-commands row.
     expect(findByName(results, "consistency")).toBeUndefined();
     expect(findByName(results, "server commands")).toBeUndefined();
   });
@@ -82,7 +65,7 @@ describe("mcpCheck", () => {
     await writeMcpConfig(root, ".mcp.json", config);
     await writeMcpConfig(root, ".cursor/mcp.json", config);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     expect(findEndsWith(results, ".mcp.json")?.status).toBe("ok");
     expect(findEndsWith(results, "cursor/mcp.json")?.status).toBe("ok");
@@ -93,10 +76,9 @@ describe("mcpCheck", () => {
     const root = await makeScopedRoot(roots);
     await writeText(root, ".mcp.json", "{ not json");
     await seedAllConfigs(root, ["a", "b"]);
-    // Overwrite .mcp.json after seeding so the other two stay valid
     await writeText(root, ".mcp.json", "{ not json");
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const mcpJson = findEndsWith(results, ".mcp.json");
     expect(mcpJson?.status).toBe("fail");
@@ -111,7 +93,7 @@ describe("mcpCheck", () => {
     await writeMcpConfig(root, ".cursor/mcp.json", mcpConfigWith(["a"]));
     await writeMcpConfig(root, ".codex/mcp.json", mcpConfigWith(["a"]));
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const mcpJson = findEndsWith(results, ".mcp.json");
     expect(mcpJson?.status).toBe("fail");
@@ -122,7 +104,7 @@ describe("mcpCheck", () => {
     const servers = [faker.hacker.noun(), faker.hacker.noun()];
     await seedAllConfigs(root, servers);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const consistency = findByName(results, "consistency");
     expect(consistency?.status).toBe("ok");
@@ -139,7 +121,7 @@ describe("mcpCheck", () => {
     await writeMcpConfig(root, ".cursor/mcp.json", partialConfig);
     await writeMcpConfig(root, ".codex/mcp.json", fullConfig);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const consistency = findByName(results, "consistency");
     expect(consistency?.status).toBe("warn");
@@ -161,7 +143,7 @@ describe("mcpCheck", () => {
     await writeMcpConfig(root, ".cursor/mcp.json", config);
     await writeMcpConfig(root, ".codex/mcp.json", config);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const cmds = findByName(results, "server commands");
     expect(cmds?.status).toBe("fail");
@@ -173,10 +155,9 @@ describe("mcpCheck", () => {
 
   test("ok server commands row when every command resolves", async () => {
     const root = await makeScopedRoot(roots);
-    // mcpConfigWith uses `ls`, which is on our constrained PATH.
     await seedAllConfigs(root, ["alpha", "beta"]);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     const cmds = findByName(results, "server commands");
     expect(cmds?.status).toBe("ok");
@@ -189,7 +170,7 @@ describe("mcpCheck", () => {
     await writeMcpConfig(root, ".cursor/mcp.json", emptyConfig);
     await writeMcpConfig(root, ".codex/mcp.json", emptyConfig);
 
-    const results = await runCheck(mcpCheck, { root });
+    const results = await runCheck(mcpCheck, makeCheckContext(root));
 
     expect(findByName(results, "server commands")).toBeUndefined();
   });

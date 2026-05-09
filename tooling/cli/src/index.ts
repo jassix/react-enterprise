@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { runCli } from "~/cli/cli";
-import { defaultCommands } from "~/cli/commands";
+import { composeCli } from "~/composition";
+import { runCli } from "~/presentation/router";
 
-process.exit(await runCli(process.argv.slice(2), defaultCommands));
+process.exit(await runCli(process.argv.slice(2), composeCli()));

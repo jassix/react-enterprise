@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "types": ["bun", "@repo/types/reset"],
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@tests/*": ["./tests/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*"]
