@@ -1,0 +1,43 @@
+{
+  "name": "@repo/authz",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./model": {
+      "types": "./src/model/index.ts",
+      "import": "./src/model/index.ts"
+    },
+    "./ability": {
+      "types": "./src/ability/index.ts",
+      "import": "./src/ability/index.ts"
+    },
+    "./ports": {
+      "types": "./src/ports/index.ts",
+      "import": "./src/ports/index.ts"
+    },
+    "./policies": {
+      "types": "./src/policies/index.ts",
+      "import": "./src/policies/index.ts"
+    },
+    "./fixtures": {
+      "types": "./src/fixtures.ts",
+      "import": "./src/fixtures.ts"
+    }
+  },
+  "dependencies": {
+    "@casl/ability": "catalog:auth",
+    "@repo/std": "workspace:"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:",
+    "@repo/types": "workspace:",
+    "@types/bun": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  }
+}

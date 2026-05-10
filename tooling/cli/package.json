@@ -15,17 +15,21 @@
 	"scripts": {
 		"doctor": "bun src/index.ts doctor",
 		"adapt": "bun src/index.ts adapt",
-		"check-types": "tsc --noEmit"
+		"check-types": "tsc --noEmit",
+		"test": "bun test"
 	},
 	"dependencies": {
+		"@anthropic-ai/sdk": "catalog:cli",
 		"@clack/prompts": "catalog:cli",
-		"@repo/std": "workspace:"
+		"@repo/std": "workspace:",
+		"diff": "catalog:cli"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^10.4.0",
 		"@repo/tsconfig": "workspace:",
 		"@repo/types": "workspace:",
-		"@types/bun": "catalog:"
+		"@types/bun": "catalog:",
+		"@types/diff": "catalog:cli"
 	},
 	"peerDependencies": {
 		"typescript": "catalog:"

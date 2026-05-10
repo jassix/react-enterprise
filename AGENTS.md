@@ -45,6 +45,18 @@ See [`.agents/rules/ui-kit/overview.md`](./.agents/rules/ui-kit/overview.md) for
 
 ---
 
+## Domains Agent
+
+**Scope**: `packages/domains/*` — framework-agnostic business domains (e.g. `@repo/billing`).
+
+See [`.agents/rules/domains/overview.md`](./.agents/rules/domains/overview.md) for conventions and key files.
+
+- [Domain package structure](./.agents/rules/domains/structure.md) — `model/`, `operations/`, `ports/`, `use-cases/`, `fixtures.ts`.
+- [Ports and adapters](./.agents/rules/domains/ports.md) — keep IO behind interfaces; adapters live in `apps/*`.
+- [Cross-domain dependencies](./.agents/rules/domains/cross-domain.md) — explicit `package.json` links only; orchestration belongs to `apps/*`.
+
+---
+
 ## Monorepo Agent
 
 **Scope**: Workspace orchestration and tooling.

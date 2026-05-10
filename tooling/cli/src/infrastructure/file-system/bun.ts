@@ -1,4 +1,5 @@
 import { Glob } from "bun";
+import { access } from "node:fs/promises";
 import type { FileSystem } from "~/application/ports/file-system";
 
 export class BunFileSystem implements FileSystem {
@@ -15,7 +16,12 @@ export class BunFileSystem implements FileSystem {
   }
 
   async exists(absPath: string): Promise<boolean> {
-    return Bun.file(absPath).exists();
+    try {
+      await access(absPath);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async removeDir(absPath: string): Promise<void> {

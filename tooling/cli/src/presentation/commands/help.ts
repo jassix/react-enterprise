@@ -8,10 +8,11 @@ interface ExampleEntry {
 }
 
 const EXAMPLES: readonly ExampleEntry[] = [
+  { cmd: "repo add shadcn:button", hint: "fetch + refine a shadcn component" },
+  { cmd: "repo add --dry-run shadcn:dialog", hint: "preview placement and diff" },
+  { cmd: "repo refine packages/ui/primitives/.../foo.tsx", hint: "refine local component(s)" },
   { cmd: "repo init sdk petstore --spec=./specs/petstore.yml", hint: "scaffold an OpenAPI SDK" },
-  { cmd: "repo init package my-lib", hint: "scaffold a workspace package" },
   { cmd: "repo doctor", hint: "verify environment health" },
-  { cmd: "repo adapt", hint: "rebrand the template for your org" },
 ];
 
 export function createHelpCommand(commands: () => readonly Command[], prompter: Prompter): Command {

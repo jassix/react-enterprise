@@ -1,8 +1,11 @@
 import { BunFetcher } from "~/infrastructure/fetcher/bun";
 import { BunFileSystem } from "~/infrastructure/file-system/bun";
+import { DiskIntrospector } from "~/infrastructure/introspector/disk";
 import { WalkMonorepoLocator } from "~/infrastructure/monorepo-locator/walk";
 import { ProcessOutput } from "~/infrastructure/output/process";
 import { ClackPrompter } from "~/infrastructure/prompter/clack";
+import { ClaudeCliRefiner } from "~/infrastructure/refiner/claude-cli";
+import { ShadcnHttpRegistry } from "~/infrastructure/registry/shadcn-http";
 import { BunShell } from "~/infrastructure/shell/bun";
 import { ClackTaskRunner } from "~/infrastructure/task-runner/clack";
 import { DiskTemplateLoader } from "~/infrastructure/template-loader/disk";
@@ -19,7 +22,22 @@ export function makeDeps(): CommandDeps {
   const locator = new WalkMonorepoLocator(fs);
   const templateLoader = new DiskTemplateLoader(fs);
   const output = new ProcessOutput();
-  return { fs, shell, fetcher, prompter, taskRunner, locator, templateLoader, output };
+  const registry = new ShadcnHttpRegistry(fetcher);
+  const refiner = new ClaudeCliRefiner(shell);
+  const introspector = new DiskIntrospector(fs);
+  return {
+    fs,
+    shell,
+    fetcher,
+    prompter,
+    taskRunner,
+    locator,
+    templateLoader,
+    output,
+    registry,
+    refiner,
+    introspector,
+  };
 }
 
 export function composeCli(): readonly Command[] {

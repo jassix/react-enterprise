@@ -29,6 +29,13 @@ Rules that apply to all code in the repo.
 - [Recipes](./ui-kit/recipes.md)
 - [Component architecture](./ui-kit/component-architecture.md)
 
+## Domains — `packages/domains/*`
+
+- [Overview, conventions, key files](./domains/overview.md)
+- [Domain package structure](./domains/structure.md)
+- [Ports and adapters](./domains/ports.md)
+- [Cross-domain dependencies](./domains/cross-domain.md)
+
 ## Monorepo
 
 - [Overview, conventions, key files](./monorepo/overview.md)

@@ -1,5 +1,8 @@
 import { faker } from "@faker-js/faker";
 import type { CheckContext } from "~/application/checks/context";
+import type { ComponentRegistry } from "~/application/ports/component-registry";
+import type { DesignSystemIntrospector } from "~/application/ports/design-system-introspector";
+import type { Refiner } from "~/application/ports/refiner";
 import { dirname, join } from "~/domain/path";
 import { BunFetcher } from "~/infrastructure/fetcher/bun";
 import { BunFileSystem } from "~/infrastructure/file-system/bun";
@@ -133,6 +136,24 @@ export function makeCheckContext(root: string): CheckContext {
   return { root, fs, shell, locator };
 }
 
+const stubRegistry: ComponentRegistry = {
+  async resolve() {
+    throw new Error("ComponentRegistry stub — not wired in tests");
+  },
+};
+
+const stubRefiner: Refiner = {
+  async refine() {
+    throw new Error("Refiner stub — not wired in tests");
+  },
+};
+
+const stubIntrospector: DesignSystemIntrospector = {
+  async snapshot() {
+    throw new Error("DesignSystemIntrospector stub — not wired in tests");
+  },
+};
+
 export function makeRealDeps(): CommandDeps {
   const fs = new BunFileSystem();
   const shell = new BunShell();
@@ -142,5 +163,17 @@ export function makeRealDeps(): CommandDeps {
   const locator = new WalkMonorepoLocator(fs);
   const templateLoader = new DiskTemplateLoader(fs);
   const output = new ProcessOutput();
-  return { fs, shell, fetcher, prompter, taskRunner, locator, templateLoader, output };
+  return {
+    fs,
+    shell,
+    fetcher,
+    prompter,
+    taskRunner,
+    locator,
+    templateLoader,
+    output,
+    registry: stubRegistry,
+    refiner: stubRefiner,
+    introspector: stubIntrospector,
+  };
 }
