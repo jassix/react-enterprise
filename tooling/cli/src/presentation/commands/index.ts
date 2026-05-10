@@ -5,6 +5,7 @@ import { createDoctorCommand } from "~/presentation/commands/doctor";
 import { createHelpCommand } from "~/presentation/commands/help";
 import { createInitCommand } from "~/presentation/commands/init";
 import { createRefineCommand } from "~/presentation/commands/refine";
+import { createRegistryCommand } from "~/presentation/commands/registry";
 import type { CommandDeps } from "~/presentation/deps";
 
 export function createDefaultCommands(deps: CommandDeps): readonly Command[] {
@@ -21,6 +22,7 @@ export function createDefaultCommands(deps: CommandDeps): readonly Command[] {
     createInitCommand(deps),
     createAddCommand(deps),
     createRefineCommand(deps),
+    createRegistryCommand(deps),
     createAdaptCommand(deps.prompter),
     helpCommand,
   );

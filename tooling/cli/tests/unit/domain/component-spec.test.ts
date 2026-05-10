@@ -91,4 +91,65 @@ describe("componentName", () => {
     const spec = parseSpec("https://example.com/some/dialog.json").unwrap();
     expect(componentName(spec)).toBe("dialog");
   });
+
+  test("returns name for registry spec", () => {
+    const spec = parseSpec("@bundui/accordion-default", {
+      registries: { "@bundui": "https://bundui.io/r/{name}.json" },
+    }).unwrap();
+    expect(componentName(spec)).toBe("accordion-default");
+  });
+});
+
+describe("parseSpec with custom registries", () => {
+  const config = {
+    registries: {
+      "@bundui": "https://bundui.io/r/{name}.json",
+      "@reui": "https://reui.io/r/{name}.json",
+    },
+  };
+
+  test("@bundui/<name> resolves via config", () => {
+    const result = parseSpec("@bundui/accordion-default", config);
+    expect(result.isOk()).toBe(true);
+    const spec = result.unwrap();
+    expect(spec.source).toBe("registry");
+    if (spec.source === "registry") {
+      expect(spec.namespace).toBe("@bundui");
+      expect(spec.name).toBe("accordion-default");
+      expect(spec.url).toBe("https://bundui.io/r/accordion-default.json");
+    }
+  });
+
+  test("@reui/<name> resolves via config", () => {
+    const result = parseSpec("@reui/dialog", config);
+    expect(result.isOk()).toBe(true);
+    const spec = result.unwrap();
+    if (spec.source === "registry") {
+      expect(spec.url).toBe("https://reui.io/r/dialog.json");
+    }
+  });
+
+  test("unknown namespace fails with known list", () => {
+    const result = parseSpec("@nope/dialog", config);
+    expect(result.isErr()).toBe(true);
+    const err = result.unwrapErr();
+    expect(err.kind).toBe("unknown-namespace");
+    if (err.kind === "unknown-namespace") {
+      expect(err.namespace).toBe("@nope");
+      expect(err.known).toContain("@bundui");
+      expect(err.known).toContain("@reui");
+    }
+  });
+
+  test("custom registry name with bad chars fails as invalid-name", () => {
+    const result = parseSpec("@bundui/bad name", config);
+    expect(result.isErr()).toBe(true);
+    expect(result.unwrapErr().kind).toBe("invalid-name");
+  });
+
+  test("@shadcn/ remains builtin even when other registries are configured", () => {
+    const result = parseSpec("@shadcn/button", config);
+    expect(result.isOk()).toBe(true);
+    expect(result.unwrap().source).toBe("shadcn");
+  });
 });

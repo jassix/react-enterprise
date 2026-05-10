@@ -13,6 +13,10 @@ import {
   parseSpec,
   type ComponentSpec,
 } from "~/domain/component-spec";
+import type { RegistryConfig } from "~/domain/registry-config";
+import { mergeWithCatalog } from "~/domain/remote-registry";
+import { loadRegistryConfig } from "~/application/usecases/registry-config";
+import { loadCatalogOrEmpty } from "~/application/usecases/remote-catalog";
 import { blockPlacement, primitivePlacement } from "~/domain/placement-plan";
 import type { RecipeMode } from "~/domain/refinement-context";
 import { AnthropicSdkRefiner } from "~/infrastructure/refiner/anthropic-sdk";
@@ -43,7 +47,21 @@ export function createAddCommand(deps: CommandDeps): Command {
         return renderError(deps.output, err instanceof Error ? err.message : String(err));
       }
 
-      const specs = parseSpecs(parsed.specs);
+      const loaded = await loadRegistryConfig(deps.fs, rootDir);
+      if (loaded.isErr()) {
+        const e = loaded.unwrapErr();
+        return renderError(
+          deps.output,
+          e.kind === "invalid"
+            ? `invalid .repo/registries.json: ${e.messages.join("; ")}`
+            : `failed to read .repo/registries.json: ${String(e.cause)}`,
+        );
+      }
+      const local = loaded.unwrap();
+      const catalog = await loadCatalogOrEmpty({ fs: deps.fs, fetcher: deps.fetcher }, rootDir);
+      const registries = mergeWithCatalog(local, catalog);
+
+      const specs = parseSpecs(parsed.specs, registries);
       if ("error" in specs) return renderError(deps.output, specs.error);
 
       const c = createColors();
@@ -204,15 +222,21 @@ interface ParsedSpec {
 
 function parseSpecs(
   raws: readonly string[],
+  registries: RegistryConfig,
 ): { readonly value: readonly ParsedSpec[] } | { readonly error: string } {
   const out: ParsedSpec[] = [];
   for (const raw of raws) {
-    const parsed = parseSpec(raw);
+    const parsed = parseSpec(raw, registries);
     if (parsed.isErr()) {
       const err = parsed.unwrapErr();
       const detail = match(err)
         .with({ kind: "empty" }, () => "spec was empty")
         .with({ kind: "unrecognized" }, ({ input }) => `unrecognized spec: ${input}`)
+        .with(
+          { kind: "unknown-namespace" },
+          ({ namespace, known }) =>
+            `unknown registry namespace '${namespace}'. ${known.length > 0 ? `Known: ${known.join(", ")}` : "Add one with: repo registry add @<ns> <url>"}`,
+        )
         .with({ kind: "invalid-name" }, ({ input }) => `invalid component name: ${input}`)
         .exhaustive();
       return { error: detail };

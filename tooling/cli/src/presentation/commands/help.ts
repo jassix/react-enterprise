@@ -10,6 +10,8 @@ interface ExampleEntry {
 const EXAMPLES: readonly ExampleEntry[] = [
   { cmd: "repo add shadcn:button", hint: "fetch + refine a shadcn component" },
   { cmd: "repo add --dry-run shadcn:dialog", hint: "preview placement and diff" },
+  { cmd: "repo add @bundui/accordion", hint: "fetch from a custom registry" },
+  { cmd: "repo registry add @bundui https://...{name}.json", hint: "register a new registry" },
   { cmd: "repo refine packages/ui/primitives/.../foo.tsx", hint: "refine local component(s)" },
   { cmd: "repo init sdk petstore --spec=./specs/petstore.yml", hint: "scaffold an OpenAPI SDK" },
   { cmd: "repo doctor", hint: "verify environment health" },
