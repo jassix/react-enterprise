@@ -37,6 +37,22 @@ Every semantic token defines a `_dark` value so theme switching is automatic.
 }
 ```
 
+## Applying dark mode
+
+Panda emits `_dark` styles under `.dark &, [data-theme='dark'] &`. Wrap the app
+in `ThemeProvider` from `@lume/primitives`, which toggles `.dark` /
+`data-theme` on `<html>`; read or switch the theme with `useTheme()`.
+
+```tsx
+import { ThemeProvider, useTheme } from "@lume/primitives";
+
+<ThemeProvider defaultTheme="light">
+  <App />
+</ThemeProvider>;
+
+const { theme, toggleTheme } = useTheme();
+```
+
 ## Rule
 
 When you add a new semantic token, always provide both light value and `_dark` value. Never reference `colors.*.light.*` from component recipes — go through a semantic alias.

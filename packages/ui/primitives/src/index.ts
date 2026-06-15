@@ -499,6 +499,8 @@ export { Table } from "./ui/data-display/table";
 export { Tabs } from "./ui/collections/tabs";
 export { Textarea } from "./ui/forms/textarea";
 export type { TextareaProps } from "./ui/forms/textarea";
+export { ThemeProvider, useTheme } from "./ui/theme";
+export type { Theme, ThemeProviderProps } from "./ui/theme";
 export { Toggle } from "./ui/buttons/toggle";
 export { ToggleGroup } from "./ui/buttons/toggle-group";
 export { Tooltip } from "./ui/overlays/tooltip";
