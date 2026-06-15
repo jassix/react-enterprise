@@ -15,6 +15,3 @@ pre-commit:
       run: bun x oxlint -c .oxlintrc.json {staged_files}
     oxfmt-check:
       run: bun x oxfmt --check {staged_files}
-    sort-packages:
-      run: bun packages:sort
-      stage_fixed: true

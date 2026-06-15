@@ -35,4 +35,4 @@
 
 4. Run `bun install` so the workspace symlinks update.
 5. Verify the package is matched by a `workspaces.packages` glob in the root `package.json`; add a glob if needed.
-6. Run `bun packages:sort` before committing.
+6. Run `bun run format` before committing (oxfmt formats `package.json` and all source).
