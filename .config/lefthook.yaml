@@ -14,4 +14,12 @@ pre-commit:
     oxlint-check:
       run: bun x oxlint -c .oxlintrc.json {staged_files}
     oxfmt-check:
+      # Only run on formattable files (so commits touching only yaml/md/txt
+      # don't trip oxfmt's "no targets" error), and exclude generated/vendored
+      # files — oxfmt ignores its config `ignorePatterns` for explicit paths.
+      glob: "*.{js,jsx,ts,tsx,json,jsonc}"
+      exclude:
+        - "*.gen.ts"
+        - "*.gen.tsx"
+        - "*.min.js"
       run: bun x oxfmt --check {staged_files}
