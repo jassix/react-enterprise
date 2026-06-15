@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { RefinerOutput } from "~/application/ports/refiner";
 import type { SourceFile } from "~/domain/refinement-context";
 
@@ -15,9 +16,7 @@ const FILE_BLOCK_INSIDE_RE =
 
 const NOTES_RE = /\/\/\s*NOTES:\s*\r?\n([\s\S]*?)(?:$|\n\s*\/\/\s*FILE:)/;
 
-export function parseRefinerOutput(
-  raw: string,
-): Result<RefinerOutput, ParseRefinerOutputError> {
+export function parseRefinerOutput(raw: string): Result<RefinerOutput, ParseRefinerOutputError> {
   const files: SourceFile[] = [];
   const seenPaths = new Set<string>();
   const duplicates: string[] = [];
@@ -26,7 +25,7 @@ export function parseRefinerOutput(
 
   const collect = (re: RegExp): void => {
     for (const match of raw.matchAll(re)) {
-      const groups = match.groups;
+      const { groups } = match;
       if (!groups) continue;
       const path = groups.path?.trim() ?? "";
       const content = groups.content ?? "";

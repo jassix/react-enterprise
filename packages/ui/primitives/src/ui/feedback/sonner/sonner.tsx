@@ -17,7 +17,8 @@ type SonnerVariants = {
 };
 
 export interface SonnerViewportProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     SonnerVariants {}
 
@@ -35,7 +36,8 @@ const Viewport: FC<SonnerViewportProps> = ({ status, placement, ref, ...props })
 };
 
 export interface SonnerToastProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     SonnerVariants {}
 
@@ -54,7 +56,8 @@ const Toast: FC<SonnerToastProps> = ({ status, placement, ref, ...props }) => {
 };
 
 export interface SonnerIconProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     SonnerVariants {}
 
@@ -73,7 +76,8 @@ const Icon: FC<SonnerIconProps> = ({ status, placement, ref, ...props }) => {
 };
 
 export interface SonnerTitleProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     SonnerVariants {}
 
@@ -91,7 +95,8 @@ const Title: FC<SonnerTitleProps> = ({ status, placement, ref, ...props }) => {
 };
 
 export interface SonnerDescriptionProps
-  extends Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
+  extends
+    Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
     ComponentProps<"p">,
     SonnerVariants {}
 
@@ -109,7 +114,8 @@ const Description: FC<SonnerDescriptionProps> = ({ status, placement, ref, ...pr
 };
 
 export interface SonnerActionButtonProps
-  extends Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
+  extends
+    Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
     ComponentProps<"button">,
     SonnerVariants {}
 
@@ -142,7 +148,8 @@ const CancelButton: FC<SonnerActionButtonProps> = ({ status, placement, ref, ...
 };
 
 export interface SonnerCloseButtonProps
-  extends Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
+  extends
+    Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
     ComponentProps<"button">,
     SonnerVariants {}
 

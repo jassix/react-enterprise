@@ -1,20 +1,16 @@
 import { match } from "@repo/std/match";
 import type { Refiner } from "~/application/ports/refiner";
 import { isCancelled } from "~/application/ports/prompter";
-import {
-  executeAddComponent,
-  planAddComponent,
-  type AddComponentError,
-  type AddComponentInput,
-  type AddComponentOutcome,
-  type AddComponentPlan,
+import { executeAddComponent, planAddComponent } from "~/application/usecases/add-component";
+import type {
+  AddComponentError,
+  AddComponentInput,
+  AddComponentOutcome,
+  AddComponentPlan,
 } from "~/application/usecases/add-component";
 import type { RecipeMode } from "~/domain/refinement-context";
-import {
-  componentName as specComponentName,
-  parseSpec,
-  type ComponentSpec,
-} from "~/domain/component-spec";
+import { componentName as specComponentName, parseSpec } from "~/domain/component-spec";
+import type { ComponentSpec } from "~/domain/component-spec";
 import type { RegistryConfig } from "~/domain/registry-config";
 import { mergeWithCatalog } from "~/domain/remote-registry";
 import { loadRegistryConfig } from "~/application/usecases/registry-config";
@@ -24,11 +20,8 @@ import { AnthropicSdkRefiner } from "~/infrastructure/refiner/anthropic-sdk";
 import { NoneRefiner } from "~/infrastructure/refiner/none";
 import { createColors } from "~/infrastructure/colors";
 import type { Command } from "~/presentation/command";
-import {
-  parseAddArgs,
-  type AddParsedArgs,
-  type RefinerChoice,
-} from "~/presentation/parsers/add-args";
+import { parseAddArgs } from "~/presentation/parsers/add-args";
+import type { AddParsedArgs, RefinerChoice } from "~/presentation/parsers/add-args";
 import type { CommandDeps } from "~/presentation/deps";
 import { renderError } from "~/presentation/ui/format-error";
 import { renderDiff, renderNotes, renderPlan } from "~/presentation/ui/render-add-plan";
@@ -44,8 +37,8 @@ export function createAddCommand(deps: CommandDeps): Command {
       let rootDir: string;
       try {
         rootDir = await deps.locator.locate(process.cwd());
-      } catch (err) {
-        return renderError(deps.output, err instanceof Error ? err.message : String(err));
+      } catch (error) {
+        return renderError(deps.output, error instanceof Error ? error.message : String(error));
       }
 
       const loaded = await loadRegistryConfig(deps.fs, rootDir);
@@ -93,7 +86,7 @@ export function createAddCommand(deps: CommandDeps): Command {
       if (exitCode === 0) {
         deps.prompter.outro(`${green(bold("✓ done"))}  ${dim("git diff packages/ui to inspect")}`);
       } else {
-        deps.prompter.outro(`${c.wrap("red", bold("✗ finished with errors"))}`);
+        deps.prompter.outro(c.wrap("red", bold("✗ finished with errors")));
       }
       return exitCode;
     },
@@ -193,7 +186,7 @@ async function runOne(args: RunOneArgs): Promise<"ok" | "fail"> {
     return "fail";
   }
 
-  const outcome = captured.outcome;
+  const { outcome } = captured;
 
   renderPlan(deps.prompter, {
     spec: rawSpec,
@@ -292,8 +285,9 @@ function parseSpecs(
 
 function summarizeOutcome(outcome: AddComponentOutcome): string {
   const fileCount = outcome.output.files.length;
-  if (outcome.diff !== null)
+  if (outcome.diff !== null) {
     return `Planned ${fileCount} file${fileCount === 1 ? "" : "s"} (dry-run)`;
+  }
   if (!outcome.applied) return "Refined";
   const codegen =
     outcome.codegen === "ran"

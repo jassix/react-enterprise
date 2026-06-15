@@ -74,7 +74,8 @@ export const toastRecipe = defineSlotRecipe({
       fontWeight: "{fontWeights.medium}",
       cursor: "pointer",
       outline: "none",
-      transition: "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
+      transition:
+        "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
 
       _hover: { bg: "{colors.surface.subtle}" },
       _active: { transform: "scale(0.97)" },
@@ -99,7 +100,8 @@ export const toastRecipe = defineSlotRecipe({
       cursor: "pointer",
       outline: "none",
       opacity: "0",
-      transition: "opacity {durations.press} {easings.easeOut}, transform {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
+      transition:
+        "opacity {durations.press} {easings.easeOut}, transform {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
 
       "&:hover, [role='status']:hover &, [data-scope='toast']:hover &": {
         opacity: "1",

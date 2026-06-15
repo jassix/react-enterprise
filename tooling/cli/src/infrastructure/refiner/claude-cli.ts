@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { Refiner, RefinerError, RefinerOutput } from "~/application/ports/refiner";
 import type { Shell } from "~/application/ports/shell";
 import { buildPrompt } from "~/application/refinement/build-prompt";
@@ -13,8 +14,7 @@ export class ClaudeCliRefiner implements Refiner {
     if (!claudeBin) {
       return Err({
         kind: "unavailable",
-        reason:
-          "`claude` CLI not on PATH. Install Claude Code: https://claude.com/claude-code",
+        reason: "`claude` CLI not on PATH. Install Claude Code: https://claude.com/claude-code",
       });
     }
 
@@ -27,8 +27,8 @@ export class ClaudeCliRefiner implements Refiner {
         cwd: process.cwd(),
         stdin: user,
       });
-    } catch (cause) {
-      return Err({ kind: "transport", cause });
+    } catch (error) {
+      return Err({ kind: "transport", cause: error });
     }
 
     if (result.exitCode !== 0) {

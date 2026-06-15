@@ -7,12 +7,16 @@
       "import": "./src/index.ts"
     }
   },
+  "scripts": {
+    "lint": "oxlint --type-aware ."
+  },
   "dependencies": {
     "@ark-ui/react": "catalog:ui",
     "@iconify/react": "catalog:icons",
     "@lume/foundation": "workspace:"
   },
   "devDependencies": {
+    "@repo/oxlint": "workspace:",
     "@size-limit/preset-small-lib": "^11.1.0",
     "@storybook/react-vite": "catalog:storybook",
     "@types/bun": "catalog:",

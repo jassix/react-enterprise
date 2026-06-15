@@ -1,0 +1,4 @@
+{
+  "extends": ["./node_modules/@repo/oxlint/react.oxlintrc.json"],
+  "ignorePatterns": ["styled-system"]
+}

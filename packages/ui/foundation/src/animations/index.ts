@@ -3,10 +3,9 @@ import { easings } from "./easings";
 import { keyframes } from "./keyframes";
 
 export const lumeAnimations = {
-	durations,
-	easings,
-	keyframes,
+  durations,
+  easings,
+  keyframes,
 } as const;
 
 export { durations, easings, keyframes };
-

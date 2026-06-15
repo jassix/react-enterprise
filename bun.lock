@@ -58,6 +58,7 @@
         "@repo/std": "workspace:",
       },
       "devDependencies": {
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@repo/types": "workspace:",
         "@types/bun": "catalog:",
@@ -73,6 +74,7 @@
         "@repo/std": "workspace:",
       },
       "devDependencies": {
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@repo/types": "workspace:",
         "@types/bun": "catalog:",
@@ -114,6 +116,7 @@
         "valibot": "catalog:std",
       },
       "devDependencies": {
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@repo/types": "workspace:",
         "@types/bun": "catalog:",
@@ -130,6 +133,7 @@
         "@lume/primitives": "workspace:",
       },
       "devDependencies": {
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@types/bun": "catalog:",
       },
@@ -147,6 +151,7 @@
       },
       "devDependencies": {
         "@pandacss/dev": "catalog:ui",
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@types/bun": "catalog:",
         "@types/react": "catalog:react",
@@ -163,6 +168,7 @@
         "@lume/foundation": "workspace:",
       },
       "devDependencies": {
+        "@repo/oxlint": "workspace:",
         "@size-limit/preset-small-lib": "^11.1.0",
         "@storybook/react-vite": "catalog:storybook",
         "@types/bun": "catalog:",
@@ -187,6 +193,7 @@
       },
       "devDependencies": {
         "@pandacss/dev": "catalog:ui",
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@storybook/addon-a11y": "catalog:storybook",
         "@storybook/addon-designs": "catalog:storybook",
@@ -218,6 +225,7 @@
       },
       "devDependencies": {
         "@faker-js/faker": "^10.4.0",
+        "@repo/oxlint": "workspace:",
         "@repo/tsconfig": "workspace:",
         "@repo/types": "workspace:",
         "@types/bun": "catalog:",

@@ -1,5 +1,6 @@
 import type { ArrayValues } from "@repo/types";
-import { recipeModes, type RecipeMode } from "~/domain/refinement-context";
+import { recipeModes } from "~/domain/refinement-context";
+import type { RecipeMode } from "~/domain/refinement-context";
 
 export const refinerChoices = ["claude-cli", "sdk", "none"] as const;
 export type RefinerChoice = ArrayValues<typeof refinerChoices>;
@@ -63,7 +64,9 @@ export function parseAddArgs(argv: readonly string[]): AddParseResult {
     const value = arg.slice(eq + 1);
     if (key === "--target") {
       if (!isTargetChoice(value)) {
-        return { error: `unknown --target value '${value}' — expected: ${targetChoices.join(", ")}` };
+        return {
+          error: `unknown --target value '${value}' — expected: ${targetChoices.join(", ")}`,
+        };
       }
       target = value;
       continue;
@@ -148,7 +151,9 @@ export function parseRefineArgs(argv: readonly string[]): RefineParseResult {
     const value = arg.slice(eq + 1);
     if (key === "--target") {
       if (!isTargetChoice(value)) {
-        return { error: `unknown --target value '${value}' — expected: ${targetChoices.join(", ")}` };
+        return {
+          error: `unknown --target value '${value}' — expected: ${targetChoices.join(", ")}`,
+        };
       }
       target = value;
       continue;

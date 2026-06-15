@@ -1,21 +1,15 @@
 import { match } from "@repo/std/match";
 import type { Refiner } from "~/application/ports/refiner";
-import {
-  refineFiles,
-  type RefineFilesError,
-  type RefineFilesOutcome,
-} from "~/application/usecases/refine-files";
+import { refineFiles } from "~/application/usecases/refine-files";
+import type { RefineFilesError, RefineFilesOutcome } from "~/application/usecases/refine-files";
 import { dirname, join, resolve } from "~/domain/path";
 import { blockPlacement, primitivePlacement } from "~/domain/placement-plan";
 import { AnthropicSdkRefiner } from "~/infrastructure/refiner/anthropic-sdk";
 import { NoneRefiner } from "~/infrastructure/refiner/none";
 import { createColors } from "~/infrastructure/colors";
 import type { Command } from "~/presentation/command";
-import {
-  parseRefineArgs,
-  type RefineParsedArgs,
-  type RefinerChoice,
-} from "~/presentation/parsers/add-args";
+import { parseRefineArgs } from "~/presentation/parsers/add-args";
+import type { RefineParsedArgs, RefinerChoice } from "~/presentation/parsers/add-args";
 import type { CommandDeps } from "~/presentation/deps";
 import { renderError } from "~/presentation/ui/format-error";
 import { renderDiff, renderNotes, renderPlan } from "~/presentation/ui/render-add-plan";
@@ -31,8 +25,8 @@ export function createRefineCommand(deps: CommandDeps): Command {
       let rootDir: string;
       try {
         rootDir = await deps.locator.locate(process.cwd());
-      } catch (err) {
-        return renderError(deps.output, err instanceof Error ? err.message : String(err));
+      } catch (error) {
+        return renderError(deps.output, error instanceof Error ? error.message : String(error));
       }
 
       const files = await resolveInputFiles(deps, rootDir, parsed.patterns);
@@ -73,8 +67,8 @@ export function createRefineCommand(deps: CommandDeps): Command {
                     dryRun: parsed.dryRun,
                     runCodegen: parsed.runCodegen && !parsed.dryRun,
                     recipeMode: parsed.recipeMode,
-                    ...(buildPlacement(rootDir, files[0]!, parsed)
-                      ? { placementOverride: buildPlacement(rootDir, files[0]!, parsed)! }
+                    ...(buildPlacement(rootDir, files[0], parsed)
+                      ? { placementOverride: buildPlacement(rootDir, files[0], parsed)! }
                       : {}),
                   },
                 },
@@ -97,7 +91,7 @@ export function createRefineCommand(deps: CommandDeps): Command {
         return 1;
       }
 
-      const outcome = captured.outcome;
+      const { outcome } = captured;
       renderPlan(deps.prompter, {
         spec: files.map((f) => relativeTo(rootDir, f)).join(", "),
         target: outcome.target,
@@ -175,7 +169,7 @@ function buildPlacement(rootDir: string, firstFile: string, parsed: RefineParsed
 
 function deriveName(absPath: string): string {
   const parts = absPath.split("/");
-  const file = parts[parts.length - 1] ?? absPath;
+  const file = parts.at(-1) ?? absPath;
   return file.replace(/\.(tsx|ts)$/, "");
 }
 
@@ -183,7 +177,11 @@ function summarizeOutcome(outcome: RefineFilesOutcome): string {
   if (outcome.diff !== null) return `Planned ${outcome.output.files.length} file(s) (dry-run)`;
   if (!outcome.applied) return "Refined";
   const codegen =
-    outcome.codegen === "ran" ? " · codegen ok" : outcome.codegen === "failed" ? " · codegen failed" : "";
+    outcome.codegen === "ran"
+      ? " · codegen ok"
+      : outcome.codegen === "failed"
+        ? " · codegen failed"
+        : "";
   return `Wrote ${outcome.applied.written.length} file(s)${codegen}`;
 }
 
@@ -191,8 +189,10 @@ function formatError(err: RefineFilesError): string {
   return match(err)
     .with({ kind: "no-files" }, () => "no input files provided")
     .with({ kind: "missing-file" }, ({ path }) => `file not found: ${path}`)
-    .with({ kind: "unresolved-placement" }, ({ path }) =>
-      `could not infer placement for ${path} — pass --target=primitives|blocks (and optionally --category)`,
+    .with(
+      { kind: "unresolved-placement" },
+      ({ path }) =>
+        `could not infer placement for ${path} — pass --target=primitives|blocks (and optionally --category)`,
     )
     .with({ kind: "refiner" }, ({ cause }) =>
       match(cause)

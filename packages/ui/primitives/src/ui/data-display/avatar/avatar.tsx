@@ -3,7 +3,7 @@ import { css, cx } from "@lume/foundation/css";
 import { splitCssProps } from "@lume/foundation/jsx";
 import { avatar } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
 export interface AvatarProps
@@ -17,7 +17,7 @@ export interface AvatarProps
   fallback?: string;
 }
 
-export const Avatar = forwardRef<ElementRef<"div">, AvatarProps>(
+export const Avatar = forwardRef<ComponentRef<"div">, AvatarProps>(
   ({ size, shape, src, alt, fallback, children, ...props }, ref) => {
     const [cssProps, restProps] = splitCssProps(props);
 
@@ -28,7 +28,7 @@ export const Avatar = forwardRef<ElementRef<"div">, AvatarProps>(
         {...restProps}
         className={cx(avatar({ size, shape }), css(cssProps), props.className)}
       >
-        {src ? <img src={src} alt={alt || ""} /> : children || fallback}
+        {src ? <img src={src} alt={alt ?? ""} /> : (children ?? fallback)}
       </ark.div>
     );
   },

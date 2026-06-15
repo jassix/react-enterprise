@@ -96,12 +96,22 @@ export function BillingPage() {
                 <td>{formatTotal(invoice)}</td>
                 <td>
                   {ability.can("issue", tagged) ? (
-                    <Button variant="default" onClick={() => onIssue(invoice.id)}>
+                    <Button
+                      variant="default"
+                      onClick={() => {
+                        void onIssue(invoice.id);
+                      }}
+                    >
                       Issue
                     </Button>
                   ) : null}
                   {ability.can("void", tagged) ? (
-                    <Button variant="default" onClick={() => onVoid(invoice.id)}>
+                    <Button
+                      variant="default"
+                      onClick={() => {
+                        void onVoid(invoice.id);
+                      }}
+                    >
                       Void
                     </Button>
                   ) : null}

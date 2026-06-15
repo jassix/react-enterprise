@@ -1,14 +1,12 @@
-import { buildSdkPlan, type SdkPlanInput } from "~/application/usecases/sdk/build-plan";
+import { buildSdkPlan } from "~/application/usecases/sdk/build-plan";
+import type { SdkPlanInput } from "~/application/usecases/sdk/build-plan";
 import { assembleSdk } from "~/application/usecases/sdk/assemble";
 import { resolveSpec } from "~/application/usecases/sdk/resolve-spec";
 import { scaffoldSdk } from "~/application/usecases/sdk/scaffold";
 import type { CommandDeps } from "~/presentation/deps";
 import { join } from "~/domain/path";
-import {
-  allRequiredPresent,
-  parseSdkArgs,
-  type SdkParsedArgs,
-} from "~/presentation/parsers/sdk-args";
+import { allRequiredPresent, parseSdkArgs } from "~/presentation/parsers/sdk-args";
+import type { SdkParsedArgs } from "~/presentation/parsers/sdk-args";
 import { nonInteractiveHint, showIntro, showOutro, showPlanSummary } from "~/presentation/ui/sdk";
 import { renderError } from "~/presentation/ui/format-error";
 
@@ -31,8 +29,8 @@ export async function runInitSdk(
   let plan;
   try {
     plan = await buildSdkPlan({ input, interactive }, { prompter: deps.prompter });
-  } catch (err) {
-    return renderError(deps.output, err instanceof Error ? err.message : String(err));
+  } catch (error) {
+    return renderError(deps.output, error instanceof Error ? error.message : String(error));
   }
 
   if (plan.generate && !plan.install) {
@@ -59,8 +57,8 @@ export async function runInitSdk(
       },
       { fs: deps.fs, fetcher: deps.fetcher, templateLoader: deps.templateLoader },
     );
-  } catch (err) {
-    return renderError(deps.output, err instanceof Error ? err.message : String(err));
+  } catch (error) {
+    return renderError(deps.output, error instanceof Error ? error.message : String(error));
   }
 
   const files = await assembleSdk(
@@ -84,8 +82,8 @@ export async function runInitSdk(
         output: deps.output,
       },
     );
-  } catch (err) {
-    return renderError(deps.output, err instanceof Error ? err.message : String(err));
+  } catch (error) {
+    return renderError(deps.output, error instanceof Error ? error.message : String(error));
   }
 
   showOutro(deps.prompter, { plan, fileCount: result.fileCount });

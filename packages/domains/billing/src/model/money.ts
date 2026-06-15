@@ -1,4 +1,5 @@
-import schema, { integer, minValue, number, object, picklist, pipe } from "@repo/std/schema";
+import type schema from "@repo/std/schema";
+import { integer, minValue, number, object, picklist, pipe } from "@repo/std/schema";
 
 export const CurrencySchema = picklist(["USD", "EUR", "GBP"]);
 export type Currency = schema.InferOutput<typeof CurrencySchema>;

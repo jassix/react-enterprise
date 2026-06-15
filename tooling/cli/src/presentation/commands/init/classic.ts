@@ -28,7 +28,7 @@ export async function runInitClassic(
 
   deps.prompter.intro(`${cyan(bold("repo init"))}  ${dim(`→ ${plan.relDir}`)}`);
 
-  const tasks: Array<Parameters<typeof deps.taskRunner.runSequential>[0][number]> = [
+  const tasks: Parameters<typeof deps.taskRunner.runSequential>[0][number][] = [
     {
       title: `Scaffolding @repo/${parsed.name}`,
       run: async () => {
@@ -36,9 +36,9 @@ export async function runInitClassic(
           for (const [rel, content] of plan.files) {
             await deps.fs.write(join(targetDir, rel), content);
           }
-        } catch (err) {
+        } catch (error) {
           await deps.fs.removeDir(targetDir);
-          throw err;
+          throw error;
         }
         return `Wrote ${plan.files.size} files`;
       },
@@ -60,8 +60,8 @@ export async function runInitClassic(
 
   try {
     await deps.taskRunner.runSequential(tasks);
-  } catch (err) {
-    return renderError(deps.output, err instanceof Error ? err.message : String(err));
+  } catch (error) {
+    return renderError(deps.output, error instanceof Error ? error.message : String(error));
   }
 
   if (parsed.skipInstall) deps.prompter.log.info("Skipped bun install (--no-install)");

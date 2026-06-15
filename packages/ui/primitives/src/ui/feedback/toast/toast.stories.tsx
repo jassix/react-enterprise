@@ -15,66 +15,66 @@ import { Toast } from "./toast";
 // Ark's `--y` / `--scale` / `--opacity` vars via `translate` / `scale` /
 // `opacity` — no more fighting the machine.
 const toaster = Toast.createToaster({
-	placement: "bottom-end",
-	overlap: true,
-	gap: 12,
-	max: 5,
-	// Auto-dismiss after 4s so rapid clicks don't pile up machines forever.
-	duration: 4000,
+  placement: "bottom-end",
+  overlap: true,
+  gap: 12,
+  max: 5,
+  // Auto-dismiss after 4s so rapid clicks don't pile up machines forever.
+  duration: 4000,
 });
 
 const meta = {
-	title: "Primitives/Feedback/Toast",
-	component: Toast,
-	// Autodocs tries to statically render a preview of the interactive story,
-	// which spins up a live toaster on the docs page for no benefit. Keep the
-	// story interactive-only.
-	parameters: { docs: { disable: true } },
+  title: "Primitives/Feedback/Toast",
+  component: Toast,
+  // Autodocs tries to statically render a preview of the interactive story,
+  // which spins up a live toaster on the docs page for no benefit. Keep the
+  // story interactive-only.
+  parameters: { docs: { disable: true } },
 } satisfies Meta<typeof Toast>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Interactive: Story = {
-	render: () => (
-		<>
-			<div style={{ display: "flex", gap: 8 }}>
-				<Button
-					onClick={() =>
-						toaster.create({
-							title: "Saved",
-							description: "Your changes have been saved.",
-							type: "success",
-						})
-					}
-				>
-					Success
-				</Button>
-				<Button
-					variant="outline"
-					intent="critical"
-					onClick={() =>
-						toaster.create({
-							title: "Failed",
-							description: "We couldn't complete the request.",
-							type: "error",
-						})
-					}
-				>
-					Error
-				</Button>
-			</div>
-			<Toast.Toaster toaster={toaster}>
-				{(toast) => (
-					<Toast.Root key={toast.id}>
-						<Toast.Title>{toast.title}</Toast.Title>
-						<Toast.Description>{toast.description}</Toast.Description>
-						<Toast.CloseTrigger>
-							<Icon name="hugeicons:cancel-01" size="sm" />
-						</Toast.CloseTrigger>
-					</Toast.Root>
-				)}
-			</Toast.Toaster>
-		</>
-	),
+  render: () => (
+    <>
+      <div style={{ display: "flex", gap: 8 }}>
+        <Button
+          onClick={() =>
+            toaster.create({
+              title: "Saved",
+              description: "Your changes have been saved.",
+              type: "success",
+            })
+          }
+        >
+          Success
+        </Button>
+        <Button
+          variant="outline"
+          intent="critical"
+          onClick={() =>
+            toaster.create({
+              title: "Failed",
+              description: "We couldn't complete the request.",
+              type: "error",
+            })
+          }
+        >
+          Error
+        </Button>
+      </div>
+      <Toast.Toaster toaster={toaster}>
+        {(toast) => (
+          <Toast.Root key={toast.id}>
+            <Toast.Title>{toast.title}</Toast.Title>
+            <Toast.Description>{toast.description}</Toast.Description>
+            <Toast.CloseTrigger>
+              <Icon name="hugeicons:cancel-01" size="sm" />
+            </Toast.CloseTrigger>
+          </Toast.Root>
+        )}
+      </Toast.Toaster>
+    </>
+  ),
 };

@@ -12,9 +12,8 @@ type FieldVariants = {
 
 export interface FieldRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof FieldPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof FieldPrimitive.RootBaseProps>,
     Omit<FieldPrimitive.RootBaseProps, "orientation">,
     FieldVariants {}
 

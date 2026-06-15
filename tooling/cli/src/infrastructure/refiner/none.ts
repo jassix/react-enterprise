@@ -1,4 +1,5 @@
-import { Ok, type Result } from "@repo/std/result";
+import { Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { Refiner, RefinerError, RefinerOutput } from "~/application/ports/refiner";
 import type { PlacementPlan } from "~/domain/placement-plan";
 import type { RefinementContext } from "~/domain/refinement-context";

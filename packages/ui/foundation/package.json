@@ -51,13 +51,15 @@
     "cssgen": "panda cssgen --outfile styled-system/styles.css",
     "studio": "panda studio",
     "tokens:check": "bun run scripts/snapshot-tokens.mjs --check",
-    "tokens:snapshot": "bun run scripts/snapshot-tokens.mjs"
+    "tokens:snapshot": "bun run scripts/snapshot-tokens.mjs",
+    "lint": "oxlint --type-aware ."
   },
   "dependencies": {
     "@fontsource-variable/figtree": "catalog:ui"
   },
   "devDependencies": {
     "@pandacss/dev": "catalog:ui",
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@types/bun": "catalog:",
     "@types/react": "catalog:react"

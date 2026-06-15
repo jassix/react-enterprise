@@ -13,13 +13,13 @@ bun --filter @repo/pokeapi-sdk generate   # kubb generate
 
 Output lands in `src/gen/` (git-ignored) and is re-exported through subpaths:
 
-| Import | Contents |
-|---|---|
-| `@repo/pokeapi-sdk` | barrel (everything) |
-| `@repo/pokeapi-sdk/models` | TS types |
-| `@repo/pokeapi-sdk/clients` | fetch clients |
-| `@repo/pokeapi-sdk/hooks` | React Query hooks |
-| `@repo/pokeapi-sdk/zod` | Zod schemas |
+| Import                             | Contents                   |
+| ---------------------------------- | -------------------------- |
+| `@repo/pokeapi-sdk`                | barrel (everything)        |
+| `@repo/pokeapi-sdk/models`         | TS types                   |
+| `@repo/pokeapi-sdk/clients`        | fetch clients              |
+| `@repo/pokeapi-sdk/hooks`          | React Query hooks          |
+| `@repo/pokeapi-sdk/zod`            | Zod schemas                |
 | `@repo/pokeapi-sdk/mocks` / `/msw` | faker mocks + MSW handlers |
 
 The plugin set (ts, client, react-query, zod, faker, msw, cypress) is

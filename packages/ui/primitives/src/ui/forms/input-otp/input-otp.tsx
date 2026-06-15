@@ -11,9 +11,8 @@ type InputOtpVariants = {
 
 export interface InputOtpRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof PinInputPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof PinInputPrimitive.RootBaseProps>,
     Omit<PinInputPrimitive.RootBaseProps, "size">,
     InputOtpVariants {}
 

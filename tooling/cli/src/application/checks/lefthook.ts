@@ -1,5 +1,6 @@
 import type { CheckContext, CheckRunner } from "~/application/checks/context";
-import { type CheckOutcome, fail, ok, warn } from "~/domain/doctor/check";
+import { fail, ok, warn } from "~/domain/doctor/check";
+import type { CheckOutcome } from "~/domain/doctor/check";
 import { join } from "~/domain/path";
 
 async function checkPreCommit(ctx: CheckContext): Promise<CheckOutcome> {

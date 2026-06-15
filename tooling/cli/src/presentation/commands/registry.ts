@@ -5,11 +5,9 @@ import {
   removeRegistry,
   saveRegistryConfig,
 } from "~/application/usecases/registry-config";
-import {
-  loadCatalogOrEmpty,
-  loadRemoteCatalog,
-} from "~/application/usecases/remote-catalog";
-import { listNamespaces, type RegistryConfig } from "~/domain/registry-config";
+import { loadCatalogOrEmpty, loadRemoteCatalog } from "~/application/usecases/remote-catalog";
+import { listNamespaces } from "~/domain/registry-config";
+import type { RegistryConfig } from "~/domain/registry-config";
 import { searchCatalog } from "~/domain/remote-registry";
 import { createColors } from "~/infrastructure/colors";
 import type { Command } from "~/presentation/command";
@@ -33,8 +31,8 @@ export function createRegistryCommand(deps: CommandDeps): Command {
       let rootDir: string;
       try {
         rootDir = await deps.locator.locate(process.cwd());
-      } catch (err) {
-        return renderError(deps.output, err instanceof Error ? err.message : String(err));
+      } catch (error) {
+        return renderError(deps.output, error instanceof Error ? error.message : String(error));
       }
 
       const sub = argv[0];
@@ -124,7 +122,10 @@ async function runAdd(
   const updated = addRegistry(config, namespace, urlTemplate);
   if (updated.isErr()) {
     const detail = match(updated.unwrapErr())
-      .with({ kind: "invalid-namespace" }, ({ namespace: ns }) => `invalid namespace '${ns}' — must match @<lowercase-ident>`)
+      .with(
+        { kind: "invalid-namespace" },
+        ({ namespace: ns }) => `invalid namespace '${ns}' — must match @<lowercase-ident>`,
+      )
       .with({ kind: "missing-placeholder" }, () => `url template must contain '{name}' placeholder`)
       .with({ kind: "invalid-url" }, ({ url }) => `invalid url template: ${url}`)
       .exhaustive();
@@ -133,7 +134,10 @@ async function runAdd(
 
   const saved = await saveRegistryConfig(deps.fs, rootDir, updated.unwrap());
   if (saved.isErr()) {
-    return renderError(deps.output, `failed to save registries.json: ${String(saved.unwrapErr().cause)}`);
+    return renderError(
+      deps.output,
+      `failed to save registries.json: ${String(saved.unwrapErr().cause)}`,
+    );
   }
 
   const c = createColors();
@@ -165,7 +169,10 @@ async function runRemove(
 
   const saved = await saveRegistryConfig(deps.fs, rootDir, next);
   if (saved.isErr()) {
-    return renderError(deps.output, `failed to save registries.json: ${String(saved.unwrapErr().cause)}`);
+    return renderError(
+      deps.output,
+      `failed to save registries.json: ${String(saved.unwrapErr().cause)}`,
+    );
   }
 
   const c = createColors();
@@ -203,13 +210,13 @@ async function runSearch(
   );
 
   if (matches.length === 0) {
-    deps.prompter.outro(`${c.wrap("yellow", "no matches")}`);
+    deps.prompter.outro(c.wrap("yellow", "no matches"));
     return 0;
   }
 
   const lines: string[] = [];
   for (const entry of matches) {
-    lines.push(`${cyan(bold(entry.name))}`);
+    lines.push(cyan(bold(entry.name)));
     if (entry.description) lines.push(`  ${dim(truncate(entry.description, 100))}`);
     lines.push(`  ${dim(entry.url)}`);
     if (entry.homepage) lines.push(`  ${dim(entry.homepage)}`);
@@ -234,13 +241,16 @@ async function runRefresh(deps: CommandDeps, rootDir: string): Promise<number> {
   });
   if (r.isErr()) {
     const e = r.unwrapErr();
-    const detail = e.kind === "invalid-payload"
-      ? `invalid catalog payload: ${e.messages.join("; ")}`
-      : `transport error: ${String(e.cause)}`;
+    const detail =
+      e.kind === "invalid-payload"
+        ? `invalid catalog payload: ${e.messages.join("; ")}`
+        : `transport error: ${String(e.cause)}`;
     return renderError(deps.output, detail);
   }
   const catalog = r.unwrap();
-  deps.prompter.outro(`${c.wrap("green", bold("✓"))}  ${dim(`${catalog.length} registries cached`)}`);
+  deps.prompter.outro(
+    `${c.wrap("green", bold("✓"))}  ${dim(`${catalog.length} registries cached`)}`,
+  );
   return 0;
 }
 

@@ -5,84 +5,82 @@ import { tooltip } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
 import type { FC, PropsWithChildren } from "react";
 
-export interface TooltipRootProps extends 
-		PropsWithChildren,
-		TooltipPrimitive.RootBaseProps {}
+export interface TooltipRootProps extends PropsWithChildren, TooltipPrimitive.RootBaseProps {}
 
 const Root: FC<TooltipRootProps> = (props) => <TooltipPrimitive.Root {...props} />;
 
 export interface TooltipTriggerProps
-	extends
-		Omit<HTMLStyledProps<"button">, keyof TooltipPrimitive.TriggerBaseProps>,
-		TooltipPrimitive.TriggerBaseProps {}
+  extends
+    Omit<HTMLStyledProps<"button">, keyof TooltipPrimitive.TriggerBaseProps>,
+    TooltipPrimitive.TriggerBaseProps {}
 
 const Trigger: FC<TooltipTriggerProps> = (props) => {
-	const [cssProps, restProps] = splitCssProps(props);
+  const [cssProps, restProps] = splitCssProps(props);
 
-	return (
-		<TooltipPrimitive.Trigger
-			data-slot="tooltip-trigger"
-			{...restProps}
-			className={cx(tooltip().trigger, css(cssProps), props.className)}
-		/>
-	);
+  return (
+    <TooltipPrimitive.Trigger
+      data-slot="tooltip-trigger"
+      {...restProps}
+      className={cx(tooltip().trigger, css(cssProps), props.className)}
+    />
+  );
 };
 
 export interface TooltipPositionerProps
-	extends
-		Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.PositionerBaseProps>,
-		TooltipPrimitive.PositionerBaseProps {}
+  extends
+    Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.PositionerBaseProps>,
+    TooltipPrimitive.PositionerBaseProps {}
 
 const Positioner: FC<TooltipPositionerProps> = (props) => {
-	const [cssProps, restProps] = splitCssProps(props);
+  const [cssProps, restProps] = splitCssProps(props);
 
-	return (
-		<TooltipPrimitive.Positioner
-			data-slot="tooltip-positioner"
-			{...restProps}
-			className={cx(tooltip().positioner, css(cssProps), props.className)}
-		/>
-	);
+  return (
+    <TooltipPrimitive.Positioner
+      data-slot="tooltip-positioner"
+      {...restProps}
+      className={cx(tooltip().positioner, css(cssProps), props.className)}
+    />
+  );
 };
 
 export interface TooltipContentProps
-	extends
-		Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.ContentBaseProps>,
-		TooltipPrimitive.ContentBaseProps {}
+  extends
+    Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.ContentBaseProps>,
+    TooltipPrimitive.ContentBaseProps {}
 
 const Content: FC<TooltipContentProps> = (props) => {
-	const [cssProps, restProps] = splitCssProps(props);
+  const [cssProps, restProps] = splitCssProps(props);
 
-	return (
-		<TooltipPrimitive.Content
-			data-slot="tooltip-content"
-			{...restProps}
-			className={cx(tooltip().content, css(cssProps), props.className)}
-		/>
-	);
+  return (
+    <TooltipPrimitive.Content
+      data-slot="tooltip-content"
+      {...restProps}
+      className={cx(tooltip().content, css(cssProps), props.className)}
+    />
+  );
 };
 
 export interface TooltipArrowProps
-	extends
-		Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.ArrowBaseProps>,
-		TooltipPrimitive.ArrowBaseProps {}
+  extends
+    Omit<HTMLStyledProps<"div">, keyof TooltipPrimitive.ArrowBaseProps>,
+    TooltipPrimitive.ArrowBaseProps {}
 
 const Arrow: FC<TooltipArrowProps> = (props) => {
-	const [cssProps, restProps] = splitCssProps(props);
+  const [cssProps, restProps] = splitCssProps(props);
 
-	return (
-		<TooltipPrimitive.Arrow
-			data-slot="tooltip-arrow"
-			{...restProps}
-			className={cx(tooltip().arrow, css(cssProps), props.className)}
-		/>
-	);
+  return (
+    <TooltipPrimitive.Arrow
+      data-slot="tooltip-arrow"
+      {...restProps}
+      className={cx(tooltip().arrow, css(cssProps), props.className)}
+    />
+  );
 };
 
 export const Tooltip = Object.assign(Root, {
-	Root,
-	Trigger,
-	Positioner,
-	Content,
-	Arrow,
+  Root,
+  Trigger,
+  Positioner,
+  Content,
+  Arrow,
 });

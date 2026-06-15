@@ -1,4 +1,5 @@
-import { rule, type Rule } from "../ability";
+import { rule } from "../ability";
+import type { Rule } from "../ability";
 import type { Actor } from "../model";
 
 export function defineBaseRulesFor(actor: Actor): readonly Rule[] {

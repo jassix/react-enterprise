@@ -59,8 +59,7 @@ function sectionRecipes(recipes: readonly RecipeDescriptor[]): string {
   if (recipes.length === 0) return "## Available recipes\n\n(none registered)";
   const lines = recipes.map((r) => {
     const slots = r.slots && r.slots.length > 0 ? `; slots: [${r.slots.join(", ")}]` : "";
-    const variants =
-      r.variantKeys.length > 0 ? `; variants: [${r.variantKeys.join(", ")}]` : "";
+    const variants = r.variantKeys.length > 0 ? `; variants: [${r.variantKeys.join(", ")}]` : "";
     return `- ${r.name} (className: ${r.className}${slots}${variants})`;
   });
   return ["## Available recipes", "", ...lines].join("\n");
@@ -94,13 +93,7 @@ function sectionExemplar(exemplar: SourceFile): string {
 }
 
 function sectionPlacement(target: RefinementContext["target"]): string {
-  return [
-    "## Placement target",
-    "",
-    "```json",
-    JSON.stringify(target, null, 2),
-    "```",
-  ].join("\n");
+  return ["## Placement target", "", "```json", JSON.stringify(target, null, 2), "```"].join("\n");
 }
 
 function sectionRecipeMode(mode: RecipeMode, componentName: string): string {
@@ -110,31 +103,33 @@ function sectionRecipeMode(mode: RecipeMode, componentName: string): string {
 
 function recipeModeInstructions(mode: RecipeMode, componentName: string): string {
   switch (mode) {
-    case "generate":
+    case "generate": {
       return [
         `Emit BOTH the primitive AND a new recipe at \`packages/ui/foundation/src/recipes/${componentName}/${componentName}.recipe.ts\`.`,
         "Recipe must follow `defineRecipe` / `defineSlotRecipe` conventions and reference design tokens only.",
         `The primitive must import the recipe from \`@lume/foundation/recipes\`.`,
       ].join("\n");
-    case "inline":
+    }
+    case "inline": {
       return [
         "Use only inline `css({...})` calls against semantic tokens. Do NOT emit a recipe file.",
         "The primitive must import `css` from `@lume/foundation/css`.",
       ].join("\n");
-    case "matched":
+    }
+    case "matched": {
       return [
         "An existing recipe matches this component — reuse it by name. Do NOT emit a new recipe file.",
         `Import the existing recipe from \`@lume/foundation/recipes\` and use it via \`recipeName({...variants})\`.`,
       ].join("\n");
-    case "skip":
+    }
+    case "skip": {
       return "(skip mode — refinement should have been aborted before reaching the model)";
+    }
   }
 }
 
 function sectionSource(source: readonly SourceFile[]): string {
-  const blocks = source.map(
-    (f) => `### ${f.path}\n\n\`\`\`tsx\n${f.content.trimEnd()}\n\`\`\``,
-  );
+  const blocks = source.map((f) => `### ${f.path}\n\n\`\`\`tsx\n${f.content.trimEnd()}\n\`\`\``);
   return ["## Source (shadcn)", "", ...blocks].join("\n\n");
 }
 
@@ -170,10 +165,10 @@ function sectionOutputFormat(): string {
     "",
     requiredStyling,
     "",
-    "**Icon policy** — every icon must be rendered as `<Icon name=\"...\" />` from `@lume/primitives`.",
+    '**Icon policy** — every icon must be rendered as `<Icon name="..." />` from `@lume/primitives`.',
     "If the source uses an icon name not present in the available icons list above, leave the JSX in place but add a comment immediately above it:",
     "",
-    "    // TODO: missing icon \"<name>\" — please add to @lume/primitives/icon",
+    '    // TODO: missing icon "<name>" — please add to @lume/primitives/icon',
   ].join("\n");
 }
 

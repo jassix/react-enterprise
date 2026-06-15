@@ -21,11 +21,7 @@ export function blockAbsDir(rootDir: string, name: string): string {
   return join(rootDir, "packages/ui/blocks/src", name);
 }
 
-export function primitivePlacement(
-  rootDir: string,
-  category: string,
-  name: string,
-): PlacementPlan {
+export function primitivePlacement(rootDir: string, category: string, name: string): PlacementPlan {
   return {
     kind: "primitive",
     category,

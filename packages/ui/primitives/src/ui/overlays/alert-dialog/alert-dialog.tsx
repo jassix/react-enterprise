@@ -10,9 +10,7 @@ type AlertDialogVariants = {
   size?: "sm" | "md" | "lg";
 };
 
-export interface AlertDialogRootProps extends 
-		PropsWithChildren,
-		DialogPrimitive.RootBaseProps {}
+export interface AlertDialogRootProps extends PropsWithChildren, DialogPrimitive.RootBaseProps {}
 
 const Root: FC<AlertDialogRootProps> = (props) => <DialogPrimitive.Root {...props} />;
 

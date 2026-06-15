@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { FileSystem } from "~/application/ports/file-system";
 
 export interface UpdateBarrelInput {
@@ -23,8 +24,8 @@ export async function updateBarrel(
     if (await fs.exists(input.barrelPath)) {
       existing = await fs.read(input.barrelPath);
     }
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 
   const next = insertNamedExport(existing, {
@@ -37,8 +38,8 @@ export async function updateBarrel(
 
   try {
     await fs.write(input.barrelPath, next);
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
   return Ok({ inserted: true });
 }
@@ -57,8 +58,8 @@ export async function appendRecipeExport(
     if (await fs.exists(input.indexPath)) {
       existing = await fs.read(input.indexPath);
     }
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 
   const next = insertWildcardExport(existing, input.recipeName);
@@ -66,8 +67,8 @@ export async function appendRecipeExport(
 
   try {
     await fs.write(input.indexPath, next);
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
   return Ok({ inserted: true });
 }
@@ -160,7 +161,10 @@ export function insertWildcardExport(content: string, recipeName: string): strin
 }
 
 function parseNamedExports(lines: readonly string[]): ParsedExport[] {
-  const valueByKey = new Map<string, { componentName: string; importPath: string; value: string }>();
+  const valueByKey = new Map<
+    string,
+    { componentName: string; importPath: string; value: string }
+  >();
   const typeByKey = new Map<string, string>();
 
   for (const raw of lines) {

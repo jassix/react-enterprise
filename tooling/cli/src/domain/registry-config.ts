@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import * as v from "@repo/std/schema";
 
 export const RegistryConfigSchema = v.object({
@@ -44,9 +45,7 @@ export function validateRegistryEntry(
     return Err({ kind: "missing-placeholder", url: urlTemplate });
   }
   const probe = urlTemplate.replace(PLACEHOLDER, "_probe_");
-  try {
-    new URL(probe);
-  } catch {
+  if (!URL.canParse(probe)) {
     return Err({ kind: "invalid-url", url: urlTemplate });
   }
   return Ok(undefined);
@@ -63,5 +62,5 @@ export function resolveRegistryUrl(
 }
 
 export function listNamespaces(config: RegistryConfig): readonly string[] {
-  return Object.keys(config.registries).sort();
+  return Object.keys(config.registries).toSorted();
 }

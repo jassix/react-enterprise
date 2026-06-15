@@ -1,24 +1,131 @@
 {
-	"$schema": "./node_modules/oxlint/configuration_schema.json",
-	"plugins": ["typescript", "unicorn", "import", "oxc"],
-	"categories": {
-		"correctness": "error",
-		"suspicious": "warn"
-	},
-	"rules": {
-		"typescript/no-floating-promises": "error",
-		"typescript/no-explicit-any": "warn",
-		"import/no-cycle": "error",
-		"unicorn/no-null": "off"
-	},
-	"overrides": [
-		{
-			"files": ["*.d.ts"],
-			"rules": {
-				"typescript/no-explicit-any": "off",
-				"typescript/triple-slash-reference": "off"
-			}
-		}
-	],
-	"ignorePatterns": ["node_modules", "dist", "build", ".turbo", "*.gen.*", "styled-system"]
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error",
+    "pedantic": "error",
+    "style": "error"
+  },
+  "rules": {
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-empty-interface": "off",
+    "import/no-cycle": "error",
+    "import/no-duplicates": "error",
+    "curly": ["error", "multi-line"],
+
+    // Export/import organization: this codebase uses named exports and
+    // re-export barrels by design.
+    "import/no-named-export": "off",
+    "import/prefer-default-export": "off",
+    "import/group-exports": "off",
+    "import/exports-last": "off",
+    "import/max-dependencies": "off",
+    "import/no-namespace": "off",
+    "import/no-unassigned-import": "off",
+    "no-duplicate-imports": "off",
+
+    // Sorting/formatting is owned by oxfmt, not the linter.
+    "sort-keys": "off",
+    "sort-imports": "off",
+
+    // Opinionated style the project rejects (terse FP idioms, ternaries,
+    // comments, short identifiers, declare-then-assign, etc.).
+    "no-ternary": "off",
+    "no-nested-ternary": "off",
+    "unicorn/no-nested-ternary": "off",
+    "no-inline-comments": "off",
+    "capitalized-comments": "off",
+    "line-comment-position": "off",
+    "id-length": "off",
+    "id-denylist": "off",
+    "no-magic-numbers": "off",
+    "func-style": "off",
+    "func-names": "off",
+    "one-var": "off",
+    "init-declarations": "off",
+    "prefer-destructuring": "off",
+    "consistent-type-definitions": "off",
+    "no-undefined": "off",
+    "no-void": "off",
+    "no-continue": "off",
+    "no-plusplus": "off",
+    "no-bitwise": "off",
+    "no-negated-condition": "off",
+    "unicorn/no-null": "off",
+    "unicorn/filename-case": "off",
+
+    // Arbitrary size metrics — not enforced.
+    "max-statements": "off",
+    "max-depth": "off",
+    "max-lines": "off",
+    "max-lines-per-function": "off",
+    "max-params": "off",
+    "max-nested-callbacks": "off",
+    "max-classes-per-file": "off",
+
+    // False positives for this codebase's idioms.
+    "new-cap": "off",
+    "require-await": "off",
+    "no-await-in-loop": "off",
+    // Conflicts with no-useless-return on interface-conformance `return undefined`.
+    "unicorn/no-useless-undefined": "off",
+    // Stub barrels (e.g. an empty @lume/blocks index) are allowed.
+    "unicorn/no-empty-file": "off",
+    // Conflicts with no-useless-spread on snapshot-before-mutation copies.
+    "unicorn/prefer-spread": "off",
+    // The codebase names caught errors to match the error type's shape
+    // (e.g. `catch (cause)` for `{ cause }`); don't force-rename to `error`.
+    "unicorn/catch-error-name": "off",
+    // Conflicts with tsconfig `noImplicitReturns`: an explicit trailing
+    // `return` is required on functions with mixed return paths.
+    "no-useless-return": "off",
+
+    // Type-aware (tsgolint): keep the bug-catchers (no-floating-promises,
+    // no-misused-promises, await-thenable, no-deprecated, prefer-nullish-
+    // coalescing, no-unnecessary-*) on via `correctness`; disable the
+    // famously-noisy/aggressive ones that mainstream configs tune off.
+    "typescript/strict-boolean-expressions": "off",
+    "typescript/require-await": "off",
+    "typescript/no-confusing-void-expression": "off",
+    "typescript/no-unsafe-type-assertion": "off",
+    "typescript/no-unsafe-assignment": "off",
+    "typescript/no-unsafe-argument": "off",
+    "typescript/no-unsafe-member-access": "off",
+    "typescript/no-unsafe-call": "off",
+    "typescript/no-unsafe-return": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.d.ts"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/triple-slash-reference": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/no-floating-promises": "off",
+        "typescript/await-thenable": "off",
+        "typescript/no-misused-promises": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    ".turbo",
+    "*.gen.*",
+    "styled-system",
+    "gen",
+    "luma",
+    "tooling/types/src",
+    ".claude",
+    ".agents/skills"
+  ]
 }

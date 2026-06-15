@@ -1,10 +1,8 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import * as v from "@repo/std/schema";
-import {
-  emptyRegistryConfig,
-  resolveRegistryUrl,
-  type RegistryConfig,
-} from "~/domain/registry-config";
+import { emptyRegistryConfig, resolveRegistryUrl } from "~/domain/registry-config";
+import type { RegistryConfig } from "~/domain/registry-config";
 
 export const componentSpecSources = ["shadcn", "registry", "url"] as const;
 
@@ -31,7 +29,11 @@ export type ComponentSpec = v.InferOutput<typeof ComponentSpecSchema>;
 export type SpecParseError =
   | { readonly kind: "empty" }
   | { readonly kind: "unrecognized"; readonly input: string }
-  | { readonly kind: "unknown-namespace"; readonly namespace: string; readonly known: readonly string[] }
+  | {
+      readonly kind: "unknown-namespace";
+      readonly namespace: string;
+      readonly known: readonly string[];
+    }
   | { readonly kind: "invalid-name"; readonly input: string };
 
 const NAME_RE = /^[a-z0-9][a-z0-9-]*$/i;

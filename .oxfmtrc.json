@@ -1,3 +1,13 @@
 {
-	"extends": "./node_modules/@repo/oxlint/base.oxfmtrc.json"
+  "extends": "./node_modules/@repo/oxlint/base.oxfmtrc.json",
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    "*.gen.*",
+    "*.min.js",
+    "styled-system",
+    "gen",
+    "luma"
+  ]
 }

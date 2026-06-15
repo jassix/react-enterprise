@@ -9,9 +9,8 @@ type NavigationMenuVariants = { orientation?: "horizontal" | "vertical" };
 
 export interface NavigationMenuRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"nav">, keyof NavigationMenuPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"nav">, keyof NavigationMenuPrimitive.RootBaseProps>,
     Omit<NavigationMenuPrimitive.RootBaseProps, "orientation">,
     NavigationMenuVariants {}
 

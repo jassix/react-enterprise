@@ -5534,8 +5534,6 @@
 }
 
     .item__title {
-      gap: var(--spacing-sm);
-      align-items: center;
       line-height: 1.375;
       font-weight: var(--font-weights-medium);
       text-underline-offset: 4px;
@@ -5545,8 +5543,8 @@
 
     .item__title,.item__description {
       overflow: hidden;
-      display: -webkit-box;
       font-size: var(--font-sizes-sm);
+      display: -webkit-box;
       -webkit-box-orient: vertical;
 }
 

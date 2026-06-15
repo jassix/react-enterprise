@@ -1,7 +1,7 @@
 export function join(...parts: readonly string[]): string {
   const filtered = parts.filter((p) => p.length > 0);
   if (filtered.length === 0) return ".";
-  return filtered.join("/").replace(/\/+/g, "/");
+  return filtered.join("/").replaceAll(/\/+/g, "/");
 }
 
 export function dirname(p: string): string {

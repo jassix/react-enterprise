@@ -9,9 +9,8 @@ type CarouselVariants = { orientation?: "horizontal" | "vertical" };
 
 export interface CarouselRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof CarouselPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof CarouselPrimitive.RootBaseProps>,
     Omit<CarouselPrimitive.RootBaseProps, "orientation">,
     CarouselVariants {}
 

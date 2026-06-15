@@ -10,15 +10,15 @@ import {
   select,
   text,
 } from "@clack/prompts";
-import {
-  CANCELLED,
-  type Cancelled,
-  type ConfirmOpts,
-  type MultiSelectOpts,
-  type Prompter,
-  type PrompterLog,
-  type SelectOpts,
-  type TextOpts,
+import { CANCELLED } from "~/application/ports/prompter";
+import type {
+  Cancelled,
+  ConfirmOpts,
+  MultiSelectOpts,
+  Prompter,
+  PrompterLog,
+  SelectOpts,
+  TextOpts,
 } from "~/application/ports/prompter";
 
 const clackLog: PrompterLog = {
@@ -51,12 +51,7 @@ export class ClackPrompter implements Prompter {
       message: opts.message,
       placeholder: opts.placeholder,
       initialValue: opts.initialValue,
-      validate: opts.validate
-        ? (input: string) => {
-            const result = opts.validate?.(input);
-            return result === undefined ? undefined : result;
-          }
-        : undefined,
+      validate: opts.validate ? (input: string) => opts.validate?.(input) : undefined,
     });
     return isCancel(value) ? CANCELLED : value;
   }

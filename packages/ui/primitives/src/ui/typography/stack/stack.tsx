@@ -3,7 +3,7 @@ import { css, cx } from "@lume/foundation/css";
 import { splitCssProps } from "@lume/foundation/jsx";
 import { stack } from "@lume/foundation/patterns";
 import type { HTMLStyledProps } from "@lume/foundation/types";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
 export interface StackProps
@@ -14,7 +14,7 @@ export interface StackProps
   gap?: string;
 }
 
-export const Stack = forwardRef<ElementRef<"div">, StackProps>(
+export const Stack = forwardRef<ComponentRef<"div">, StackProps>(
   ({ direction = "column", gap, ...props }, ref) => {
     const [cssProps, restProps] = splitCssProps(props);
 

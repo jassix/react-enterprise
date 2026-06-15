@@ -28,3 +28,13 @@ luma
 oxfmt
 pokeapi
 tsgolint
+aceternity
+bundui
+cascadia
+consolas
+embla
+fira
+qwik
+reui
+segoe
+visx

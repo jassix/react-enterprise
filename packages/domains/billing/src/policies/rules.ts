@@ -1,4 +1,5 @@
-import { rule, type Rule } from "@repo/authz/ability";
+import { rule } from "@repo/authz/ability";
+import type { Rule } from "@repo/authz/ability";
 import type { Actor } from "@repo/authz/model";
 
 export function defineBillingRulesFor(actor: Actor): readonly Rule[] {

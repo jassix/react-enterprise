@@ -1,4 +1,5 @@
-import schema, {
+import type schema from "@repo/std/schema";
+import {
   array,
   date,
   integer,

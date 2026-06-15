@@ -1,6 +1,7 @@
 import * as v from "@repo/std/schema";
 import type { CheckContext, CheckRunner } from "~/application/checks/context";
-import { type CheckOutcome, fail, ok, warn } from "~/domain/doctor/check";
+import { fail, ok, warn } from "~/domain/doctor/check";
+import type { CheckOutcome } from "~/domain/doctor/check";
 import { join, resolve } from "~/domain/path";
 
 const SkillEntrySchema = v.object({

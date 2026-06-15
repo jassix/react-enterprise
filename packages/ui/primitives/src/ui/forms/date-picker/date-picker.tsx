@@ -9,9 +9,8 @@ type DatePickerVariants = { size?: "sm" | "md" | "lg" };
 
 export interface DatePickerRootProps
   extends
-
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof DatePickerPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof DatePickerPrimitive.RootBaseProps>,
     DatePickerPrimitive.RootBaseProps {}
 
 const Root: FC<DatePickerRootProps> = (props) => {

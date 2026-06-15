@@ -9,9 +9,8 @@ type ScrollAreaVariants = { size?: "thin" | "md" | "thick" };
 
 export interface ScrollAreaRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof ScrollAreaPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof ScrollAreaPrimitive.RootBaseProps>,
     Omit<ScrollAreaPrimitive.RootBaseProps, "size">,
     ScrollAreaVariants {}
 

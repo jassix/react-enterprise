@@ -1,6 +1,8 @@
 import { isValidSdkName } from "~/domain/sdk/name";
-import { isPluginId, PLUGIN_IDS, type PluginId } from "~/domain/sdk/plugin";
-import { isPresetId, type PresetId } from "~/domain/sdk/preset";
+import { isPluginId, PLUGIN_IDS } from "~/domain/sdk/plugin";
+import type { PluginId } from "~/domain/sdk/plugin";
+import { isPresetId } from "~/domain/sdk/preset";
+import type { PresetId } from "~/domain/sdk/preset";
 import type { SpecSource } from "~/domain/sdk/spec-source";
 
 export interface SdkParsedArgs {

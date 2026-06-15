@@ -64,6 +64,6 @@ describe("buildPackageJson", () => {
     });
     const json = parse(out);
     const keys = Object.keys(json.devDependencies);
-    expect(keys).toEqual([...keys].sort());
+    expect(keys).toEqual([...keys].toSorted());
   });
 });

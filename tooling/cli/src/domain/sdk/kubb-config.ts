@@ -1,4 +1,5 @@
-import { PLUGINS, type PluginId } from "~/domain/sdk/plugin";
+import { PLUGINS } from "~/domain/sdk/plugin";
+import type { PluginId } from "~/domain/sdk/plugin";
 
 export interface BuildKubbConfigOptions {
   readonly plugins: readonly PluginId[];
@@ -6,7 +7,7 @@ export interface BuildKubbConfigOptions {
 }
 
 export function buildKubbConfig(opts: BuildKubbConfigOptions): string {
-  const sortedPlugins = [...opts.plugins].sort(comparePluginId);
+  const sortedPlugins = [...opts.plugins].toSorted(comparePluginId);
   const imports = [
     `import { defineConfig } from "@kubb/core";`,
     `import { pluginOas } from "@kubb/plugin-oas";`,

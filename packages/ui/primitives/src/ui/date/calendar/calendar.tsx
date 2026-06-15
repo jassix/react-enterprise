@@ -12,9 +12,8 @@ type CalendarVariants = {
 
 export interface CalendarRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof DatePickerPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof DatePickerPrimitive.RootBaseProps>,
     DatePickerPrimitive.RootBaseProps,
     CalendarVariants {}
 

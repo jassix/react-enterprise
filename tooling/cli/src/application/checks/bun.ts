@@ -1,5 +1,6 @@
 import type { CheckContext, CheckRunner } from "~/application/checks/context";
-import { type CheckOutcome, fail, ok } from "~/domain/doctor/check";
+import { fail, ok } from "~/domain/doctor/check";
+import type { CheckOutcome } from "~/domain/doctor/check";
 import { join } from "~/domain/path";
 
 interface RootPkg {
@@ -20,8 +21,8 @@ function satisfiesMinimum(current: string, constraint: string): boolean {
   const min = parseSemver(stripped);
   if (!cur || !min) return true;
   for (let i = 0; i < 3; i++) {
-    const c = cur[i] as number;
-    const m = min[i] as number;
+    const c = cur[i];
+    const m = min[i];
     if (c > m) return true;
     if (c < m) return false;
   }

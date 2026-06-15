@@ -1,4 +1,5 @@
-import { type AppAbility, defineAbilityFor } from "@repo/authz/ability";
+import { defineAbilityFor } from "@repo/authz/ability";
+import type { AppAbility } from "@repo/authz/ability";
 import type { Actor } from "@repo/authz/model";
 import { defineBaseRulesFor } from "@repo/authz/policies";
 import { defineBillingRulesFor } from "@repo/billing/policies";

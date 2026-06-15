@@ -10,9 +10,7 @@ type DrawerVariants = {
   size?: "sm" | "md" | "lg" | "full";
 };
 
-export interface DrawerRootProps extends 
-		PropsWithChildren,
-		BottomSheetPrimitive.RootBaseProps {}
+export interface DrawerRootProps extends PropsWithChildren, BottomSheetPrimitive.RootBaseProps {}
 
 const Root: FC<DrawerRootProps> = (props) => <BottomSheetPrimitive.Root {...props} />;
 

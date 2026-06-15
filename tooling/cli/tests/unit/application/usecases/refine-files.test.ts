@@ -1,9 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { Ok } from "@repo/std/result";
-import {
-  refineFiles,
-  type RefineFilesDeps,
-} from "~/application/usecases/refine-files";
+import { refineFiles } from "~/application/usecases/refine-files";
+import type { RefineFilesDeps } from "~/application/usecases/refine-files";
 import type {
   DesignSystemIntrospector,
   DesignSystemSnapshot,

@@ -3,7 +3,7 @@ import { css, cx } from "@lume/foundation/css";
 import { splitCssProps } from "@lume/foundation/jsx";
 import { skeleton } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
 export interface SkeletonProps
@@ -14,7 +14,7 @@ export interface SkeletonProps
   speed?: "slow" | "normal" | "fast";
 }
 
-export const Skeleton = forwardRef<ElementRef<"div">, SkeletonProps>(
+export const Skeleton = forwardRef<ComponentRef<"div">, SkeletonProps>(
   ({ variant, speed, ...props }, ref) => {
     const [cssProps, restProps] = splitCssProps(props);
 

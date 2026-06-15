@@ -28,11 +28,15 @@
       "import": "./src/fixtures.ts"
     }
   },
+  "scripts": {
+    "lint": "oxlint --type-aware ."
+  },
   "dependencies": {
     "@casl/ability": "catalog:auth",
     "@repo/std": "workspace:"
   },
   "devDependencies": {
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@repo/types": "workspace:",
     "@types/bun": "catalog:"

@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import * as v from "@repo/std/schema";
 import type { ArrayValues } from "@repo/types";
 
@@ -45,9 +46,7 @@ export type RegistryItemParseError =
   | { readonly kind: "invalid-json"; readonly cause: unknown }
   | { readonly kind: "schema"; readonly issues: readonly string[] };
 
-export function parseRegistryItem(
-  json: unknown,
-): Result<RegistryItem, RegistryItemParseError> {
+export function parseRegistryItem(json: unknown): Result<RegistryItem, RegistryItemParseError> {
   const parsed = v.safeParse(RegistryItemSchema, json);
   if (!parsed.success) {
     return Err({

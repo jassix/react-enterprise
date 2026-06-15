@@ -12,7 +12,8 @@ type ItemVariants = {
 };
 
 export interface ItemRootProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -30,7 +31,8 @@ const Root: FC<ItemRootProps> = ({ size, variant, interactive, ref, ...props }) 
 };
 
 export interface ItemMediaProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -49,7 +51,8 @@ const Media: FC<ItemMediaProps> = ({ size, variant, interactive, ref, ...props }
 };
 
 export interface ItemContentProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -67,7 +70,8 @@ const Content: FC<ItemContentProps> = ({ size, variant, interactive, ref, ...pro
 };
 
 export interface ItemTitleProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -85,7 +89,8 @@ const Title: FC<ItemTitleProps> = ({ size, variant, interactive, ref, ...props }
 };
 
 export interface ItemDescriptionProps
-  extends Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
+  extends
+    Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
     Omit<ComponentProps<"p">, "size">,
     ItemVariants {}
 
@@ -107,7 +112,8 @@ const Description: FC<ItemDescriptionProps> = ({ size, variant, interactive, ref
 };
 
 export interface ItemActionsProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -125,7 +131,8 @@ const Actions: FC<ItemActionsProps> = ({ size, variant, interactive, ref, ...pro
 };
 
 export interface ItemSeparatorProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -138,17 +145,14 @@ const Separator: FC<ItemSeparatorProps> = ({ size, variant, interactive, ref, ..
       data-slot="item-separator"
       role="separator"
       {...restProps}
-      className={cx(
-        item({ size, variant, interactive }).separator,
-        css(cssProps),
-        props.className,
-      )}
+      className={cx(item({ size, variant, interactive }).separator, css(cssProps), props.className)}
     />
   );
 };
 
 export interface ItemGroupProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -167,7 +171,8 @@ const Group: FC<ItemGroupProps> = ({ size, variant, interactive, ref, ...props }
 };
 
 export interface ItemHeaderProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 
@@ -185,7 +190,8 @@ const Header: FC<ItemHeaderProps> = ({ size, variant, interactive, ref, ...props
 };
 
 export interface ItemFooterProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     ItemVariants {}
 

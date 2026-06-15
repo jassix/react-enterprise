@@ -1,3 +1,7 @@
 Mikita
 Pitunoŭ
 Pitunou
+petstore
+myapi
+xyzzy
+kowalski
