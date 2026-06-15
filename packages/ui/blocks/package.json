@@ -1,24 +1,24 @@
 {
-	"name": "@lume/blocks",
-	"exports": {
-		".": {
-			"import": "./src/index.ts",
-			"types": "./src/index.ts"
-		}
-	},
-	"type": "module",
-	"dependencies": {
-		"@lume/foundation": "workspace:",
-		"@lume/primitives": "workspace:",
-		"@ark-ui/react": "catalog:ui"
-	},
-	"devDependencies": {
-		"@repo/tsconfig": "workspace:",
-		"@types/bun": "catalog:"
-	},
-	"peerDependencies": {
-		"typescript": "catalog:",
-		"react": "catalog:react",
-		"@types/react": "catalog:react"
-	}
+  "name": "@lume/blocks",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@ark-ui/react": "catalog:ui",
+    "@lume/foundation": "workspace:",
+    "@lume/primitives": "workspace:"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:",
+    "@types/bun": "catalog:"
+  },
+  "peerDependencies": {
+    "@types/react": "catalog:react",
+    "react": "catalog:react",
+    "typescript": "catalog:"
+  }
 }

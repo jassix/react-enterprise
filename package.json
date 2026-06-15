@@ -5,9 +5,9 @@
     "packages": [
       "apps/*",
       "packages/*",
-      "packages/ui/*",
-      "packages/sdk/*",
       "packages/domains/*",
+      "packages/sdk/*",
+      "packages/ui/*",
       "tooling/*",
       "tooling/config/*"
     ],
@@ -59,22 +59,26 @@
     }
   },
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "repo": "bun tooling/cli/src/index.ts",
-    "doctor": "bun --filter @repo/cli doctor",
     "adapt": "bun --filter @repo/cli adapt",
-    "lint": "turbo run lint",
-    "format": "oxfmt --write .",
+    "build": "turbo run build",
     "check-types": "turbo run check-types",
+    "dev": "turbo run dev",
+    "doctor": "bun --filter @repo/cli doctor",
+    "format": "oxfmt --write .",
     "knip": "knip",
-    "size": "size-limit"
+    "lint": "turbo run lint",
+    "packages:sort": "sort-package-json 'package.json' 'apps/*/package.json' 'packages/*/package.json' 'packages/ui/*/package.json' 'packages/sdk/*/package.json' 'packages/domains/*/package.json' 'tooling/*/package.json' 'tooling/config/*/package.json'",
+    "repo": "bun tooling/cli/src/index.ts",
+    "size": "size-limit",
+    "test": "turbo run test"
   },
   "devDependencies": {
+    "@repo/oxlint": "workspace:",
     "knip": "^5.40.0",
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
     "size-limit": "^11.1.0",
+    "sort-package-json": "^4.0.0",
     "turbo": "^2.5.6"
   },
   "engines": {

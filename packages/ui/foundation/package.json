@@ -1,68 +1,68 @@
 {
-	"name": "@lume/foundation",
-	"version": "1.0.0",
-	"description": "Enterprise-grade design system foundation with comprehensive token system, recipes, and accessibility features",
-	"exports": {
-		"./preset": {
-			"import": "./src/preset.ts",
-			"types": "./src/preset.ts"
-		},
-		"./recipes": {
-			"import": "./styled-system/recipes/index.mjs",
-			"types": "./styled-system/recipes/index.d.ts"
-		},
-		"./css": {
-			"import": "./styled-system/css/index.mjs",
-			"types": "./styled-system/css/index.d.ts"
-		},
-		"./patterns": {
-			"import": "./styled-system/patterns/index.mjs",
-			"types": "./styled-system/patterns/index.d.ts"
-		},
-		"./types": {
-			"import": "./styled-system/types/index.mjs",
-			"types": "./styled-system/types/index.d.ts"
-		},
-		"./styled-tokens": {
-			"import": "./styled-system/tokens/index.mjs",
-			"types": "./styled-system/tokens/index.d.ts"
-		},
-		"./jsx": {
-			"import": "./styled-system/jsx/index.mjs",
-			"types": "./styled-system/jsx/index.d.ts"
-		},
-		"./styles.css": "./styled-system/styles.css",
-		"./fonts.css": "./src/fonts.css"
-	},
-	"type": "module",
-	"scripts": {
-		"codegen": "panda codegen",
-		"cssgen": "panda cssgen --outfile styled-system/styles.css",
-		"build": "panda codegen && panda cssgen --outfile styled-system/styles.css",
-		"studio": "panda studio",
-		"tokens:snapshot": "bun run scripts/snapshot-tokens.mjs",
-		"tokens:check": "bun run scripts/snapshot-tokens.mjs --check"
-	},
-	"dependencies": {
-		"@fontsource-variable/figtree": "catalog:ui"
-	},
-	"devDependencies": {
-		"@pandacss/dev": "catalog:ui",
-		"@types/react": "catalog:react",
-		"@repo/tsconfig": "workspace:",
-		"@types/bun": "catalog:"
-	},
-	"peerDependencies": {
-		"typescript": "catalog:"
-	},
-	"keywords": [
-		"design-system",
-		"panda-css",
-		"tokens",
-		"theme",
-		"accessibility",
-		"wcag",
-		"recipes",
-		"typescript"
-	]
+  "name": "@lume/foundation",
+  "version": "1.0.0",
+  "description": "Enterprise-grade design system foundation with comprehensive token system, recipes, and accessibility features",
+  "keywords": [
+    "accessibility",
+    "design-system",
+    "panda-css",
+    "recipes",
+    "theme",
+    "tokens",
+    "typescript",
+    "wcag"
+  ],
+  "type": "module",
+  "exports": {
+    "./preset": {
+      "types": "./src/preset.ts",
+      "import": "./src/preset.ts"
+    },
+    "./recipes": {
+      "types": "./styled-system/recipes/index.d.ts",
+      "import": "./styled-system/recipes/index.mjs"
+    },
+    "./css": {
+      "types": "./styled-system/css/index.d.ts",
+      "import": "./styled-system/css/index.mjs"
+    },
+    "./patterns": {
+      "types": "./styled-system/patterns/index.d.ts",
+      "import": "./styled-system/patterns/index.mjs"
+    },
+    "./types": {
+      "types": "./styled-system/types/index.d.ts",
+      "import": "./styled-system/types/index.mjs"
+    },
+    "./styled-tokens": {
+      "types": "./styled-system/tokens/index.d.ts",
+      "import": "./styled-system/tokens/index.mjs"
+    },
+    "./jsx": {
+      "types": "./styled-system/jsx/index.d.ts",
+      "import": "./styled-system/jsx/index.mjs"
+    },
+    "./styles.css": "./styled-system/styles.css",
+    "./fonts.css": "./src/fonts.css"
+  },
+  "scripts": {
+    "build": "panda codegen && panda cssgen --outfile styled-system/styles.css",
+    "codegen": "panda codegen",
+    "cssgen": "panda cssgen --outfile styled-system/styles.css",
+    "studio": "panda studio",
+    "tokens:check": "bun run scripts/snapshot-tokens.mjs --check",
+    "tokens:snapshot": "bun run scripts/snapshot-tokens.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/figtree": "catalog:ui"
+  },
+  "devDependencies": {
+    "@pandacss/dev": "catalog:ui",
+    "@repo/tsconfig": "workspace:",
+    "@types/bun": "catalog:",
+    "@types/react": "catalog:react"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  }
 }

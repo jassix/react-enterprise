@@ -1,6 +1,9 @@
 {
-	"name": "@repo/oxlint",
-	"version": "0.1.0",
-	"private": true,
-	"files": ["*.oxlintrc.json", "*.oxfmtrc.json"]
+  "name": "@repo/oxlint",
+  "version": "0.1.0",
+  "private": true,
+  "files": [
+    "*.oxlintrc.json",
+    "*.oxfmtrc.json"
+  ]
 }

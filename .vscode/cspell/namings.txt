@@ -20,3 +20,10 @@ asyncify
 jsonifiable
 jsonify
 promisable
+figtree
+hugeicons
+iconify
+kubb
+luma
+oxfmt
+pokeapi

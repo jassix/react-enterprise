@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "panda codegen && panda cssgen --outfile styled-system/styles.css && vite dev",
     "build": "panda codegen && panda cssgen --outfile styled-system/styles.css && vite build",
-    "start": "node .output/server/index.mjs",
+    "check-types": "tsc --noEmit",
     "codegen": "panda codegen && panda cssgen --outfile styled-system/styles.css",
+    "dev": "panda codegen && panda cssgen --outfile styled-system/styles.css && vite dev",
     "lint": "oxlint -c .oxlintrc.json .",
-    "check-types": "tsc --noEmit"
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@ark-ui/react": "catalog:ui",
