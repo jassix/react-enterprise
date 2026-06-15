@@ -12,8 +12,12 @@
   },
   "dependencies": {
     "@ark-ui/react": "catalog:ui",
+    "@casl/ability": "catalog:auth",
+    "@casl/react": "catalog:auth",
     "@lume/foundation": "workspace:",
     "@lume/primitives": "workspace:",
+    "@repo/authz": "workspace:",
+    "@repo/billing": "workspace:",
     "@repo/std": "workspace:",
     "@tanstack/react-router": "^1.168.0",
     "@tanstack/react-start": "^1.167.0",

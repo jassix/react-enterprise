@@ -23,7 +23,8 @@
         "valibot": "^1.2.0"
       },
       "auth": {
-        "@casl/ability": "^6.7.3"
+        "@casl/ability": "^6.7.3",
+        "@casl/react": "^7.0.0"
       },
       "react": {
         "react": "^19.0.0",
