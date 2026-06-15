@@ -3,9 +3,39 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "types": "./src/gen/index.ts",
+      "import": "./src/gen/index.ts"
+    },
+    "./hooks": {
+      "types": "./src/gen/hooks/index.ts",
+      "import": "./src/gen/hooks/index.ts"
+    },
+    "./models": {
+      "types": "./src/gen/models/index.ts",
+      "import": "./src/gen/models/index.ts"
+    },
+    "./clients": {
+      "types": "./src/gen/clients/index.ts",
+      "import": "./src/gen/clients/index.ts"
+    },
+    "./zod": {
+      "types": "./src/gen/zod/index.ts",
+      "import": "./src/gen/zod/index.ts"
+    },
+    "./mocks": {
+      "types": "./src/gen/mocks/index.ts",
+      "import": "./src/gen/mocks/index.ts"
+    },
+    "./msw": {
+      "types": "./src/gen/msw/index.ts",
+      "import": "./src/gen/msw/index.ts"
+    }
+  },
   "scripts": {
     "format": "oxfmt --write .",
+    "generate": "kubb generate",
     "lint": "oxlint -c .oxlintrc.json ."
   },
   "devDependencies": {

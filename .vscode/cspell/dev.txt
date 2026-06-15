@@ -16,6 +16,8 @@ oxlintrc
 picklist
 pipefail
 startswith
+subpath
+subpaths
 usecases
 wcag
 abac
