@@ -6,8 +6,7 @@
   "main": "index.js",
   "scripts": {
     "format": "oxfmt --write .",
-    "lint": "oxlint -c .oxlintrc.json .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "oxlint -c .oxlintrc.json ."
   },
   "devDependencies": {
     "@kubb/agent": "^4.37.5",

@@ -5,13 +5,23 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "storybook-static/**", "styled-system/**", "dist/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "storybook-static/**",
+        "styled-system/**",
+        "dist/**"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "check-types": {
       "dependsOn": ["^check-types"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
     },
     "dev": {
       "cache": false,
