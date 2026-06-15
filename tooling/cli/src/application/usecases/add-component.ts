@@ -1,8 +1,5 @@
 import { Err, Ok, type Result } from "@repo/std/result";
-import type {
-  ComponentRegistry,
-  RegistryError,
-} from "~/application/ports/component-registry";
+import type { ComponentRegistry, RegistryError } from "~/application/ports/component-registry";
 import type {
   DesignSystemIntrospector,
   DesignSystemSnapshot,
@@ -10,10 +7,7 @@ import type {
 import type { FileSystem } from "~/application/ports/file-system";
 import type { Refiner, RefinerError, RefinerOutput } from "~/application/ports/refiner";
 import type { Shell } from "~/application/ports/shell";
-import type {
-  ApplyOutputOutcome,
-  RefineLoopError,
-} from "~/application/usecases/refine-shared";
+import type { ApplyOutputOutcome, RefineLoopError } from "~/application/usecases/refine-shared";
 import {
   applyOutput,
   buildDiffPairs,
@@ -24,26 +18,15 @@ import {
   unifiedDiffOf,
   updateBarrelsFor,
 } from "~/application/usecases/refine-shared";
-import {
-  componentName as specComponentName,
-  type ComponentSpec,
-} from "~/domain/component-spec";
-import {
-  blockPlacement,
-  type PlacementPlan,
-  primitivePlacement,
-} from "~/domain/placement-plan";
+import { componentName as specComponentName, type ComponentSpec } from "~/domain/component-spec";
+import { blockPlacement, type PlacementPlan, primitivePlacement } from "~/domain/placement-plan";
 import {
   isBlock,
   isUiOrComponent,
   type RegistryFile,
   type RegistryItem,
 } from "~/domain/registry-item";
-import type {
-  RecipeMode,
-  RefinementContext,
-  SourceFile,
-} from "~/domain/refinement-context";
+import type { RecipeMode, RefinementContext, SourceFile } from "~/domain/refinement-context";
 
 export interface AddComponentDeps {
   readonly registry: ComponentRegistry;
@@ -54,9 +37,18 @@ export interface AddComponentDeps {
   readonly resolveRecipeMode: ResolveRecipeMode;
 }
 
-export type ResolveRecipeMode = (
-  args: ResolveRecipeModeArgs,
-) => Promise<RecipeMode | "abort">;
+export interface PlanAddComponentDeps {
+  readonly registry: ComponentRegistry;
+  readonly introspector: DesignSystemIntrospector;
+}
+
+export interface ExecuteAddComponentDeps {
+  readonly refiner: Refiner;
+  readonly fs: FileSystem;
+  readonly shell: Shell;
+}
+
+export type ResolveRecipeMode = (args: ResolveRecipeModeArgs) => Promise<RecipeMode | "abort">;
 
 export interface ResolveRecipeModeArgs {
   readonly componentName: string;
@@ -68,6 +60,13 @@ export interface AddComponentInput {
   readonly spec: ComponentSpec;
   readonly rootDir: string;
   readonly options: AddComponentOptions;
+}
+
+export interface AddComponentPlan {
+  readonly item: RegistryItem;
+  readonly snapshot: DesignSystemSnapshot;
+  readonly target: PlacementPlan;
+  readonly matchedRecipe: string | null;
 }
 
 export interface AddComponentOptions {
@@ -99,10 +98,10 @@ export interface AddComponentOutcome {
   readonly notes: readonly string[];
 }
 
-export async function addComponent(
-  deps: AddComponentDeps,
+export async function planAddComponent(
+  deps: PlanAddComponentDeps,
   input: AddComponentInput,
-): Promise<Result<AddComponentOutcome, AddComponentError>> {
+): Promise<Result<AddComponentPlan, AddComponentError>> {
   const resolved = await deps.registry.resolve(input.spec);
   if (resolved.isErr()) return Err({ kind: "registry", cause: resolved.unwrapErr() });
   const item = resolved.unwrap();
@@ -120,30 +119,30 @@ export async function addComponent(
   const target = placement.unwrap();
 
   const matchedRecipe = findMatchedRecipe(target.componentName, snapshot);
-  const recipeModeChoice = await deps.resolveRecipeMode({
-    componentName: target.componentName,
-    matchedRecipe,
-    target,
-  });
-  if (recipeModeChoice === "abort") return Err({ kind: "cancelled" });
-  const recipeMode: RecipeMode =
-    matchedRecipe !== null ? "matched" : recipeModeChoice;
+  return Ok({ item, snapshot, target, matchedRecipe });
+}
 
-  const sourceFiles = mapRegistryFiles(item.files);
+export async function executeAddComponent(
+  deps: ExecuteAddComponentDeps,
+  input: AddComponentInput,
+  plan: AddComponentPlan,
+  recipeMode: RecipeMode,
+): Promise<Result<AddComponentOutcome, AddComponentError>> {
+  const sourceFiles = mapRegistryFiles(plan.item.files);
   if (sourceFiles.length === 0) return Err({ kind: "no-files" });
 
-  const exemplar = await loadExemplar(deps.fs, snapshot.exemplarPath);
+  const exemplar = await loadExemplar(deps.fs, plan.snapshot.exemplarPath);
   const rules = await loadRuleDocs(deps.fs, input.rootDir);
 
   const context: RefinementContext = {
     rules,
-    recipes: snapshot.recipes,
-    semanticTokens: snapshot.semanticTokens,
-    categories: snapshot.categories,
-    iconNames: snapshot.iconNames,
+    recipes: plan.snapshot.recipes,
+    semanticTokens: plan.snapshot.semanticTokens,
+    categories: plan.snapshot.categories,
+    iconNames: plan.snapshot.iconNames,
     exemplar,
     source: sourceFiles,
-    target,
+    target: plan.target,
     recipeMode,
   };
 
@@ -158,8 +157,8 @@ export async function addComponent(
   if (input.options.dryRun) {
     const pairs = await buildDiffPairs(deps.fs, input.rootDir, output);
     return Ok({
-      registryItem: item,
-      target,
+      registryItem: plan.item,
+      target: plan.target,
       recipeMode,
       output,
       applied: null,
@@ -172,7 +171,7 @@ export async function addComponent(
   const applied = await applyOutput({ fs: deps.fs }, input.rootDir, output);
   if (applied.isErr()) return Err({ kind: "io", cause: applied.unwrapErr().cause });
 
-  const barrels = await updateBarrelsFor(deps.fs, input.rootDir, output, target);
+  const barrels = await updateBarrelsFor(deps.fs, input.rootDir, output, plan.target);
   if (barrels.isErr()) return Err({ kind: "io", cause: barrels.unwrapErr().cause });
 
   let codegen: AddComponentOutcome["codegen"] = "skipped";
@@ -186,8 +185,8 @@ export async function addComponent(
   }
 
   return Ok({
-    registryItem: item,
-    target,
+    registryItem: plan.item,
+    target: plan.target,
     recipeMode,
     output,
     applied: applied.unwrap(),
@@ -195,6 +194,25 @@ export async function addComponent(
     codegen,
     notes: output.notes ?? [],
   });
+}
+
+export async function addComponent(
+  deps: AddComponentDeps,
+  input: AddComponentInput,
+): Promise<Result<AddComponentOutcome, AddComponentError>> {
+  const planned = await planAddComponent(deps, input);
+  if (planned.isErr()) return Err(planned.unwrapErr());
+  const plan = planned.unwrap();
+
+  const choice = await deps.resolveRecipeMode({
+    componentName: plan.target.componentName,
+    matchedRecipe: plan.matchedRecipe,
+    target: plan.target,
+  });
+  if (choice === "abort") return Err({ kind: "cancelled" });
+  const recipeMode: RecipeMode = plan.matchedRecipe !== null ? "matched" : choice;
+
+  return executeAddComponent(deps, input, plan, recipeMode);
 }
 
 interface PlanPlacementArgs {
@@ -205,9 +223,7 @@ interface PlanPlacementArgs {
   readonly options: AddComponentOptions;
 }
 
-function planPlacement(
-  args: PlanPlacementArgs,
-): Result<PlacementPlan, AddComponentError> {
+function planPlacement(args: PlanPlacementArgs): Result<PlacementPlan, AddComponentError> {
   if (args.options.targetOverride) {
     return Ok(args.options.targetOverride);
   }
@@ -307,10 +323,7 @@ function pickCategory(args: PickCategoryArgs): string {
   return args.snapshot.categories[0] ?? "data-display";
 }
 
-function findMatchedRecipe(
-  componentName: string,
-  snapshot: DesignSystemSnapshot,
-): string | null {
+function findMatchedRecipe(componentName: string, snapshot: DesignSystemSnapshot): string | null {
   const match = snapshot.recipes.find((r) => r.name === componentName);
   return match ? match.name : null;
 }

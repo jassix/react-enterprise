@@ -2,12 +2,14 @@ import { match } from "@repo/std/match";
 import type { Refiner } from "~/application/ports/refiner";
 import { isCancelled } from "~/application/ports/prompter";
 import {
-  addComponent,
-  type AddComponentDeps,
+  executeAddComponent,
+  planAddComponent,
   type AddComponentError,
+  type AddComponentInput,
   type AddComponentOutcome,
-  type ResolveRecipeMode,
+  type AddComponentPlan,
 } from "~/application/usecases/add-component";
+import type { RecipeMode } from "~/domain/refinement-context";
 import {
   componentName as specComponentName,
   parseSpec,
@@ -18,7 +20,6 @@ import { mergeWithCatalog } from "~/domain/remote-registry";
 import { loadRegistryConfig } from "~/application/usecases/registry-config";
 import { loadCatalogOrEmpty } from "~/application/usecases/remote-catalog";
 import { blockPlacement, primitivePlacement } from "~/domain/placement-plan";
-import type { RecipeMode } from "~/domain/refinement-context";
 import { AnthropicSdkRefiner } from "~/infrastructure/refiner/anthropic-sdk";
 import { NoneRefiner } from "~/infrastructure/refiner/none";
 import { createColors } from "~/infrastructure/colors";
@@ -114,56 +115,66 @@ async function runOne(args: RunOneArgs): Promise<"ok" | "fail"> {
   const componentName = specComponentName(spec);
   const targetOverride = buildTargetOverride(rootDir, componentName, parsed);
 
-  const resolveRecipeMode: ResolveRecipeMode = async ({ matchedRecipe, componentName: cn }) => {
-    if (matchedRecipe !== null) return "matched";
-    if (parsed.recipeMode) return parsed.recipeMode;
-    if (!deps.prompter.isTty) return "generate";
-
-    const choice = await deps.prompter.select<RecipeMode | "skip">({
-      message: `No recipe matches '${cn}' — how should styling be expressed?`,
-      options: [
-        {
-          value: "generate",
-          label: "Generate a new recipe in @lume/foundation",
-          hint: "matches the kit",
-        },
-        { value: "inline", label: "Inline css() only", hint: "no new recipe file" },
-        { value: "skip", label: "Skip this component", hint: "abort the install for this spec" },
-      ],
-      initialValue: "generate",
-    });
-    if (isCancelled(choice)) return "abort";
-    if (choice === "skip") return "abort";
-    return choice;
-  };
-
-  const addDeps: AddComponentDeps = {
-    registry: deps.registry,
-    refiner: args.refiner,
-    introspector: deps.introspector,
-    fs: deps.fs,
-    shell: deps.shell,
-    resolveRecipeMode,
+  const input: AddComponentInput = {
+    spec,
+    rootDir,
+    options: {
+      dryRun: parsed.dryRun,
+      runCodegen: parsed.runCodegen && !parsed.dryRun,
+      refine: parsed.refine,
+      ...(targetOverride ? { targetOverride } : {}),
+      ...(parsed.category ? { categoryOverride: parsed.category } : {}),
+    },
   };
 
   const captured: { outcome?: AddComponentOutcome; failure?: AddComponentError } = {};
 
+  let plan: AddComponentPlan | null = null;
   await deps.taskRunner
     .runSequential([
       {
-        title: `Refining ${rawSpec}`,
+        title: `Resolving ${rawSpec}`,
         run: async () => {
-          const res = await addComponent(addDeps, {
-            spec,
-            rootDir,
-            options: {
-              dryRun: parsed.dryRun,
-              runCodegen: parsed.runCodegen && !parsed.dryRun,
-              refine: parsed.refine,
-              ...(targetOverride ? { targetOverride } : {}),
-              ...(parsed.category ? { categoryOverride: parsed.category } : {}),
-            },
-          });
+          const res = await planAddComponent(
+            { registry: deps.registry, introspector: deps.introspector },
+            input,
+          );
+          if (res.isErr()) {
+            captured.failure = res.unwrapErr();
+            throw new Error(formatError(captured.failure));
+          }
+          plan = res.unwrap();
+          return summarizePlan(plan);
+        },
+      },
+    ])
+    .catch(() => {
+      /* error already captured */
+    });
+
+  if (captured.failure || !plan) {
+    if (captured.failure) renderError(deps.output, formatError(captured.failure));
+    return "fail";
+  }
+
+  const recipeMode = await resolveRecipeMode(deps, parsed, plan);
+  if (recipeMode === "abort") {
+    captured.failure = { kind: "cancelled" };
+    renderError(deps.output, formatError(captured.failure));
+    return "fail";
+  }
+
+  await deps.taskRunner
+    .runSequential([
+      {
+        title: parsed.dryRun ? "Refining (dry-run)" : "Refining with Claude",
+        run: async () => {
+          const res = await executeAddComponent(
+            { refiner: args.refiner, fs: deps.fs, shell: deps.shell },
+            input,
+            plan!,
+            recipeMode,
+          );
           if (res.isErr()) {
             captured.failure = res.unwrapErr();
             throw new Error(formatError(captured.failure));
@@ -174,7 +185,7 @@ async function runOne(args: RunOneArgs): Promise<"ok" | "fail"> {
       },
     ])
     .catch(() => {
-      /* error already captured into `captured.failure` */
+      /* error already captured */
     });
 
   if (captured.failure || !captured.outcome) {
@@ -203,11 +214,44 @@ function pickRefiner(choice: RefinerChoice, defaultRefiner: Refiner): Refiner {
   return new AnthropicSdkRefiner();
 }
 
-function buildTargetOverride(
-  rootDir: string,
-  componentName: string,
+async function resolveRecipeMode(
+  deps: CommandDeps,
   parsed: AddParsedArgs,
-) {
+  plan: AddComponentPlan,
+): Promise<RecipeMode | "abort"> {
+  if (plan.matchedRecipe !== null) return "matched";
+  if (parsed.recipeMode) return parsed.recipeMode;
+  if (!deps.prompter.isTty) return "generate";
+
+  const choice = await deps.prompter.select<RecipeMode | "skip">({
+    message: `No recipe matches '${plan.target.componentName}' — how should styling be expressed?`,
+    options: [
+      {
+        value: "generate",
+        label: "Generate a new recipe in @lume/foundation",
+        hint: "matches the kit",
+      },
+      { value: "inline", label: "Inline css() only", hint: "no new recipe file" },
+      { value: "skip", label: "Skip this component", hint: "abort the install for this spec" },
+    ],
+    initialValue: "generate",
+  });
+  if (isCancelled(choice)) return "abort";
+  if (choice === "skip") return "abort";
+  return choice;
+}
+
+function summarizePlan(plan: AddComponentPlan): string {
+  const where =
+    plan.target.kind === "primitive"
+      ? `@lume/primitives  ${plan.target.category}/${plan.target.componentName}`
+      : `@lume/blocks  ${plan.target.componentName}`;
+  const recipe =
+    plan.matchedRecipe !== null ? `recipe: ${plan.matchedRecipe} (matched)` : "recipe: tbd";
+  return `→ ${where}  ·  ${recipe}`;
+}
+
+function buildTargetOverride(rootDir: string, componentName: string, parsed: AddParsedArgs) {
   if (parsed.target === "blocks") return blockPlacement(rootDir, componentName);
   if (parsed.target === "primitives") {
     return primitivePlacement(rootDir, parsed.category ?? "data-display", componentName);
@@ -248,10 +292,15 @@ function parseSpecs(
 
 function summarizeOutcome(outcome: AddComponentOutcome): string {
   const fileCount = outcome.output.files.length;
-  if (outcome.diff !== null) return `Planned ${fileCount} file${fileCount === 1 ? "" : "s"} (dry-run)`;
+  if (outcome.diff !== null)
+    return `Planned ${fileCount} file${fileCount === 1 ? "" : "s"} (dry-run)`;
   if (!outcome.applied) return "Refined";
   const codegen =
-    outcome.codegen === "ran" ? " · codegen ok" : outcome.codegen === "failed" ? " · codegen failed" : "";
+    outcome.codegen === "ran"
+      ? " · codegen ok"
+      : outcome.codegen === "failed"
+        ? " · codegen failed"
+        : "";
   return `Wrote ${outcome.applied.written.length} file${outcome.applied.written.length === 1 ? "" : "s"}${codegen}`;
 }
 
@@ -270,25 +319,32 @@ function formatError(err: AddComponentError): string {
     .exhaustive();
 }
 
-function formatRegistryError(cause: AddComponentError extends infer T
-  ? T extends { kind: "registry"; cause: infer C }
-    ? C
-    : never
-  : never): string {
+function formatRegistryError(
+  cause: AddComponentError extends infer T
+    ? T extends { kind: "registry"; cause: infer C }
+      ? C
+      : never
+    : never,
+): string {
   return match(cause)
     .with({ kind: "not-found" }, ({ spec }) => `registry not found: ${spec}`)
-    .with({ kind: "transport" }, (e) => `registry transport error${e.status ? ` (${e.status})` : ""}: ${describe(e.cause)}`)
+    .with(
+      { kind: "transport" },
+      (e) => `registry transport error${e.status ? ` (${e.status})` : ""}: ${describe(e.cause)}`,
+    )
     .with({ kind: "invalid-payload" }, ({ messages }) =>
       ["registry payload invalid:", ...messages.map((m) => `  ${m}`)].join("\n"),
     )
     .exhaustive();
 }
 
-function formatRefinerError(cause: AddComponentError extends infer T
-  ? T extends { kind: "refiner"; cause: infer C }
-    ? C
-    : never
-  : never): string {
+function formatRefinerError(
+  cause: AddComponentError extends infer T
+    ? T extends { kind: "refiner"; cause: infer C }
+      ? C
+      : never
+    : never,
+): string {
   return match(cause)
     .with({ kind: "transport" }, (e) => `refiner transport error: ${describe(e.cause)}`)
     .with({ kind: "unavailable" }, ({ reason }) => `refiner unavailable: ${reason}`)
