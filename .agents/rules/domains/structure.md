@@ -56,13 +56,17 @@ packages/domains/<name>/
 {
   "extends": "@repo/tsconfig/bun.tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "types": ["@repo/types/reset"],
-    "paths": { "~/*": ["./src/*"] }
+    "types": ["@repo/types/reset"]
   },
   "include": ["src/**/*"]
 }
 ```
+
+> **Use relative imports inside a domain** (`../model`, `./money`) — not a `~/`
+> self-alias. Domains are published as **source** through their subpath
+> exports, so a consuming package's `tsc` compiles these files under its own
+> `tsconfig`; a `~/` alias only resolves under the domain's own config and
+> breaks every consumer.
 
 ## Folder rules
 
