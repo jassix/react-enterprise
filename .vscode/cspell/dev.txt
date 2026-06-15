@@ -13,6 +13,7 @@ introspector
 nothrow
 oxfmtrc
 oxlintrc
+picklist
 pipefail
 startswith
 usecases

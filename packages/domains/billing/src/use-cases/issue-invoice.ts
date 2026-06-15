@@ -1,9 +1,9 @@
 import { match } from "@repo/std/match";
 import { Err, Ok, type Result } from "@repo/std/result";
 
-import type { Invoice, InvoiceId, InvoiceStatus } from "~/model";
-import { invoiceTotal } from "~/operations";
-import type { BillingPolicy, Clock, InvoiceRepository, Notifier, RepositoryError } from "~/ports";
+import type { Invoice, InvoiceId, InvoiceStatus } from "../model";
+import { invoiceTotal } from "../operations";
+import type { BillingPolicy, Clock, InvoiceRepository, Notifier, RepositoryError } from "../ports";
 
 export interface IssueInvoiceDeps {
   repo: InvoiceRepository;

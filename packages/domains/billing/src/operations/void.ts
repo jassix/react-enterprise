@@ -1,6 +1,6 @@
 import { Err, Ok, type Result } from "@repo/std/result";
 
-import type { Invoice, InvoiceStatus } from "~/model";
+import type { Invoice, InvoiceStatus } from "../model";
 
 export type VoidError = { kind: "not-voidable"; status: InvoiceStatus };
 
