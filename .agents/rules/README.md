@@ -7,6 +7,7 @@ Domain-grouped engineering rules for this monorepo. AGENTS.md is the entry point
 Rules that apply to all code in the repo.
 
 - [Code comments](./shared/comments.md)
+- [Testing](./shared/testing.md)
 - [Imports](./shared/imports.md)
 - [Types](./shared/types.md)
 - [Tooling commands](./shared/tooling.md)

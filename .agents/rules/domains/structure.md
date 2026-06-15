@@ -56,7 +56,7 @@ packages/domains/<name>/
 {
   "extends": "@repo/tsconfig/bun.tsconfig.json",
   "compilerOptions": {
-    "types": ["@repo/types/reset"]
+    "types": ["bun", "@repo/types/reset"]
   },
   "include": ["src/**/*"]
 }

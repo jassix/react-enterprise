@@ -1,12 +1,12 @@
 {
-	"extends": "@repo/tsconfig/bun.tsconfig.json",
-	"compilerOptions": {
-		"baseUrl": ".",
+  "extends": "@repo/tsconfig/bun.tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
 
-		"types": ["@repo/types/reset"],
+    "types": ["bun", "@repo/types/reset"],
 
-		"paths": {
-			"~/*": ["./src/*"]
-		}
-	}
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  }
 }
