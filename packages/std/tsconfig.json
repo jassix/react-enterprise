@@ -1,8 +1,6 @@
 {
   "extends": "@repo/tsconfig/bun.tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-
     "types": ["bun", "@repo/types/reset"],
 
     "paths": {

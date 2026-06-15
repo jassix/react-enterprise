@@ -27,3 +27,4 @@ kubb
 luma
 oxfmt
 pokeapi
+tsgolint
