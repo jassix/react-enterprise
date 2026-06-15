@@ -1,4 +1,4 @@
-import type { Currency, Invoice, LineItem, Money } from "~/model";
+import type { Currency, Invoice, LineItem, Money } from "./model";
 
 export function aMoney(overrides: Partial<Money> = {}): Money {
   return { amount: 1000, currency: "USD", ...overrides };

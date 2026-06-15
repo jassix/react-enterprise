@@ -1,14 +1,15 @@
 import { match } from "@repo/std/match";
 import { Err, Ok, type Result } from "@repo/std/result";
 
-import type { Invoice, InvoiceId, InvoiceStatus } from "~/model";
-import { invoiceTotal } from "~/operations";
-import type { BillingPolicy, Clock, InvoiceRepository, RepositoryError } from "~/ports";
+import type { Invoice, InvoiceId, InvoiceStatus } from "../model";
+import { invoiceTotal } from "../operations";
+import type { BillingPolicy, Clock, InvoiceRepository, Notifier, RepositoryError } from "../ports";
 
 export interface IssueInvoiceDeps {
   repo: InvoiceRepository;
   clock: Clock;
   policy: BillingPolicy;
+  notifier: Notifier;
 }
 
 export type IssueInvoiceError =
@@ -17,6 +18,7 @@ export type IssueInvoiceError =
   | { kind: "not-draft"; status: InvoiceStatus }
   | { kind: "empty"; id: InvoiceId }
   | { kind: "currency-mismatch"; expected: string; got: string }
+  | { kind: "notify-failed"; cause: unknown }
   | { kind: "transport"; cause: unknown };
 
 export async function issueInvoice(
@@ -56,6 +58,11 @@ export async function issueInvoice(
 
   const saved = await deps.repo.save(issued);
   if (saved.isErr()) return Err(asIssueError(saved.unwrapErr()));
+
+  const notified = await deps.notifier.invoiceIssued(saved.unwrap());
+  if (notified.isErr()) {
+    return Err({ kind: "notify-failed", cause: notified.unwrapErr().cause });
+  }
 
   return Ok(saved.unwrap());
 }

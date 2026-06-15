@@ -1,6 +1,6 @@
 import type { Result } from "@repo/std/result";
 
-import type { Invoice } from "~/model";
+import type { Invoice } from "../model";
 
 export type Forbidden = { kind: "forbidden"; reason: string };
 

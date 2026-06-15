@@ -1,6 +1,6 @@
 import { Err, Ok, type Result } from "@repo/std/result";
 
-import type { Currency, Invoice, LineItem, Money } from "~/model";
+import type { Currency, Invoice, LineItem, Money } from "../model";
 
 export type TotalError = {
   kind: "currency-mismatch";

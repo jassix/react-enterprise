@@ -11,6 +11,7 @@ Detailed engineering rules live in [`.agents/rules/`](./.agents/rules/) — grou
 Apply to all code in the repo.
 
 - [Code comments](./.agents/rules/shared/comments.md) — write comments only for non-obvious logic (algorithms, hidden invariants, workarounds).
+- [Testing](./.agents/rules/shared/testing.md) — Bun test, co-located `*.test.ts`, in-memory adapters over mocks.
 - [Imports](./.agents/rules/shared/imports.md) — `workspace:` and `catalog:` protocols, subpath imports.
 - [Types](./.agents/rules/shared/types.md) — `@repo/types` and component prop pattern.
 - [Tooling commands](./.agents/rules/shared/tooling.md) — Bun, Turbo, Oxlint/Oxfmt, PandaCSS.

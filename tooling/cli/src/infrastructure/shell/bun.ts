@@ -35,7 +35,7 @@ export class BunShell implements Shell {
   }
 
   async which(bin: string): Promise<string | undefined> {
-    const out = Bun.which(bin);
+    const out = Bun.which(bin, { PATH: process.env.PATH ?? "" });
     return out ?? undefined;
   }
 

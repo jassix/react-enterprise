@@ -1,6 +1,6 @@
 import type { Option, Result } from "@repo/std/result";
 
-import type { Invoice, InvoiceId } from "~/model";
+import type { Invoice, InvoiceId } from "../model";
 
 export type RepositoryError =
   | { kind: "conflict"; reason: string }

@@ -12,7 +12,7 @@ import schema, {
   string,
 } from "@repo/std/schema";
 
-import { CurrencySchema, MoneySchema } from "~/model/money";
+import { CurrencySchema, MoneySchema } from "./money";
 
 export const InvoiceIdSchema = pipe(string(), nonEmpty());
 export type InvoiceId = schema.InferOutput<typeof InvoiceIdSchema>;

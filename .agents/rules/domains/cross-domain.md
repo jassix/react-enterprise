@@ -52,7 +52,7 @@ Billing has no idea what "notifications" are. It only knows: *something* must be
 ```ts
 // packages/domains/billing/src/ports/notifier.ts
 import type { Result } from "@repo/std/result";
-import type { Invoice } from "~/model";
+import type { Invoice } from "../model";
 
 export type NotifyError = { kind: "transport"; cause: unknown };
 
@@ -91,7 +91,7 @@ export async function sendEmail(
 The adapter is the only place that imports both domains. It does the *translation* between billing's vocabulary and notifications' vocabulary.
 
 ```ts
-// apps/platform/src/billing/notifier-adapter.ts
+// apps/platform/src/shared/api/billing/notifier.ts
 import type { Notifier } from "@repo/billing/ports";
 import { invoiceTotal } from "@repo/billing/operations";
 import { sendEmail } from "@repo/notifications/use-cases";
@@ -159,7 +159,7 @@ What `@repo/authz` adds on top of CASL:
 ```ts
 // packages/domains/billing/src/ports/policy.ts
 import type { Result } from "@repo/std/result";
-import type { Invoice } from "~/model";
+import type { Invoice } from "../model";
 
 export type Forbidden = { kind: "forbidden"; reason: string };
 
@@ -174,7 +174,7 @@ Note: **sync** and **no `actorId`** parameter. The actor is baked into the abili
 ### App side: composition root builds one ability
 
 ```ts
-// apps/platform/src/auth/build-context.ts
+// apps/platform/src/app/auth/build-context.ts
 import {
   defineAbilityFor,
   subject,
@@ -279,7 +279,7 @@ Use the `rule()` helper from `@repo/authz/ability` — it returns rule-as-data (
 The composition root in `apps/*` stitches `defineBaseRulesFor` (from authz) with each domain's rules definer using `inMemoryPolicyStore`:
 
 ```ts
-// apps/platform/src/auth/policy-store.ts
+// apps/platform/src/app/auth/policy-store.ts
 import { defineBaseRulesFor, inMemoryPolicyStore } from "@repo/authz/policies";
 import { defineBillingRulesFor } from "@repo/billing/policies";
 

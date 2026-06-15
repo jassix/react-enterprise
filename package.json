@@ -5,9 +5,9 @@
     "packages": [
       "apps/*",
       "packages/*",
-      "packages/ui/*",
-      "packages/sdk/*",
       "packages/domains/*",
+      "packages/sdk/*",
+      "packages/ui/*",
       "tooling/*",
       "tooling/config/*"
     ],
@@ -23,7 +23,8 @@
         "valibot": "^1.2.0"
       },
       "auth": {
-        "@casl/ability": "^6.7.3"
+        "@casl/ability": "^6.7.3",
+        "@casl/react": "^7.0.0"
       },
       "react": {
         "react": "^19.0.0",
@@ -59,19 +60,25 @@
     }
   },
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "repo": "bun tooling/cli/src/index.ts",
-    "doctor": "bun --filter @repo/cli doctor",
     "adapt": "bun --filter @repo/cli adapt",
-    "lint": "turbo run lint",
-    "format": "oxfmt --write .",
+    "build": "turbo run build",
     "check-types": "turbo run check-types",
+    "dev": "turbo run dev",
+    "doctor": "bun --filter @repo/cli doctor",
+    "format": "oxfmt --write .",
     "knip": "knip",
-    "size": "size-limit"
+    "lint": "turbo run lint",
+    "prepare": "lefthook install",
+    "repo": "bun tooling/cli/src/index.ts",
+    "size": "size-limit",
+    "test": "turbo run test"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@repo/oxlint": "workspace:",
     "knip": "^5.40.0",
+    "lefthook": "^2.1.9",
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
     "size-limit": "^11.1.0",

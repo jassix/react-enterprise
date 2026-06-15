@@ -6,7 +6,7 @@ A **port** is a TypeScript interface a domain depends on. An **adapter** is the 
 
 ```ts
 import type { Result, Option } from "@repo/std/result";
-import type { Invoice, InvoiceId } from "~/model";
+import type { Invoice, InvoiceId } from "../model";
 
 export type RepositoryError =
   | { kind: "not-found" }
@@ -38,7 +38,7 @@ The dependency object is the **only** way IO enters the use-case. No module-leve
 ## Writing an adapter (in `apps/*`)
 
 ```ts
-// apps/platform/src/billing/invoice-repository.ts
+// apps/platform/src/shared/api/billing/invoice-repository.ts
 import type { InvoiceRepository } from "@repo/billing/ports";
 import { InvoiceSchema } from "@repo/billing/model";
 import { parse } from "@repo/std/schema";
