@@ -1,4 +1,4 @@
-import type { FetchResponse, Fetcher } from "~/application/ports/fetcher";
+import type { Fetcher, FetchResponse } from "~/application/ports/fetcher";
 
 export class BunFetcher implements Fetcher {
   async get(url: string): Promise<FetchResponse> {

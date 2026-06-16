@@ -1,4 +1,4 @@
-import { Toast as ToastPrimitive, Toaster, createToaster } from "@ark-ui/react/toast";
+import { createToaster, Toaster, Toast as ToastPrimitive } from "@ark-ui/react/toast";
 import type { ToasterProps as ArkToasterProps } from "@ark-ui/react/toast";
 import { css, cx } from "@lume/foundation/css";
 import { splitCssProps } from "@lume/foundation/jsx";

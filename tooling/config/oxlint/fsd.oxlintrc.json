@@ -1,0 +1,122 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./react.oxlintrc.json"],
+  "overrides": [
+    {
+      "files": ["**/src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app",
+                  "@/app/*",
+                  "@/pages",
+                  "@/pages/*",
+                  "@/widgets",
+                  "@/widgets/*",
+                  "@/features",
+                  "@/features/*",
+                  "@/entities",
+                  "@/entities/*"
+                ],
+                "message": "FSD: `shared` is the lowest layer and must not import from any layer above it."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/entities/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "@/app",
+                  "@/app/*",
+                  "@/pages",
+                  "@/pages/*",
+                  "@/widgets",
+                  "@/widgets/*",
+                  "@/features",
+                  "@/features/*"
+                ],
+                "message": "FSD: `entities` may only import from `shared`."
+              },
+              {
+                "group": ["@/entities/*"],
+                "message": "FSD: no cross-slice imports — entities must not import sibling entities. Use the `@x` public API or extract to `shared`."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/features/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app", "@/app/*", "@/pages", "@/pages/*", "@/widgets", "@/widgets/*"],
+                "message": "FSD: `features` may only import from `entities` and `shared`."
+              },
+              {
+                "group": ["@/features/*"],
+                "message": "FSD: no cross-slice imports — features must not import sibling features."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/widgets/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app", "@/app/*", "@/pages", "@/pages/*"],
+                "message": "FSD: `widgets` may only import from `features`, `entities`, and `shared`."
+              },
+              {
+                "group": ["@/widgets/*"],
+                "message": "FSD: no cross-slice imports — widgets must not import sibling widgets."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/pages/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app", "@/app/*"],
+                "message": "FSD: `pages` must not import from the `app` layer."
+              },
+              {
+                "group": ["@/pages/*"],
+                "message": "FSD: no cross-slice imports — a page must not import another page."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
