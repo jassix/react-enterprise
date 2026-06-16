@@ -37,4 +37,5 @@ fira
 qwik
 reui
 segoe
+steiger
 visx

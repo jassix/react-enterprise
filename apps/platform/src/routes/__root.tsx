@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { AppProviders } from "@/app/providers";
 // Side-effect import — Vite bundles the Panda stylesheet into the route's CSS chunk

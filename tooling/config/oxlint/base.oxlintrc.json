@@ -27,9 +27,13 @@
     "import/no-unassigned-import": "off",
     "no-duplicate-imports": "off",
 
-    // Sorting/formatting is owned by oxfmt, not the linter.
+    // Object-key sorting is not enforced. Import sorting: oxlint has no
+    // import/order (grouping) rule and oxfmt doesn't sort imports, so we use
+    // sort-imports for the part it does well — alphabetizing named members —
+    // and leave statement grouping to convention (its declaration sort orders
+    // by member-syntax type, not by source, which is not what we want).
     "sort-keys": "off",
-    "sort-imports": "off",
+    "sort-imports": ["error", { "ignoreDeclarationSort": true, "ignoreCase": true }],
 
     // Opinionated style the project rejects (terse FP idioms, ternaries,
     // comments, short identifiers, declare-then-assign, etc.).

@@ -9,7 +9,7 @@ import type {
   AddComponentPlan,
 } from "~/application/usecases/add-component";
 import type { RecipeMode } from "~/domain/refinement-context";
-import { componentName as specComponentName, parseSpec } from "~/domain/component-spec";
+import { parseSpec, componentName as specComponentName } from "~/domain/component-spec";
 import type { ComponentSpec } from "~/domain/component-spec";
 import type { RegistryConfig } from "~/domain/registry-config";
 import { mergeWithCatalog } from "~/domain/remote-registry";

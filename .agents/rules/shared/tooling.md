@@ -45,6 +45,12 @@ oxfmt --check .              # verify formatting (CI)
   `Ok`/`Some`, prop-spreading primitives, intentional `cause` catch names) or
   the strict tsconfig (`no-useless-return` vs `noImplicitReturns`,
   `no-useless-undefined`). Each entry carries a one-line reason.
+- **Import sorting**: oxlint has no `import/order` (grouping) rule, `perfectionist`
+  is not a native plugin, and oxfmt does not sort imports — so `sort-imports`
+  runs in member-only mode (`ignoreDeclarationSort: true`) to alphabetize named
+  members. Its declaration sort orders by member-syntax type (not source), which
+  we don't want, so statement grouping (external → internal → type) stays a
+  convention.
 - **Two oxlint gotchas** baked into the configs:
   1. `plugins` *overwrites* the default set, so each tier lists the full set.
   2. `ignorePatterns` is **not inherited via `extends`** — it must live in each
@@ -58,6 +64,18 @@ Every source package has its own `.oxlintrc.json` extending a preset — `react`
 (browser + react/jsx-a11y/react-perf) or `bun` (node + Bun global) — and a
 `"lint": "oxlint --type-aware ."` script. Tests and Storybook files get
 overrides (hooks-in-render, demo data, Bun-test promise patterns).
+
+### FSD import boundaries
+
+`tooling/config/oxlint/fsd.oxlintrc.json` is a reusable preset (it extends the
+`react` preset) for Feature-Sliced Design apps — they extend it instead of
+`react`. Via `no-restricted-imports` per-layer overrides it enforces the FSD
+hierarchy `app → pages → widgets → features → entities → shared` (a layer may
+only import from layers below it) and forbids cross-slice imports within a
+layer. `apps/platform` extends it. Full FSD checks (public-API enforcement, the
+`@x` cross-import convention) need Steiger; oxlint covers the layer/slice
+boundaries. Note: override `files` globs (`**/src/shared/**`) resolve against
+the linted app, so the preset works from `tooling/` despite living there.
 
 ## PandaCSS codegen
 

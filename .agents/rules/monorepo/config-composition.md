@@ -29,6 +29,7 @@ Each package extends a shared config — never inlines a full config.
 tooling/config/oxlint/base.oxlintrc.json   — categories + curated disabled-list
 tooling/config/oxlint/react.oxlintrc.json  — React preset (extends base)
 tooling/config/oxlint/bun.oxlintrc.json    — Node/Bun preset (extends base)
+tooling/config/oxlint/fsd.oxlintrc.json    — FSD import-boundary preset (extends react)
 .oxlintrc.json                              — root config (extends react), pre-commit
 <pkg>/.oxlintrc.json                         — per package, extends bun|react preset
 ```
