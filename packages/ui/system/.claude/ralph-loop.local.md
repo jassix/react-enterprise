@@ -1,7 +1,7 @@
 ---
 active: true
 iteration: 2
-session_id: 
+session_id:
 max_iterations: 100
 completion_promise: "DONE"
 started_at: "2026-04-19T15:31:16Z"

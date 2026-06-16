@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { FileSystem } from "~/application/ports/file-system";
 import type { RefinerOutput } from "~/application/ports/refiner";
 import type { Shell } from "~/application/ports/shell";
@@ -125,8 +126,7 @@ function extractModules(content: string): string[] {
 
 function isPrimitiveOrBlock(path: string): boolean {
   return (
-    path.startsWith("packages/ui/primitives/src/ui/") ||
-    path.startsWith("packages/ui/blocks/src/")
+    path.startsWith("packages/ui/primitives/src/ui/") || path.startsWith("packages/ui/blocks/src/")
   );
 }
 
@@ -177,9 +177,10 @@ async function runTypeCheck(
       return { kind: "ok", messages: [] };
     }
     const combined = `${result.stdout}\n${result.stderr}`.trim();
-    const messages = combined.length > 0
-      ? combined.split(/\r?\n/).filter((l) => l.trim().length > 0)
-      : [`tsc exited with code ${result.exitCode}`];
+    const messages =
+      combined.length > 0
+        ? combined.split(/\r?\n/).filter((l) => l.trim().length > 0)
+        : [`tsc exited with code ${result.exitCode}`];
     return { kind: "fail", messages };
   } finally {
     await deps.fs.removeDir(tmpDir);

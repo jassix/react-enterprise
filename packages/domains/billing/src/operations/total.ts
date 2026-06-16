@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 
 import type { Currency, Invoice, LineItem, Money } from "../model";
 

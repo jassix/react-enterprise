@@ -1,9 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import {
-  mergeWithCatalog,
-  parseRemoteCatalog,
-  searchCatalog,
-} from "~/domain/remote-registry";
+import { mergeWithCatalog, parseRemoteCatalog, searchCatalog } from "~/domain/remote-registry";
 
 const sample = [
   {

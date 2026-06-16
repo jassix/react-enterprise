@@ -128,7 +128,7 @@ describe("validateOutput", () => {
       "/repo",
     );
     expect(result.isErr()).toBe(true);
-    const messages = result.unwrapErr().messages;
+    const { messages } = result.unwrapErr();
     expect(messages.some((m) => m.includes("class-variance-authority"))).toBe(true);
     expect(messages.some((m) => m.includes("clsx"))).toBe(true);
   });
@@ -149,9 +149,9 @@ describe("validateOutput", () => {
       "/repo",
     );
     expect(result.isErr()).toBe(true);
-    expect(
-      result.unwrapErr().messages.some((m) => m.includes("@radix-ui/react-dialog")),
-    ).toBe(true);
+    expect(result.unwrapErr().messages.some((m) => m.includes("@radix-ui/react-dialog"))).toBe(
+      true,
+    );
   });
 
   test("flags missing required imports for primitives", async () => {
@@ -170,7 +170,7 @@ describe("validateOutput", () => {
       "/repo",
     );
     expect(result.isErr()).toBe(true);
-    const messages = result.unwrapErr().messages;
+    const { messages } = result.unwrapErr();
     expect(messages.some((m) => m.includes("@lume/foundation/recipes"))).toBe(true);
     expect(messages.some((m) => m.includes("@lume/foundation/css"))).toBe(true);
   });
@@ -218,9 +218,7 @@ describe("validateOutput", () => {
         "/repo",
       );
       expect(result.isErr()).toBe(true);
-      expect(
-        result.unwrapErr().messages.some((m) => m.includes("Cannot find name")),
-      ).toBe(true);
+      expect(result.unwrapErr().messages.some((m) => m.includes("Cannot find name"))).toBe(true);
     } finally {
       if (previous === undefined) delete process.env.REPO_REFINE_TSCHECK;
       else process.env.REPO_REFINE_TSCHECK = previous;

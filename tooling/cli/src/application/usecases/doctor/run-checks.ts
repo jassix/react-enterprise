@@ -3,7 +3,7 @@ import type { CheckResult } from "~/domain/doctor/check";
 
 export async function runCheck(check: CheckRunner, ctx: CheckContext): Promise<CheckResult[]> {
   const outcomes = await check.run(ctx);
-  return outcomes.map((outcome) => ({ ...outcome, section: check.section }));
+  return outcomes.map((outcome) => Object.assign(outcome, { section: check.section }));
 }
 
 export async function runChecks(

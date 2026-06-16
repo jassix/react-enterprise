@@ -7,12 +7,16 @@
       "import": "./src/index.ts"
     }
   },
+  "scripts": {
+    "lint": "oxlint --type-aware ."
+  },
   "dependencies": {
     "@ark-ui/react": "catalog:ui",
     "@lume/foundation": "workspace:",
     "@lume/primitives": "workspace:"
   },
   "devDependencies": {
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@types/bun": "catalog:"
   },

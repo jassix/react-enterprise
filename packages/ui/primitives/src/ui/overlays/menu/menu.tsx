@@ -5,9 +5,7 @@ import { menu } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
 import type { FC, PropsWithChildren } from "react";
 
-export interface MenuRootProps extends 
-		PropsWithChildren,
-		MenuPrimitive.RootBaseProps {}
+export interface MenuRootProps extends PropsWithChildren, MenuPrimitive.RootBaseProps {}
 
 const Root: FC<MenuRootProps> = (props) => <MenuPrimitive.Root {...props} />;
 

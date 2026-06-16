@@ -10,9 +10,7 @@ type SheetVariants = {
   size?: "sm" | "md" | "lg" | "xl" | "full";
 };
 
-export interface SheetRootProps extends 
-		PropsWithChildren,
-		DialogPrimitive.RootBaseProps {}
+export interface SheetRootProps extends PropsWithChildren, DialogPrimitive.RootBaseProps {}
 
 const Root: FC<SheetRootProps> = (props) => <DialogPrimitive.Root {...props} />;
 

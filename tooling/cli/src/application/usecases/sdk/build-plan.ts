@@ -1,8 +1,11 @@
-import { isCancelled, type Prompter } from "~/application/ports/prompter";
+import { isCancelled } from "~/application/ports/prompter";
+import type { Prompter } from "~/application/ports/prompter";
 import { isValidSdkName } from "~/domain/sdk/name";
 import type { SdkPlan } from "~/domain/sdk/plan";
-import { PLUGIN_IDS, PLUGINS, type PluginId } from "~/domain/sdk/plugin";
-import { type PresetId, PRESET_IDS } from "~/domain/sdk/preset";
+import { PLUGIN_IDS, PLUGINS } from "~/domain/sdk/plugin";
+import type { PluginId } from "~/domain/sdk/plugin";
+import { PRESET_IDS } from "~/domain/sdk/preset";
+import type { PresetId } from "~/domain/sdk/preset";
 import type { SpecSource } from "~/domain/sdk/spec-source";
 
 export interface SdkPlanInput {
@@ -70,7 +73,7 @@ async function promptName(prompter: Prompter): Promise<string> {
 }
 
 async function promptPreset(prompter: Prompter): Promise<PresetId> {
-  if (PRESET_IDS.length === 1) return PRESET_IDS[0]!;
+  if (PRESET_IDS.length === 1) return PRESET_IDS[0];
   const value = await prompter.select<PresetId>({
     message: "Preset",
     options: [{ value: "kubb", label: "kubb (OpenAPI → typed client + hooks)" }],

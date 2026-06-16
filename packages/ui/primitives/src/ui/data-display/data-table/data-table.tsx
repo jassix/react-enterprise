@@ -11,7 +11,8 @@ type DataTableVariants = {
 };
 
 export interface DataTableRootProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 
@@ -28,7 +29,8 @@ const Root: FC<DataTableRootProps> = ({ density, striped, ref, ...props }) => {
 };
 
 export interface DataTableToolbarProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 
@@ -69,7 +71,8 @@ const ToolbarEnd: FC<DataTableToolbarProps> = ({ density, striped, ref, ...props
 };
 
 export interface DataTableTableWrapperProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 
@@ -86,7 +89,8 @@ const TableWrapper: FC<DataTableTableWrapperProps> = ({ density, striped, ref, .
 };
 
 export interface DataTableTableProps
-  extends Omit<HTMLStyledProps<"table">, keyof ComponentProps<"table">>,
+  extends
+    Omit<HTMLStyledProps<"table">, keyof ComponentProps<"table">>,
     ComponentProps<"table">,
     DataTableVariants {}
 
@@ -103,7 +107,8 @@ const Table: FC<DataTableTableProps> = ({ density, striped, ref, ...props }) => 
 };
 
 export interface DataTableSectionProps
-  extends Omit<HTMLStyledProps<"thead">, keyof ComponentProps<"thead">>,
+  extends
+    Omit<HTMLStyledProps<"thead">, keyof ComponentProps<"thead">>,
     ComponentProps<"thead">,
     DataTableVariants {}
 
@@ -120,7 +125,8 @@ const Head: FC<DataTableSectionProps> = ({ density, striped, ref, ...props }) =>
 };
 
 export interface DataTableRowProps
-  extends Omit<HTMLStyledProps<"tr">, keyof ComponentProps<"tr">>,
+  extends
+    Omit<HTMLStyledProps<"tr">, keyof ComponentProps<"tr">>,
     ComponentProps<"tr">,
     DataTableVariants {}
 
@@ -137,7 +143,8 @@ const HeaderRow: FC<DataTableRowProps> = ({ density, striped, ref, ...props }) =
 };
 
 export interface DataTableHeaderProps
-  extends Omit<HTMLStyledProps<"th">, keyof ComponentProps<"th">>,
+  extends
+    Omit<HTMLStyledProps<"th">, keyof ComponentProps<"th">>,
     ComponentProps<"th">,
     DataTableVariants {}
 
@@ -154,7 +161,8 @@ const Header: FC<DataTableHeaderProps> = ({ density, striped, ref, ...props }) =
 };
 
 export interface DataTableHeaderSortProps
-  extends Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
+  extends
+    Omit<HTMLStyledProps<"button">, keyof ComponentProps<"button">>,
     ComponentProps<"button">,
     DataTableVariants {}
 
@@ -172,7 +180,8 @@ const HeaderSort: FC<DataTableHeaderSortProps> = ({ density, striped, ref, ...pr
 };
 
 export interface DataTableBodyProps
-  extends Omit<HTMLStyledProps<"tbody">, keyof ComponentProps<"tbody">>,
+  extends
+    Omit<HTMLStyledProps<"tbody">, keyof ComponentProps<"tbody">>,
     ComponentProps<"tbody">,
     DataTableVariants {}
 
@@ -201,7 +210,8 @@ const Row: FC<DataTableRowProps> = ({ density, striped, ref, ...props }) => {
 };
 
 export interface DataTableCellProps
-  extends Omit<HTMLStyledProps<"td">, keyof ComponentProps<"td">>,
+  extends
+    Omit<HTMLStyledProps<"td">, keyof ComponentProps<"td">>,
     ComponentProps<"td">,
     DataTableVariants {}
 
@@ -218,7 +228,8 @@ const Cell: FC<DataTableCellProps> = ({ density, striped, ref, ...props }) => {
 };
 
 export interface DataTableFooterProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 
@@ -235,7 +246,8 @@ const Footer: FC<DataTableFooterProps> = ({ density, striped, ref, ...props }) =
 };
 
 export interface DataTablePaginationProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 
@@ -252,7 +264,8 @@ const Pagination: FC<DataTablePaginationProps> = ({ density, striped, ref, ...pr
 };
 
 export interface DataTableEmptyProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     ComponentProps<"div">,
     DataTableVariants {}
 

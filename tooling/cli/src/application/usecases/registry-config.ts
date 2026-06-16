@@ -1,14 +1,13 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { FileSystem } from "~/application/ports/file-system";
 import { join } from "~/domain/path";
 import {
   emptyRegistryConfig,
   parseRegistryConfig,
   validateRegistryEntry,
-  type RegistryConfig,
-  type RegistryConfigParseError,
-  type RegistryEntryError,
 } from "~/domain/registry-config";
+import type { RegistryConfig, RegistryEntryError } from "~/domain/registry-config";
 
 export const REGISTRY_CONFIG_PATH = ".repo/registries.json";
 
@@ -26,20 +25,20 @@ export async function loadRegistryConfig(
   let raw: string;
   try {
     raw = await fs.read(abs);
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 
   let json: unknown;
   try {
     json = JSON.parse(raw);
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 
   const parsed = parseRegistryConfig(json);
   if (parsed.isErr()) {
-    const e = parsed.unwrapErr() as RegistryConfigParseError;
+    const e = parsed.unwrapErr();
     return Err({ kind: "invalid", messages: e.messages });
   }
   return Ok(parsed.unwrap());
@@ -55,8 +54,8 @@ export async function saveRegistryConfig(
     const sorted = sortNamespaces(config);
     await fs.write(abs, `${JSON.stringify(sorted, null, 2)}\n`);
     return Ok(undefined);
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 }
 
@@ -86,7 +85,7 @@ export function removeRegistry(
 
 function sortNamespaces(config: RegistryConfig): RegistryConfig {
   const sorted: Record<string, string> = {};
-  for (const key of Object.keys(config.registries).sort()) {
+  for (const key of Object.keys(config.registries).toSorted()) {
     const url = config.registries[key];
     if (url !== undefined) sorted[key] = url;
   }

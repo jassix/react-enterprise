@@ -41,7 +41,8 @@ export const sonnerRecipe = defineSlotRecipe({
       minWidth: "18rem",
       maxWidth: "22rem",
       willChange: "transform, opacity",
-      transition: "transform {durations.slow} {easings.easeOut}, opacity {durations.normal} {easings.easeOut}",
+      transition:
+        "transform {durations.slow} {easings.easeOut}, opacity {durations.normal} {easings.easeOut}",
 
       _open: { animation: "slideInFromRight {durations.slow} {easings.easeOut}" },
       _closed: { animation: "slideOutToRight {durations.normal} {easings.easeOut}" },
@@ -94,7 +95,8 @@ export const sonnerRecipe = defineSlotRecipe({
       fontWeight: "{fontWeights.medium}",
       cursor: "pointer",
       outline: "none",
-      transition: "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
+      transition:
+        "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
 
       _hover: { bg: "{colors.interactive.hover}" },
       _active: { transform: "scale(0.97)" },
@@ -117,7 +119,8 @@ export const sonnerRecipe = defineSlotRecipe({
       fontWeight: "{fontWeights.medium}",
       cursor: "pointer",
       outline: "none",
-      transition: "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
+      transition:
+        "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
 
       _hover: { bg: "{colors.surface.subtle}" },
       _active: { transform: "scale(0.97)" },
@@ -138,7 +141,8 @@ export const sonnerRecipe = defineSlotRecipe({
       color: "{colors.foreground.tertiary}",
       cursor: "pointer",
       outline: "none",
-      transition: "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
+      transition:
+        "transform {durations.press} {easings.easeOut}, background-color {durations.press} {easings.easeOut}, color {durations.press} {easings.easeOut}",
 
       _hover: { bg: "{colors.surface.subtle}", color: "{colors.foreground}" },
       _active: { transform: "scale(0.95)" },

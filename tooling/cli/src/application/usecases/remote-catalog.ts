@@ -1,11 +1,10 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { Fetcher } from "~/application/ports/fetcher";
 import type { FileSystem } from "~/application/ports/file-system";
 import { join } from "~/domain/path";
-import {
-  parseRemoteCatalog,
-  type RemoteCatalog,
-} from "~/domain/remote-registry";
+import { parseRemoteCatalog } from "~/domain/remote-registry";
+import type { RemoteCatalog } from "~/domain/remote-registry";
 
 export const SHADCN_CATALOG_URL = "https://ui.shadcn.com/r/registries.json";
 export const CATALOG_CACHE_PATH = "node_modules/.cache/repo-cli/catalog.json";
@@ -69,8 +68,8 @@ async function fetchCatalog(fetcher: Fetcher): Promise<Result<RemoteCatalog, Cat
   let response;
   try {
     response = await fetcher.get(SHADCN_CATALOG_URL);
-  } catch (cause) {
-    return Err({ kind: "transport", cause });
+  } catch (error) {
+    return Err({ kind: "transport", cause: error });
   }
   if (!response.ok) {
     return Err({ kind: "transport", status: response.status, cause: response.body.slice(0, 500) });
@@ -78,8 +77,8 @@ async function fetchCatalog(fetcher: Fetcher): Promise<Result<RemoteCatalog, Cat
   let json: unknown;
   try {
     json = JSON.parse(response.body);
-  } catch (cause) {
-    return Err({ kind: "transport", cause });
+  } catch (error) {
+    return Err({ kind: "transport", cause: error });
   }
   const parsed = parseRemoteCatalog(json);
   if (parsed.isErr()) {

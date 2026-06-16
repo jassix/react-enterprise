@@ -1,9 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { Err, Ok } from "@repo/std/result";
-import {
-  addComponent,
-  type AddComponentDeps,
-} from "~/application/usecases/add-component";
+import { addComponent } from "~/application/usecases/add-component";
+import type { AddComponentDeps } from "~/application/usecases/add-component";
 import type { ComponentRegistry } from "~/application/ports/component-registry";
 import type {
   DesignSystemIntrospector,
@@ -143,10 +141,7 @@ describe("addComponent", () => {
     expect(outcome.diff).not.toBeNull();
     expect(outcome.diff!.length).toBeGreaterThan(0);
     expect(outcome.applied).toBeNull();
-    const buttonPath = join(
-      root,
-      "packages/ui/primitives/src/ui/buttons/button/button.tsx",
-    );
+    const buttonPath = join(root, "packages/ui/primitives/src/ui/buttons/button/button.tsx");
     expect(await fs.exists(buttonPath)).toBe(false);
   });
 
@@ -182,9 +177,7 @@ describe("addComponent", () => {
 
     const barrel = await fs.read(join(root, "packages/ui/primitives/src/index.ts"));
     expect(barrel).toContain(`export { Button } from "./ui/buttons/button/button";`);
-    expect(barrel).toContain(
-      `export type { ButtonProps } from "./ui/buttons/button/button";`,
-    );
+    expect(barrel).toContain(`export type { ButtonProps } from "./ui/buttons/button/button";`);
   });
 
   test("propagates registry errors", async () => {
@@ -279,13 +272,9 @@ describe("addComponent", () => {
     const outcome = result.unwrap();
     expect(outcome.target.kind).toBe("block");
     expect(
-      await fs.exists(
-        join(root, "packages/ui/blocks/src/dashboard-01/dashboard-01.tsx"),
-      ),
+      await fs.exists(join(root, "packages/ui/blocks/src/dashboard-01/dashboard-01.tsx")),
     ).toBe(true);
-    const blocksBarrel = await fs.read(
-      join(root, "packages/ui/blocks/src/index.ts"),
-    );
+    const blocksBarrel = await fs.read(join(root, "packages/ui/blocks/src/index.ts"));
     expect(blocksBarrel).toContain(`export { Dashboard01 }`);
   });
 

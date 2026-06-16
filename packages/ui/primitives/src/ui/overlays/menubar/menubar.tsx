@@ -10,9 +10,8 @@ type MenubarVariants = { size?: "sm" | "md" | "lg" };
 
 export interface MenubarRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     MenubarVariants {}
 

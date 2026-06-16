@@ -1,4 +1,5 @@
-import { isCancelled, type Prompter } from "~/application/ports/prompter";
+import { isCancelled } from "~/application/ports/prompter";
+import type { Prompter } from "~/application/ports/prompter";
 import type { SdkPlan } from "~/domain/sdk/plan";
 import type { SpecSource } from "~/domain/sdk/spec-source";
 import { createColors } from "~/infrastructure/colors";
@@ -56,7 +57,7 @@ export function nonInteractiveHint(): string {
 }
 
 function formatPlan(plan: SdkPlan): string {
-  const rows: ReadonlyArray<readonly [string, string]> = [
+  const rows: readonly (readonly [string, string])[] = [
     ["package", `@repo/${plan.name}-sdk`],
     ["preset", plan.preset],
     ["spec", formatSpec(plan.spec)],

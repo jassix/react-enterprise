@@ -11,7 +11,8 @@ type EmptyVariants = {
 };
 
 export interface EmptyRootProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     EmptyVariants {}
 
@@ -29,7 +30,8 @@ const Root: FC<EmptyRootProps> = ({ size, variant, ref, ...props }) => {
 };
 
 export interface EmptyIconProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     EmptyVariants {}
 
@@ -48,7 +50,8 @@ const Icon: FC<EmptyIconProps> = ({ size, variant, ref, ...props }) => {
 };
 
 export interface EmptyTitleProps
-  extends Omit<HTMLStyledProps<"h3">, keyof ComponentProps<"h3">>,
+  extends
+    Omit<HTMLStyledProps<"h3">, keyof ComponentProps<"h3">>,
     Omit<ComponentProps<"h3">, "size">,
     EmptyVariants {}
 
@@ -66,7 +69,8 @@ const Title: FC<EmptyTitleProps> = ({ size, variant, ref, ...props }) => {
 };
 
 export interface EmptyDescriptionProps
-  extends Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
+  extends
+    Omit<HTMLStyledProps<"p">, keyof ComponentProps<"p">>,
     Omit<ComponentProps<"p">, "size">,
     EmptyVariants {}
 
@@ -84,7 +88,8 @@ const Description: FC<EmptyDescriptionProps> = ({ size, variant, ref, ...props }
 };
 
 export interface EmptyActionsProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     EmptyVariants {}
 
@@ -102,7 +107,8 @@ const Actions: FC<EmptyActionsProps> = ({ size, variant, ref, ...props }) => {
 };
 
 export interface EmptyHeaderProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     EmptyVariants {}
 
@@ -120,7 +126,8 @@ const Header: FC<EmptyHeaderProps> = ({ size, variant, ref, ...props }) => {
 };
 
 export interface EmptyContentProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     EmptyVariants {}
 

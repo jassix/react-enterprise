@@ -36,7 +36,7 @@
   "scripts": {
     "format": "oxfmt --write .",
     "generate": "kubb generate",
-    "lint": "oxlint -c .oxlintrc.json ."
+    "lint": "oxlint --type-aware ."
   },
   "devDependencies": {
     "@kubb/agent": "^4.37.5",

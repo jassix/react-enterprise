@@ -7,9 +7,8 @@ import type { FC, PropsWithChildren } from "react";
 
 export interface CollapsibleRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof CollapsiblePrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof CollapsiblePrimitive.RootBaseProps>,
     CollapsiblePrimitive.RootBaseProps {}
 
 const Root: FC<CollapsibleRootProps> = (props) => {

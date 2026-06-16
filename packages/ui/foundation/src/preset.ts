@@ -6,38 +6,36 @@ import { lumeTokens } from "./tokens";
 import { lumeTextStyles } from "./typography";
 
 export const lumePreset = definePreset({
-	name: "lume/foundation",
-	theme: {
-		recipes: {
-			...lumeRecipes,
-		},
-		extend: {
-			tokens: {
-				...lumeTokens,
-				durations: lumeAnimations.durations,
-				easings: lumeAnimations.easings,
-			},
-			semanticTokens: lumeSemantic,
-			textStyles: lumeTextStyles,
-			recipes: lumeRecipes,
-			keyframes: lumeAnimations.keyframes,
-		},
-	},
-	// Pre-emit every recipe variant + every compound-variant match. Without
-	// this, Panda only emits classes it can statically detect in consumer JSX —
-	// which silently misses dynamic uses like `<Input size={size} />` inside a
-	// `.map(...)`. The explicit matrix form (`{ axis: ['*'], … }`) is what
-	// triggers compound-variant evaluation; the simpler `['*']` shorthand only
-	// covers single-axis variants.
-	staticCss: {
-		recipes: Object.fromEntries(
-			Object.entries(lumeRecipes).map(([name, recipe]) => {
-				const variantAxes = recipe.variants ?? {};
-				const matrix = Object.fromEntries(
-					Object.keys(variantAxes).map((axis) => [axis, ["*"]]),
-				);
-				return [name, [matrix]];
-			}),
-		),
-	},
+  name: "lume/foundation",
+  theme: {
+    recipes: {
+      ...lumeRecipes,
+    },
+    extend: {
+      tokens: {
+        ...lumeTokens,
+        durations: lumeAnimations.durations,
+        easings: lumeAnimations.easings,
+      },
+      semanticTokens: lumeSemantic,
+      textStyles: lumeTextStyles,
+      recipes: lumeRecipes,
+      keyframes: lumeAnimations.keyframes,
+    },
+  },
+  // Pre-emit every recipe variant + every compound-variant match. Without
+  // this, Panda only emits classes it can statically detect in consumer JSX —
+  // which silently misses dynamic uses like `<Input size={size} />` inside a
+  // `.map(...)`. The explicit matrix form (`{ axis: ['*'], … }`) is what
+  // triggers compound-variant evaluation; the simpler `['*']` shorthand only
+  // covers single-axis variants.
+  staticCss: {
+    recipes: Object.fromEntries(
+      Object.entries(lumeRecipes).map(([name, recipe]) => {
+        const variantAxes = recipe.variants ?? {};
+        const matrix = Object.fromEntries(Object.keys(variantAxes).map((axis) => [axis, ["*"]]));
+        return [name, [matrix]];
+      }),
+    ),
+  },
 });

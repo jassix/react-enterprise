@@ -1,7 +1,9 @@
-import { type AppAbility, subject } from "@repo/authz/ability";
+import { subject } from "@repo/authz/ability";
+import type { AppAbility } from "@repo/authz/ability";
 import type { Invoice } from "@repo/billing/model";
 import type { BillingPolicy, Forbidden } from "@repo/billing/ports";
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 
 // Adapts the one shared Ability into the BillingPolicy port the domain expects.
 // The same Ability instance backs <Can> in the UI and these checks in use-cases.

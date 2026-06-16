@@ -65,9 +65,7 @@ describe("resolveRegistryUrl", () => {
   });
 
   test("replaces all occurrences", () => {
-    expect(resolveRegistryUrl(config, "@multi", "btn")).toBe(
-      "https://x.io/btn/btn.json",
-    );
+    expect(resolveRegistryUrl(config, "@multi", "btn")).toBe("https://x.io/btn/btn.json");
   });
 
   test("returns null for unknown namespace", () => {

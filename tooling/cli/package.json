@@ -16,7 +16,8 @@
     "adapt": "bun src/index.ts adapt",
     "check-types": "tsc --noEmit",
     "doctor": "bun src/index.ts doctor",
-    "test": "bun test"
+    "test": "bun test",
+    "lint": "oxlint --type-aware ."
   },
   "dependencies": {
     "@anthropic-ai/sdk": "catalog:cli",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@repo/types": "workspace:",
     "@types/bun": "catalog:",

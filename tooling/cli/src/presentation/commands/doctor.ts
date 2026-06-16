@@ -6,13 +6,8 @@ import type { Output } from "~/application/ports/output";
 import type { Prompter } from "~/application/ports/prompter";
 import type { Shell } from "~/application/ports/shell";
 import { runChecks } from "~/application/usecases/doctor/run-checks";
-import {
-  type CheckResult,
-  type CheckSection,
-  SECTIONS,
-  summarize,
-  toExitCode,
-} from "~/domain/doctor/check";
+import { SECTIONS, summarize, toExitCode } from "~/domain/doctor/check";
+import type { CheckResult, CheckSection } from "~/domain/doctor/check";
 import { createColors } from "~/infrastructure/colors";
 import type { Command } from "~/presentation/command";
 import { parseDoctorFormat } from "~/presentation/parsers/doctor-args";
@@ -58,7 +53,7 @@ function renderClack(prompter: Prompter, results: readonly CheckResult[]): void 
   for (const section of SECTIONS) {
     const items = grouped.get(section);
     if (!items || items.length === 0) continue;
-    prompter.note(items.map(formatRow).join("\n"), section);
+    prompter.note(items.map((item) => formatRow(item)).join("\n"), section);
   }
 
   prompter.outro(formatSummary(results));

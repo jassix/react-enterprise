@@ -11,7 +11,8 @@ type InputGroupVariants = {
 };
 
 export interface InputGroupRootProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     InputGroupVariants {}
 
@@ -28,7 +29,8 @@ const Root: FC<InputGroupRootProps> = ({ variant, size, ref, ...props }) => {
 };
 
 export interface InputGroupInputProps
-  extends Omit<HTMLStyledProps<"input">, keyof ComponentProps<"input">>,
+  extends
+    Omit<HTMLStyledProps<"input">, keyof ComponentProps<"input">>,
     Omit<ComponentProps<"input">, "size">,
     InputGroupVariants {}
 
@@ -45,7 +47,8 @@ const Input: FC<InputGroupInputProps> = ({ variant, size, ref, ...props }) => {
 };
 
 export interface InputGroupAddonProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     InputGroupVariants {}
 
@@ -74,7 +77,8 @@ const EndAddon: FC<InputGroupAddonProps> = ({ variant, size, ref, ...props }) =>
 };
 
 export interface InputGroupElementProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     InputGroupVariants {}
 

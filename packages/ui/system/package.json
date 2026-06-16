@@ -7,7 +7,8 @@
     "check-types": "tsc --noEmit",
     "chromatic": "chromatic --exit-zero-on-changes",
     "codegen": "panda codegen && panda cssgen --outfile styled-system/styles.css",
-    "dev": "panda codegen && panda cssgen --outfile styled-system/styles.css && storybook dev -p 6006 --no-open"
+    "dev": "panda codegen && panda cssgen --outfile styled-system/styles.css && storybook dev -p 6006 --no-open",
+    "lint": "oxlint --type-aware ."
   },
   "dependencies": {
     "@iconify-json/hugeicons": "catalog:icons",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@pandacss/dev": "catalog:ui",
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@storybook/addon-a11y": "catalog:storybook",
     "@storybook/addon-designs": "catalog:storybook",

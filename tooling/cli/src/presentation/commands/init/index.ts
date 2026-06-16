@@ -15,8 +15,8 @@ export function createInitCommand(deps: CommandDeps): Command {
       let root: string;
       try {
         root = await deps.locator.locate(process.cwd());
-      } catch (err) {
-        return renderError(deps.output, err instanceof Error ? err.message : String(err));
+      } catch (error) {
+        return renderError(deps.output, error instanceof Error ? error.message : String(error));
       }
 
       for (const lock of FOREIGN_LOCKS) {

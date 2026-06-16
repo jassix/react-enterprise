@@ -26,10 +26,17 @@ Each package extends a shared config — never inlines a full config.
 ## Oxlint
 
 ```
-tooling/config/oxlint/base.oxlintrc.json   — base rules
-tooling/config/oxlint/react.oxlintrc.json  — React rules (extends base)
-.oxlintrc.json                              — root config (extends react)
+tooling/config/oxlint/base.oxlintrc.json   — categories + curated disabled-list
+tooling/config/oxlint/react.oxlintrc.json  — React preset (extends base)
+tooling/config/oxlint/bun.oxlintrc.json    — Node/Bun preset (extends base)
+.oxlintrc.json                              — root config (extends react), pre-commit
+<pkg>/.oxlintrc.json                         — per package, extends bun|react preset
 ```
+
+Each source package extends the matching preset and runs `oxlint --type-aware .`.
+Two caveats are baked in (see [`../shared/tooling.md`](../shared/tooling.md)):
+`plugins` *overwrites* (each tier lists the full set), and `ignorePatterns` is
+**not inherited via `extends`** (it lives in each directly-invoked config).
 
 ## Rule
 

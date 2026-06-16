@@ -7,7 +7,10 @@ import type { FC } from "react";
 
 export interface SelectRootProps
   extends
-    Omit<HTMLStyledProps<"div">, keyof SelectPrimitive.RootBaseProps<SelectPrimitive.CollectionItem>>,
+    Omit<
+      HTMLStyledProps<"div">,
+      keyof SelectPrimitive.RootBaseProps<SelectPrimitive.CollectionItem>
+    >,
     SelectPrimitive.RootBaseProps<SelectPrimitive.CollectionItem> {
   size?: "sm" | "md" | "lg";
 }

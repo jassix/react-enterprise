@@ -1,17 +1,15 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { FileSystem } from "~/application/ports/file-system";
 import type { Refiner, RefinerError, RefinerOutput } from "~/application/ports/refiner";
 import type { Shell } from "~/application/ports/shell";
-import { computeUnifiedDiff, type FilePair } from "~/application/refinement/compute-diff";
+import { computeUnifiedDiff } from "~/application/refinement/compute-diff";
+import type { FilePair } from "~/application/refinement/compute-diff";
 import { validateOutput } from "~/application/refinement/validate-output";
 import { dirname, join } from "~/domain/path";
 import type { PlacementPlan } from "~/domain/placement-plan";
 import type { RefinementContext, RuleDoc } from "~/domain/refinement-context";
-import {
-  appendRecipeExport,
-  updateBarrel,
-  type UpdateBarrelError,
-} from "~/application/usecases/update-barrel";
+import { appendRecipeExport, updateBarrel } from "~/application/usecases/update-barrel";
 
 const UI_KIT_RULES = [
   ".agents/rules/ui-kit/component-architecture.md",
@@ -70,7 +68,7 @@ export async function runRefineLoop(
 
     lastFailure = validation.unwrapErr().messages;
     if (attempt === MAX_RETRIES) break;
-    context = { ...context, retryFeedback: lastFailure };
+    context = { ...initial, retryFeedback: lastFailure };
   }
 
   return Err({ kind: "validation", messages: lastFailure });
@@ -104,8 +102,8 @@ export async function applyOutput(
         recipeWritten = true;
       }
     }
-  } catch (cause) {
-    return Err({ kind: "io", cause });
+  } catch (error) {
+    return Err({ kind: "io", cause: error });
   }
 
   return Ok({ written, recipeWritten });
@@ -135,8 +133,9 @@ export async function updateBarrelsFor(
     if (res.isErr()) return Err({ kind: "io", cause: res.unwrapErr().cause });
   }
 
-  const recipeFile = output.files.find((f) =>
-    f.path.startsWith("packages/ui/foundation/src/recipes/") && f.path.endsWith(".recipe.ts"),
+  const recipeFile = output.files.find(
+    (f) =>
+      f.path.startsWith("packages/ui/foundation/src/recipes/") && f.path.endsWith(".recipe.ts"),
   );
   if (recipeFile) {
     const recipeName = extractRecipeName(recipeFile.path);
@@ -146,7 +145,7 @@ export async function updateBarrelsFor(
         recipeName,
       });
       if (res.isErr()) {
-        const err = res.unwrapErr() as UpdateBarrelError;
+        const err = res.unwrapErr();
         return Err({ kind: "io", cause: err.cause });
       }
     }
@@ -195,7 +194,7 @@ function pascalCase(input: string): string {
   return input
     .split(/[-_\s]+/)
     .filter((s) => s.length > 0)
-    .map((s) => s[0]!.toUpperCase() + s.slice(1))
+    .map((s) => s[0].toUpperCase() + s.slice(1))
     .join("");
 }
 

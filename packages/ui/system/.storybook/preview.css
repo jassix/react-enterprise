@@ -2,17 +2,17 @@
 html,
 body,
 #storybook-root {
-	min-height: 100%;
-	font-family: var(--fonts-body, system-ui, -apple-system, Segoe UI, sans-serif);
+  min-height: 100%;
+  font-family: var(--fonts-body, system-ui, -apple-system, Segoe UI, sans-serif);
 }
 
 body {
-	background: var(--colors-background);
-	color: var(--colors-foreground);
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  background: var(--colors-background);
+  color: var(--colors-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .sb-show-main {
-	padding: 2rem;
+  padding: 2rem;
 }

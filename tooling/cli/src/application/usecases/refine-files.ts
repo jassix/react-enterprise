@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type {
   DesignSystemIntrospector,
   DesignSystemSnapshot,
@@ -6,10 +7,7 @@ import type {
 import type { FileSystem } from "~/application/ports/file-system";
 import type { Refiner, RefinerError, RefinerOutput } from "~/application/ports/refiner";
 import type { Shell } from "~/application/ports/shell";
-import type {
-  ApplyOutputOutcome,
-  RefineLoopError,
-} from "~/application/usecases/refine-shared";
+import type { ApplyOutputOutcome, RefineLoopError } from "~/application/usecases/refine-shared";
 import {
   applyOutput,
   buildDiffPairs,
@@ -20,16 +18,9 @@ import {
   unifiedDiffOf,
   updateBarrelsFor,
 } from "~/application/usecases/refine-shared";
-import {
-  blockPlacement,
-  type PlacementPlan,
-  primitivePlacement,
-} from "~/domain/placement-plan";
-import type {
-  RecipeMode,
-  RefinementContext,
-  SourceFile,
-} from "~/domain/refinement-context";
+import { blockPlacement, primitivePlacement } from "~/domain/placement-plan";
+import type { PlacementPlan } from "~/domain/placement-plan";
+import type { RecipeMode, RefinementContext, SourceFile } from "~/domain/refinement-context";
 
 export interface RefineFilesDeps {
   readonly refiner: Refiner;
@@ -88,7 +79,7 @@ export async function refineFiles(
   const target =
     input.options.placementOverride ?? inferPlacement(input.rootDir, sources, snapshot);
   if (!target) {
-    return Err({ kind: "unresolved-placement", path: sources[0]!.path });
+    return Err({ kind: "unresolved-placement", path: sources[0].path });
   }
 
   const exemplar = await loadExemplar(deps.fs, snapshot.exemplarPath);
@@ -167,9 +158,7 @@ function inferPlacement(
   const first = sources[0];
   if (!first) return null;
 
-  const primitiveMatch = first.path.match(
-    /^packages\/ui\/primitives\/src\/ui\/([^/]+)\/([^/]+)\//,
-  );
+  const primitiveMatch = first.path.match(/^packages\/ui\/primitives\/src\/ui\/([^/]+)\/([^/]+)\//);
   if (primitiveMatch) {
     const [, category, name] = primitiveMatch;
     if (category && name && snapshot.categories.includes(category)) {

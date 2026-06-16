@@ -12,9 +12,8 @@ type ResizableVariants = {
 
 export interface ResizableRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof SplitterPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof SplitterPrimitive.RootBaseProps>,
     Omit<SplitterPrimitive.RootBaseProps, "orientation">,
     ResizableVariants {}
 

@@ -4,12 +4,13 @@ import {
   stripFileMarkers,
 } from "~/application/refinement/parse-refiner-output";
 
-const tsx = (path: string, body: string): string =>
-  `// FILE: ${path}\n\`\`\`tsx\n${body}\n\`\`\``;
+const tsx = (path: string, body: string): string => `// FILE: ${path}\n\`\`\`tsx\n${body}\n\`\`\``;
 
 describe("parseRefinerOutput", () => {
   test("extracts a single file block", () => {
-    const result = parseRefinerOutput(tsx("packages/ui/primitives/src/ui/x/x.tsx", "export const X = () => null"));
+    const result = parseRefinerOutput(
+      tsx("packages/ui/primitives/src/ui/x/x.tsx", "export const X = () => null"),
+    );
     expect(result.isOk()).toBe(true);
     const out = result.unwrap();
     expect(out.files).toHaveLength(1);
@@ -18,10 +19,7 @@ describe("parseRefinerOutput", () => {
   });
 
   test("extracts multiple file blocks", () => {
-    const raw = [
-      tsx("a.tsx", "const a = 1"),
-      tsx("b.tsx", "const b = 2"),
-    ].join("\n\n");
+    const raw = [tsx("a.tsx", "const a = 1"), tsx("b.tsx", "const b = 2")].join("\n\n");
     const result = parseRefinerOutput(raw);
     expect(result.isOk()).toBe(true);
     expect(result.unwrap().files).toHaveLength(2);
@@ -76,7 +74,7 @@ describe("parseRefinerOutput", () => {
     const raw = `${tsx("a.tsx", "1")}\n\n// NOTES:\n// First note\n// Second note`;
     const result = parseRefinerOutput(raw);
     expect(result.isOk()).toBe(true);
-    const notes = result.unwrap().notes;
+    const { notes } = result.unwrap();
     expect(notes).toBeDefined();
     expect(notes).toContain("First note");
     expect(notes).toContain("Second note");

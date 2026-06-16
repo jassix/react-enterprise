@@ -15,7 +15,10 @@ function makeContext(overrides: Partial<RefinementContext> = {}): RefinementCont
     ],
     categories: ["buttons", "forms"],
     iconNames: ["check", "x"],
-    exemplar: { path: "packages/ui/primitives/src/ui/buttons/button/button.tsx", content: "exemplar source" },
+    exemplar: {
+      path: "packages/ui/primitives/src/ui/buttons/button/button.tsx",
+      content: "exemplar source",
+    },
     source: [{ path: "components/ui/button.tsx", content: "shadcn source" }],
     target: {
       kind: "primitive",
@@ -65,9 +68,7 @@ describe("buildPrompt", () => {
   });
 
   test("retry feedback section appears when provided", () => {
-    const { user } = buildPrompt(
-      makeContext({ retryFeedback: ["forbidden import 'clsx'"] }),
-    );
+    const { user } = buildPrompt(makeContext({ retryFeedback: ["forbidden import 'clsx'"] }));
     expect(user).toContain("## Previous attempt failed");
     expect(user).toContain("forbidden import 'clsx'");
   });

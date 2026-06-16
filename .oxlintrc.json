@@ -1,3 +1,16 @@
 {
-  "extends": ["./node_modules/@repo/oxlint/react.oxlintrc.json"]
+  "extends": ["./node_modules/@repo/oxlint/react.oxlintrc.json"],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    ".turbo",
+    "*.gen.*",
+    "styled-system",
+    "gen",
+    "luma",
+    "tooling/types/src",
+    ".claude",
+    ".agents/skills"
+  ]
 }

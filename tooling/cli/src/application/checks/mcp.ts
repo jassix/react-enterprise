@@ -1,6 +1,7 @@
 import * as v from "@repo/std/schema";
 import type { CheckContext, CheckRunner } from "~/application/checks/context";
-import { type CheckOutcome, fail, ok, warn } from "~/domain/doctor/check";
+import { fail, ok, warn } from "~/domain/doctor/check";
+import type { CheckOutcome } from "~/domain/doctor/check";
 import { join } from "~/domain/path";
 
 const McpServerSchema = v.object({
@@ -28,8 +29,8 @@ async function loadConfig(ctx: CheckContext, absPath: string): Promise<LoadedCon
   let json: unknown;
   try {
     json = await ctx.fs.readJson<unknown>(absPath);
-  } catch (e) {
-    return { kind: "invalid", detail: `parse error: ${(e as Error).message}` };
+  } catch (error) {
+    return { kind: "invalid", detail: `parse error: ${(error as Error).message}` };
   }
   const parsed = v.safeParse(McpConfigSchema, json);
   if (!parsed.success) {
@@ -59,7 +60,7 @@ function configOutcome(rel: string, loaded: LoadedConfig): CheckOutcome {
 function consistencyOutcome(configs: ReadonlyMap<string, McpConfig>): CheckOutcome | null {
   if (configs.size < 2) return null;
   const entries = [...configs.entries()];
-  const referenceEntry = entries[0] as [string, McpConfig];
+  const referenceEntry = entries[0];
   const reference = new Set(Object.keys(referenceEntry[1].mcpServers));
 
   const drifted: string[] = [];
@@ -67,7 +68,7 @@ function consistencyOutcome(configs: ReadonlyMap<string, McpConfig>): CheckOutco
     const names = new Set(Object.keys(cfg.mcpServers));
     const missingHere = [...reference].filter((n) => !names.has(n));
     const extraHere = [...names].filter((n) => !reference.has(n));
-    if (missingHere.length || extraHere.length) {
+    if (missingHere.length > 0 || extraHere.length > 0) {
       drifted.push(
         `${rel} differs (missing: ${missingHere.join(",") || "—"}, extra: ${
           extraHere.join(",") || "—"

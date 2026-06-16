@@ -1,4 +1,5 @@
-import schema, { array, object, record, string, unknown } from "@repo/std/schema";
+import type schema from "@repo/std/schema";
+import { array, object, record, string, unknown } from "@repo/std/schema";
 
 export const ActorSchema = object({
   id: string(),

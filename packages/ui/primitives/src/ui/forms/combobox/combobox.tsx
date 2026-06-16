@@ -8,9 +8,7 @@ import type { FC, PropsWithChildren } from "react";
 type ComboboxVariants = { size?: "sm" | "md" | "lg" };
 
 export interface ComboboxRootProps
-  extends
-    PropsWithChildren,
-    ComboboxPrimitive.RootBaseProps<ComboboxPrimitive.CollectionItem> {}
+  extends PropsWithChildren, ComboboxPrimitive.RootBaseProps<ComboboxPrimitive.CollectionItem> {}
 
 const Root: FC<ComboboxRootProps> = (props) => (
   <ComboboxPrimitive.Root

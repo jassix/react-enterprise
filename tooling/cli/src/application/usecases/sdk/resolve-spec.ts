@@ -40,9 +40,10 @@ export async function resolveSpec(
       let response: Awaited<ReturnType<Fetcher["get"]>>;
       try {
         response = await deps.fetcher.get(url);
-      } catch (err) {
+      } catch (error) {
         throw new Error(
-          `failed to fetch spec from ${url}: ${err instanceof Error ? err.message : String(err)}`,
+          `failed to fetch spec from ${url}: ${error instanceof Error ? error.message : String(error)}`,
+          { cause: error },
         );
       }
       if (!response.ok) {

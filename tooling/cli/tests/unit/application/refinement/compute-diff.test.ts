@@ -1,25 +1,18 @@
 import { describe, expect, test } from "bun:test";
-import {
-  colorizeUnifiedDiff,
-  computeUnifiedDiff,
-  type FilePair,
-} from "~/application/refinement/compute-diff";
+import { colorizeUnifiedDiff, computeUnifiedDiff } from "~/application/refinement/compute-diff";
+import type { FilePair } from "~/application/refinement/compute-diff";
 import { createColors } from "~/infrastructure/colors";
 
 describe("computeUnifiedDiff", () => {
   test("emits + and - lines for changed file", () => {
-    const pairs: FilePair[] = [
-      { path: "a.ts", before: "const a = 1\n", after: "const a = 2\n" },
-    ];
+    const pairs: FilePair[] = [{ path: "a.ts", before: "const a = 1\n", after: "const a = 2\n" }];
     const diff = computeUnifiedDiff(pairs);
     expect(diff).toContain("-const a = 1");
     expect(diff).toContain("+const a = 2");
   });
 
   test("labels new files when before is null", () => {
-    const pairs: FilePair[] = [
-      { path: "new.ts", before: null, after: "export const x = 1\n" },
-    ];
+    const pairs: FilePair[] = [{ path: "new.ts", before: null, after: "export const x = 1\n" }];
     const diff = computeUnifiedDiff(pairs);
     expect(diff).toContain("(new file)");
     expect(diff).toContain("+export const x = 1");
@@ -41,9 +34,9 @@ describe("colorizeUnifiedDiff", () => {
     const colors = createColors(true);
     const diff = "+added\n-removed\n@@ -1,1 +1,1 @@\n";
     const out = colorizeUnifiedDiff(diff, colors);
-    expect(out).toContain("\x1b[32m+added");
-    expect(out).toContain("\x1b[31m-removed");
-    expect(out).toContain("\x1b[2m@@");
+    expect(out).toContain("\u001B[32m+added");
+    expect(out).toContain("\u001B[31m-removed");
+    expect(out).toContain("\u001B[2m@@");
   });
 
   test("returns input unchanged when colors disabled", () => {

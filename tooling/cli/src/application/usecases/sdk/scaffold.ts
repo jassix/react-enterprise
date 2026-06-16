@@ -33,7 +33,7 @@ export async function scaffoldSdk(
     throw new Error(`packages/sdk/${req.plan.name} already exists`);
   }
 
-  const tasks: Array<Parameters<TaskRunner["runSequential"]>[0][number]> = [
+  const tasks: Parameters<TaskRunner["runSequential"]>[0][number][] = [
     {
       title: `Scaffolding @repo/${req.plan.name}-sdk`,
       run: async () => {
@@ -41,9 +41,9 @@ export async function scaffoldSdk(
           for (const [rel, content] of req.files) {
             await deps.fs.write(join(targetDir, rel), content);
           }
-        } catch (err) {
+        } catch (error) {
           await deps.fs.removeDir(targetDir);
-          throw err;
+          throw error;
         }
         return `Wrote ${req.files.size} files`;
       },

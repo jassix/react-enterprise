@@ -25,7 +25,8 @@
   },
   "scripts": {
     "check-types": "tsc --noEmit",
-    "test": "bun test"
+    "test": "bun test",
+    "lint": "oxlint --type-aware ."
   },
   "dependencies": {
     "oxide.ts": "catalog:std",
@@ -34,6 +35,7 @@
     "valibot": "catalog:std"
   },
   "devDependencies": {
+    "@repo/oxlint": "workspace:",
     "@repo/tsconfig": "workspace:",
     "@repo/types": "workspace:",
     "@types/bun": "catalog:"

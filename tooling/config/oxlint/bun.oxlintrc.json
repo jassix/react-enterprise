@@ -1,10 +1,11 @@
 {
-	"$schema": "./node_modules/oxlint/configuration_schema.json",
-	"extends": ["./base.oxlintrc.json"],
-	"env": {
-		"node": true
-	},
-	"globals": {
-		"Bun": "readonly"
-	}
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": ["./base.oxlintrc.json"],
+  "plugins": ["typescript", "unicorn", "oxc", "import", "promise", "node"],
+  "env": {
+    "node": true
+  },
+  "globals": {
+    "Bun": "readonly"
+  }
 }

@@ -43,9 +43,7 @@ describe("insertNamedExport", () => {
       hasTypeExport: true,
     });
     expect(out).toContain(`export { Button } from "./ui/buttons/button/button";`);
-    expect(out).toContain(
-      `export type { ButtonProps } from "./ui/buttons/button/button";`,
-    );
+    expect(out).toContain(`export type { ButtonProps } from "./ui/buttons/button/button";`);
   });
 
   test("is idempotent for identical entry", () => {
@@ -143,8 +141,6 @@ describe("appendRecipeExport", () => {
       recipeName: "button",
     });
     expect(result.isOk()).toBe(true);
-    expect(store.get("/abs/recipes/index.ts")).toContain(
-      `export * from "./button/button.recipe";`,
-    );
+    expect(store.get("/abs/recipes/index.ts")).toContain(`export * from "./button/button.recipe";`);
   });
 });

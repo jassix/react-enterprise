@@ -29,8 +29,7 @@ Toggle by adding `class="dark"` (or `class="light"`) to `<html>` — or to any a
 ```tsx
 useEffect(() => {
   const mql = window.matchMedia("(prefers-color-scheme: dark)");
-  const apply = () =>
-    document.documentElement.classList.toggle("dark", mql.matches);
+  const apply = () => document.documentElement.classList.toggle("dark", mql.matches);
   apply();
   mql.addEventListener("change", apply);
   return () => mql.removeEventListener("change", apply);

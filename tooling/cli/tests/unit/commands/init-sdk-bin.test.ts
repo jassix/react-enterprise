@@ -58,7 +58,7 @@ describe("repo bin e2e", () => {
     expect(pkg.name).toBe("@repo/myapi-sdk");
     expect(pkg.devDependencies["@kubb/plugin-ts"]).toBeDefined();
     expect(pkg.devDependencies["@kubb/plugin-zod"]).toBeUndefined();
-  }, 15000);
+  }, 15_000);
 
   test("non-zero exit on unknown preset", async () => {
     const root = await bootstrapRoot(roots);
@@ -70,7 +70,7 @@ describe("repo bin e2e", () => {
     expect(exitCode).toBe(1);
     const stderr = await new Response(proc.stderr).text();
     expect(stderr).toContain(`unknown preset "nope"`);
-  }, 15000);
+  }, 15_000);
 
   test("non-zero exit on duplicate target dir", async () => {
     const root = await bootstrapRoot(roots);
@@ -83,5 +83,5 @@ describe("repo bin e2e", () => {
     expect(exitCode).toBe(1);
     const stderr = await new Response(proc.stderr).text();
     expect(stderr).toContain("already exists");
-  }, 15000);
+  }, 15_000);
 });

@@ -7,9 +7,8 @@ import type { FC, PropsWithChildren } from "react";
 
 export interface AccordionRootProps
   extends
-    
-		PropsWithChildren,
-		Omit<HTMLStyledProps<"div">, keyof AccordionPrimitive.RootBaseProps>,
+    PropsWithChildren,
+    Omit<HTMLStyledProps<"div">, keyof AccordionPrimitive.RootBaseProps>,
     AccordionPrimitive.RootBaseProps {}
 
 const Root: FC<AccordionRootProps> = (props) => {

@@ -1,6 +1,8 @@
 import { match } from "@repo/std/match";
-import { type CheckResult, type CheckSection, SECTIONS, summarize } from "~/domain/doctor/check";
-import { type ColorKey, type Colors, createColors } from "~/infrastructure/colors";
+import { SECTIONS, summarize } from "~/domain/doctor/check";
+import type { CheckResult, CheckSection } from "~/domain/doctor/check";
+import { createColors } from "~/infrastructure/colors";
+import type { ColorKey, Colors } from "~/infrastructure/colors";
 import type { Reporter } from "~/presentation/reporters/reporter";
 
 interface Glyph {
@@ -60,9 +62,10 @@ export function createTerminalReporter(colors: Colors = createColors()): Reporte
   return {
     format: "text",
     render(results) {
-      const lines: string[] = [];
-      lines.push(colors.wrap("bold", colors.wrap("cyan", "repo doctor")));
-      lines.push(colors.wrap("dim", "────────────"));
+      const lines: string[] = [
+        colors.wrap("bold", colors.wrap("cyan", "repo doctor")),
+        colors.wrap("dim", "────────────"),
+      ];
 
       const grouped = groupBySection(results);
       for (const section of SECTIONS) {

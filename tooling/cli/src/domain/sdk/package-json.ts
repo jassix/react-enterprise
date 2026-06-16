@@ -1,4 +1,5 @@
-import { KUBB_VERSION, PLUGINS, type PluginId, REQUIRED_KUBB_PACKAGES } from "~/domain/sdk/plugin";
+import { KUBB_VERSION, PLUGINS, REQUIRED_KUBB_PACKAGES } from "~/domain/sdk/plugin";
+import type { PluginId } from "~/domain/sdk/plugin";
 
 export interface BuildPackageJsonOptions {
   readonly name: string;
@@ -39,6 +40,6 @@ export function buildPackageJson(opts: BuildPackageJsonOptions): string {
 
 function sortKeys<T extends Record<string, string>>(obj: T): T {
   const out: Record<string, string> = {};
-  for (const key of Object.keys(obj).sort()) out[key] = obj[key]!;
+  for (const key of Object.keys(obj).toSorted()) out[key] = obj[key]!;
   return out as T;
 }

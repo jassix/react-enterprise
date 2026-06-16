@@ -4,10 +4,7 @@ import type {
 } from "~/application/ports/design-system-introspector";
 import type { FileSystem } from "~/application/ports/file-system";
 import { join } from "~/domain/path";
-import type {
-  RecipeDescriptor,
-  SemanticTokenGroup,
-} from "~/domain/refinement-context";
+import type { RecipeDescriptor, SemanticTokenGroup } from "~/domain/refinement-context";
 
 export class DiskIntrospector implements DesignSystemIntrospector {
   constructor(private readonly fs: FileSystem) {}
@@ -96,14 +93,11 @@ export class DiskIntrospector implements DesignSystemIntrospector {
       const top = rel.split("/")[0];
       if (top) dirs.add(top);
     }
-    return [...dirs].sort();
+    return [...dirs].toSorted();
   }
 
   private async collectIconNames(primitivesRoot: string): Promise<readonly string[]> {
-    const candidates = [
-      "src/ui/data-display/icon/icon.tsx",
-      "src/ui/data-display/icon/index.ts",
-    ];
+    const candidates = ["src/ui/data-display/icon/icon.tsx", "src/ui/data-display/icon/index.ts"];
     for (const rel of candidates) {
       const abs = join(primitivesRoot, rel);
       if (!(await this.fs.exists(abs))) continue;
@@ -132,14 +126,18 @@ export function parseRecipeFile(rel: string, content: string): RecipeDescriptor 
   const slots = slotsMatch
     ? slotsMatch[1]
         ?.split(",")
-        .map((s) => s.replace(/['"]/g, "").trim())
+        .map((s) => s.replaceAll(/['"]/g, "").trim())
         .filter((s) => s.length > 0)
     : undefined;
 
   const variantsBody = content.match(VARIANTS_RE)?.[1];
   const variantKeys = variantsBody ? extractVariantKeys(variantsBody) : [];
 
-  const baseName = rel.split("/").pop()?.replace(/\.recipe\.ts$/, "") ?? className;
+  const baseName =
+    rel
+      .split("/")
+      .pop()
+      ?.replace(/\.recipe\.ts$/, "") ?? className;
 
   return {
     name: baseName,
@@ -240,7 +238,7 @@ export function extractIconNames(content: string): readonly string[] {
   if (tupleMatch?.[1]) {
     return tupleMatch[1]
       .split(",")
-      .map((s) => s.replace(/['"]/g, "").trim())
+      .map((s) => s.replaceAll(/['"]/g, "").trim())
       .filter((s) => s.length > 0);
   }
 
@@ -248,7 +246,7 @@ export function extractIconNames(content: string): readonly string[] {
   if (unionMatch?.[1]) {
     return unionMatch[1]
       .split("|")
-      .map((s) => s.replace(/['"]/g, "").trim())
+      .map((s) => s.replaceAll(/['"]/g, "").trim())
       .filter((s) => s.length > 0);
   }
 

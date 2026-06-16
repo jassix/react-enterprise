@@ -1,11 +1,11 @@
 const ANSI = {
-  reset: "\x1b[0m",
-  dim: "\x1b[2m",
-  bold: "\x1b[1m",
-  green: "\x1b[32m",
-  yellow: "\x1b[33m",
-  red: "\x1b[31m",
-  cyan: "\x1b[36m",
+  reset: "\u001B[0m",
+  dim: "\u001B[2m",
+  bold: "\u001B[1m",
+  green: "\u001B[32m",
+  yellow: "\u001B[33m",
+  red: "\u001B[31m",
+  cyan: "\u001B[36m",
 } as const;
 
 export type ColorKey = keyof typeof ANSI;

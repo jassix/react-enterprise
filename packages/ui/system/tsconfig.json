@@ -1,11 +1,10 @@
 {
-	"extends": "@repo/tsconfig/react.tsconfig.json",
-	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"~/*": ["./src/*"],
-			"~/system/*": ["./styled-system/*"]
-		}
-	},
-	"include": [".storybook/**/*", "src/**/*"]
+  "extends": "@repo/tsconfig/react.tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"],
+      "~/system/*": ["./styled-system/*"]
+    }
+  },
+  "include": [".storybook/**/*", "src/**/*"]
 }

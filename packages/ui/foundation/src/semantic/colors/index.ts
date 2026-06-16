@@ -12,17 +12,17 @@ import { sidebar } from "./sidebar";
 import { surface } from "./surface";
 
 export const colors = {
-	background,
-	foreground,
-	surface,
-	border,
-	interactive,
-	shadow,
-	focus,
-	sidebar,
+  background,
+  foreground,
+  surface,
+  border,
+  interactive,
+  shadow,
+  focus,
+  sidebar,
 
-	critical,
-	positive,
-	caution,
-	info,
+  critical,
+  positive,
+  caution,
+  info,
 } as const;

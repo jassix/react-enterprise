@@ -8,7 +8,8 @@ import type { ComponentProps, FC } from "react";
 type CommandVariants = { size?: "sm" | "md" | "lg" };
 
 export interface CommandRootProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -26,7 +27,8 @@ const Root: FC<CommandRootProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandInputWrapperProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -43,7 +45,8 @@ const InputWrapper: FC<CommandInputWrapperProps> = ({ size, ref, ...props }) => 
 };
 
 export interface CommandInputProps
-  extends Omit<HTMLStyledProps<"input">, keyof ComponentProps<"input">>,
+  extends
+    Omit<HTMLStyledProps<"input">, keyof ComponentProps<"input">>,
     Omit<ComponentProps<"input">, "size">,
     CommandVariants {}
 
@@ -63,7 +66,8 @@ const Input: FC<CommandInputProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandListProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -81,7 +85,8 @@ const List: FC<CommandListProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandEmptyProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -98,7 +103,8 @@ const Empty: FC<CommandEmptyProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandGroupProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -116,7 +122,8 @@ const Group: FC<CommandGroupProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandGroupLabelProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -133,7 +140,8 @@ const GroupLabel: FC<CommandGroupLabelProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandItemProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {
   /** Identifier used by command-palette filter/selection logic. */
@@ -155,7 +163,8 @@ const Item: FC<CommandItemProps> = ({ size, value, ref, ...props }) => {
 };
 
 export interface CommandItemIndicatorProps
-  extends Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
+  extends
+    Omit<HTMLStyledProps<"div">, keyof ComponentProps<"div">>,
     Omit<ComponentProps<"div">, "size">,
     CommandVariants {}
 
@@ -173,7 +182,8 @@ const ItemIndicator: FC<CommandItemIndicatorProps> = ({ size, ref, ...props }) =
 };
 
 export interface CommandShortcutProps
-  extends Omit<HTMLStyledProps<"kbd">, keyof ComponentProps<"kbd">>,
+  extends
+    Omit<HTMLStyledProps<"kbd">, keyof ComponentProps<"kbd">>,
     Omit<ComponentProps<"kbd">, "size">,
     CommandVariants {}
 
@@ -190,7 +200,8 @@ const Shortcut: FC<CommandShortcutProps> = ({ size, ref, ...props }) => {
 };
 
 export interface CommandSeparatorProps
-  extends Omit<HTMLStyledProps<"hr">, keyof ComponentProps<"hr">>,
+  extends
+    Omit<HTMLStyledProps<"hr">, keyof ComponentProps<"hr">>,
     Omit<ComponentProps<"hr">, "size">,
     CommandVariants {}
 

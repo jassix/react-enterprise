@@ -44,7 +44,7 @@ function formatPlan(plan: PlanSummary): string {
       ? `${cyan(plan.matchedRecipe)} ${dim("(matched existing)")}`
       : recipeLabel(plan.recipeMode);
 
-  const rows: ReadonlyArray<readonly [string, string]> = [
+  const rows: readonly (readonly [string, string])[] = [
     ["spec", plan.spec],
     ["target", targetPath],
     ["recipe", recipe],
@@ -55,13 +55,17 @@ function formatPlan(plan: PlanSummary): string {
 
 function recipeLabel(mode: RecipeMode): string {
   switch (mode) {
-    case "generate":
+    case "generate": {
       return `${cyan("generate")} ${dim("(emit new recipe in @lume/foundation)")}`;
-    case "inline":
+    }
+    case "inline": {
       return `${cyan("inline")} ${dim("(css() only — no recipe file)")}`;
-    case "matched":
+    }
+    case "matched": {
       return `${cyan("matched")} ${dim("(reuse existing recipe)")}`;
-    case "skip":
-      return `${cyan("skip")}`;
+    }
+    case "skip": {
+      return cyan("skip");
+    }
   }
 }

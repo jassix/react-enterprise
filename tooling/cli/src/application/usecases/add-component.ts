@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import type { ComponentRegistry, RegistryError } from "~/application/ports/component-registry";
 import type {
   DesignSystemIntrospector,
@@ -18,14 +19,12 @@ import {
   unifiedDiffOf,
   updateBarrelsFor,
 } from "~/application/usecases/refine-shared";
-import { componentName as specComponentName, type ComponentSpec } from "~/domain/component-spec";
-import { blockPlacement, type PlacementPlan, primitivePlacement } from "~/domain/placement-plan";
-import {
-  isBlock,
-  isUiOrComponent,
-  type RegistryFile,
-  type RegistryItem,
-} from "~/domain/registry-item";
+import { componentName as specComponentName } from "~/domain/component-spec";
+import type { ComponentSpec } from "~/domain/component-spec";
+import { blockPlacement, primitivePlacement } from "~/domain/placement-plan";
+import type { PlacementPlan } from "~/domain/placement-plan";
+import { isBlock, isUiOrComponent } from "~/domain/registry-item";
+import type { RegistryFile, RegistryItem } from "~/domain/registry-item";
 import type { RecipeMode, RefinementContext, SourceFile } from "~/domain/refinement-context";
 
 export interface AddComponentDeps {

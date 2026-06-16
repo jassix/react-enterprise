@@ -19,7 +19,7 @@ export async function assembleSdk(
   deps: AssembleSdkDeps,
 ): Promise<ReadonlyMap<string, string>> {
   const out = new Map(await deps.templateLoader.load(req.presetDir, { name: req.plan.name }));
-  for (const key of [...out.keys()]) {
+  for (const key of Array.from(out.keys())) {
     if (key.startsWith("openapi/")) out.delete(key);
   }
   out.set(`openapi/${req.specFilename}`, req.specContent);

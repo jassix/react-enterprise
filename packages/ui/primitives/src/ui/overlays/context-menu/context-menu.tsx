@@ -5,18 +5,14 @@ import { contextMenu } from "@lume/foundation/recipes";
 import type { HTMLStyledProps } from "@lume/foundation/types";
 import type { FC, PropsWithChildren } from "react";
 
-export interface ContextMenuRootProps extends 
-		PropsWithChildren,
-		MenuPrimitive.RootBaseProps {}
+export interface ContextMenuRootProps extends PropsWithChildren, MenuPrimitive.RootBaseProps {}
 
 const Root: FC<ContextMenuRootProps> = (props) => <MenuPrimitive.Root {...props} />;
 
 export interface ContextMenuTriggerProps
   extends PropsWithChildren, MenuPrimitive.ContextTriggerBaseProps {}
 
-const Trigger: FC<ContextMenuTriggerProps> = (props) => (
-  <MenuPrimitive.ContextTrigger {...props} />
-);
+const Trigger: FC<ContextMenuTriggerProps> = (props) => <MenuPrimitive.ContextTrigger {...props} />;
 
 export interface ContextMenuPositionerProps
   extends

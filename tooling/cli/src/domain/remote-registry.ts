@@ -1,4 +1,5 @@
-import { Err, Ok, type Result } from "@repo/std/result";
+import { Err, Ok } from "@repo/std/result";
+import type { Result } from "@repo/std/result";
 import * as v from "@repo/std/schema";
 import type { RegistryConfig } from "~/domain/registry-config";
 
@@ -19,18 +20,13 @@ export type RemoteCatalogParseError = {
   readonly messages: readonly string[];
 };
 
-export function parseRemoteCatalog(
-  json: unknown,
-): Result<RemoteCatalog, RemoteCatalogParseError> {
+export function parseRemoteCatalog(json: unknown): Result<RemoteCatalog, RemoteCatalogParseError> {
   const r = v.safeParse(RemoteCatalogSchema, json);
   if (r.success) return Ok(r.output);
   return Err({ kind: "invalid-payload", messages: r.issues.map((i) => i.message) });
 }
 
-export function mergeWithCatalog(
-  local: RegistryConfig,
-  catalog: RemoteCatalog,
-): RegistryConfig {
+export function mergeWithCatalog(local: RegistryConfig, catalog: RemoteCatalog): RegistryConfig {
   const merged: Record<string, string> = {};
   for (const entry of catalog) {
     if (!entry.url.includes("{name}")) continue;
@@ -42,10 +38,7 @@ export function mergeWithCatalog(
   return { registries: merged };
 }
 
-export function searchCatalog(
-  catalog: RemoteCatalog,
-  query: string,
-): readonly RemoteRegistry[] {
+export function searchCatalog(catalog: RemoteCatalog, query: string): readonly RemoteRegistry[] {
   const q = query.trim().toLowerCase();
   if (q.length === 0) return catalog;
   return catalog.filter((entry) => {
